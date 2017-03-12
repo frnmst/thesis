@@ -1,0 +1,114 @@
+\documentclass[12pt,titlepage]{book}
+\usepackage[italian]{babel}
+\usepackage{graphics}
+\usepackage{url,amsfonts,epsfig}
+\usepackage[latin1]{inputenc}
+
+
+\title{\textsc{Integrazione di una applicazione web con strumenti per la statistica }}
+\author{Franco Masotti}
+
+\begin{document}
+\pagenumbering{roman}
+
+%%%% Opzione per interlinea 2
+\baselineskip 18pt
+
+\maketitle
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\pagenumbering{arabic}
+
+\chapter{Indice provvisorio} \label{Indice provvisorio}
+Il compito del tirocinio \'e stato il seguente:
+
+\begin{itemize}
+    \item Interfacciamento con R
+    \item Adattare l'installazione per R
+    \item Creazione di grafici per R con l'aggiunta di esempi.
+\end{itemize}
+
+Possibili capitoli:
+\begin{enumerate}
+    \item Introduzione (da fare alla fine)
+    \item Scopo???
+    \item Ambiente di lavoro
+    \begin{enumerate}
+        \item R
+        \item SWI Prolog
+        \item QEMU
+        \item Distribuzioni
+            \begin{enumerate}
+                \item Antergos + Parabola
+                \item Debian + Trisquel
+                \item speigare perch\'e 
+                      l'utilizzo di distro FSDG e non mainstrewam (free sw + 
+                      super updated (Parabola)).
+            \end{enumerate}
+        \item Perch\'e in macchina virtuale piuttosto che direttamente sul PC
+        \item Mio script qvm semplifica l'uso di qemu attraverso l'utilizzo di 
+              backup del VHD, etc...
+    \end{enumerate}
+    \item Pacchetti Arch Linux e derivate + Debian e derivate
+    \begin{enumerate}
+        \item Risolve il problema di "Adattare l'installazione per R" 
+              (rserve-sandbox-docker) oltre che fornire un modo semplice per 
+              installare l'interfaccia web (swish-cplint).
+        \item Scrittura del pacchetto swish da swish-cplint
+        \item Linee guida da apllicare a tutte le distribuzioni: perch\'e e 
+              come funzionano.
+        \item pacchetti Debian e Ubuntu-like (Trisquel). Spiegare perch\'e \'e 
+              pi\'u fifficile fare qualcosa per questi sistemi (pacchetti 
+              obsoleti).
+        \item pacchetti bin: nel caso non si riesca a compilare/scariare 
+              qualcosa.
+    \end{enumerate}
+    \item Libreria cplint\_r
+    \begin{enumerate}
+        \item Libreria prolog che si interfaccia con R e che consente il plot 
+              dei gafici.
+        \item Perch\'e ggplot2 (grammar of graphs)
+        \item Metodo della libreria: Adattare i predicati della libreria cplint 
+              ed adattarli alla nuova situazione, mantenendo i necessari e 
+              creandone di nuovi (ovviamente solo quando necessario)
+        \item Metodo degli esempi: copia file .pl in \_R.pl, adattamento per 
+              usare la libreria, confronto con grafici originali in c3js
+        \item <cplint\_r include cplint direttamente perche' in cplint c'\'e la 
+              parte dei conti matematici (ancora valida) mentre la parte di plot 
+              \'e presente in ogni esempio, quindi i predicati di cplint si 
+              possono chiamare direttamente facendo poche modifiche.
+        \item Cose degne di nota: Come funziona il passaggio di valori da 
+              prolog ad R (e viceversa): speigare gli helpers che ho scritto. 
+    \end{enumerate}
+    \item Esempi prolog slegati da cplint\_r
+    \begin{enumerate}
+        \item Quali (gpr\_R.pl esempio pi\'u difficile da trasformare).
+        \item Perch\'e: es: perch\'e non si poteva usare cplint\_r
+        \item Come
+    \end{enumerate}
+    \item Documentazione
+    \begin{enumerate}
+        \item Perch\'e in texinfo: perch\'e permette di creare output in vari 
+              formati automaticamente.
+    \end{enumerate}
+    \item Conclusione
+    \begin{enumerate}
+        \item Imparato rudimenti programmazione logica
+        \item Imparato a costruire strutture semplici per ottenere risultati 
+              "complessi" (Makefile dei pacchetti, stessa cplint\_r).
+    \end{enumerate}
+\end{enumerate}
+
+a\cite{one2017,two2018}
+
+
+%%% OBBLIGATORIA:
+
+\bibliographystyle{plain}
+% file names without the extension, comma separated.
+\bibliography{ref}
+
+\end{document}
