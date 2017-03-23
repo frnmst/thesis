@@ -1,34 +1,56 @@
-\documentclass[12pt,titlepage]{book}
+\documentclass[10pt,titlepage,twoside,a4paper]{report}
+\usepackage[margin=1in,a4paper]{geometry}
 \usepackage[italian]{babel}
-\usepackage{graphics}
-\usepackage{url,amsfonts,epsfig}
+\usepackage{lmodern}
 \usepackage[latin1]{inputenc}
+\usepackage{graphics,url,amsfonts,epsfig,hyperref,minted,float,listings}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{setspace}
+    \doublespacing
+
+%%%%%% Enable to debug
+%\usepackage{showframe}
 
 
-\title{\textsc{Integrazione di una applicazione web con strumenti per la statistica }}
+\definecolor{bg}{rgb}{0.95,0.95,0.95}
+
+% Global minted options.
+\usemintedstyle{vim}
+% Verbatim imput
+\newminted{text}{fontsize=\footnotesize,frame=single,framesep=10pt,breaklines,bgcolor=bg,linenos=true}
+% Inputfiles
+\newmintedfile[bashcode]{bash}{fontsize=\footnotesize,frame=single,framesep=10pt,breaklines,bgcolor=bg,linenos=true}
+
+
+
+\title{Integrazione di una applicazione web con strumenti per la statistica}
+%\title{\textsc{Integrazione di una applicazione web con strumenti per la statistica}}
 \author{Franco Masotti}
 
 \begin{document}
 \pagenumbering{roman}
 
-%%%% Opzione per interlinea 2
-\baselineskip 18pt
-
 \maketitle
-
+\newpage
 \tableofcontents
+\newpage
 \listoffigures
+\newpage
 \listoftables
+\newpage
+\listoflistings
+\cleardoublepage
 
 \pagenumbering{arabic}
 
 \chapter{Indice provvisorio} \label{Indice provvisorio}
-Il compito del tirocinio \'e stato il seguente:
-
+L'oggetto di questa tesi \'e spiegare come \'e avvenuta l'integrazione di 
+componenti per la statistica per l'applicazione "SWISH" in particolare
+per quel che riguarda
 \begin{itemize}
-    \item Interfacciamento con R
-    \item Adattare l'installazione per R
-    \item Creazione di grafici per R con l'aggiunta di esempi.
+    \item l'interfacciamento con R,
+    \item l'adattamento dell'installazione per R,
+    \item ed infine la creazione di grafici per R con l'aggiunta di esempi.
 \end{itemize}
 
 Possibili capitoli:
@@ -38,7 +60,7 @@ Possibili capitoli:
     \item Ambiente di lavoro
     \begin{enumerate}
         \item R
-        \item SWI Prolog
+        \item SWI Prolog and SWISH
         \item QEMU
         \item Distribuzioni
             \begin{enumerate}
@@ -102,10 +124,131 @@ Possibili capitoli:
     \end{enumerate}
 \end{enumerate}
 
-a\cite{one2017,two2018}
+\chapter{Ambiente di lavoro} \label{Ambiente di lavoro}
+Segue una lista dei pi\'u importanti software utilizzati. \'E da notare che 
+tutti sono software libero.
+
+\section{SWISH ed SWI Prolog}
+La piattaforma \emph{SWISH}\cite{SWISH} viene usata per la programmazione 
+logica attraverso un qualunque web browser dotato di Javascript. Questa 
+\'e collegata direttamente all'interprete SWI prolog ed \'e accessibile da 
+shell con il comando \texttt{swipl}.
+
+\section{Cplint on SWISH}
+\emph{Cplint on SWISH} \'e una versione modificata di SWISH che include la 
+libreria \emph{cplint}, la quale permette di formulare inferenze e 
+compiere processi di apprendimento\cite{cplint}.
+
+\section{Il linguaggio R}
+\emph{R} \'e un ambiente software dedicato alla statistica e 
+alla rappresentazione grafica di dati\cite{R}.
+
+\section{ggplot2}
+\emph{ggplot2} \'e un pacchetto R che permette di fare plot usando la 
+cosiddetta \emph{grammatica dei grafici}, cio\'e la divisione per contesti dei 
+vari aspetti di un grafico (check this...)
 
 
-%%% OBBLIGATORIA:
+\chapter{Preparazione}
+Per completare tutto il lavoro e testare le modifiche sui programmi man 
+mano, \'e stato necessario installare l'intera piattaforma sul computer. 
+Questo \'e stato possibile attraverso l'utilizzo di macchine virtuali 
+per ragioni di comodit\'a.
+
+\section{Macchine virtuali}
+Per agevolare l'installazione ed il mantenimento della piattaforma web su una 
+istanza locale si sono utilizzate macchine virtuali con immagini di 
+distribuzioni GNU/Linux diverse quali: Antergos, Parabola GNU/Linux-libre, 
+Debian e Trisquel.
+
+\subsection{Qemu Virtual Machine}
+Utilizzando il programma \emph{QEMU}\cite{QEMU} si \'e potuto scrivere uno 
+programma per 
+shell, \emph{qvm}, in modo da gestire facilmente tutti i casi d'uso che si 
+sono presentati\cite{qvm}. Questo si \'e rivelato molto utile per esempio per 
+gestire i backup  dei dischi rigidi virtuali. Per testare nuovi 
+pacchetti oppure nel caso che qualche componente del sistema si fosse 
+danneggiato. Sono infatti sufficienti un paio di comandi per ripristinare il 
+backup e corregere l'errore.
+
+Lo script d\'a anche la possibilit\'a di condividere file fra la macchina host 
+e guest attraverso una semplice directory.
+
+Poich\'e l'interfaccia web di SWISH \'e accessibile attraverso un port ben 
+definito, si \'e fatto in modo che tale port fosse accessibile dalla macchina 
+host. Oltre a questo \'e anche possibile l'accesso attraverso attraverso SSH. 
+Mettendo insieme queste due caratteristiche non \'e neccessario avviare 
+l'interfaccia grafica. Di seguito \'e riportata l'opzione di aiuto mentre lo 
+script si trova  cite appendix A.
+
+\begin{listing}[H]
+\begin{textcode*}{}
+Usage: qvm [OPTION]
+Trivial management of 64 bit virtual machines with qemu.
+
+Options:
+    -a, --attach                connect via SSH
+    -b, --backup                backup vhd
+    -c, --create                create new vhd
+    -d, --delete                delete vhd backup
+        --delete-orig           delete original vhd
+    -h, --help                  print this help
+    -i, --install               install img on vhd
+    -n, --run-nox               run vm without opening a graphical window
+                                (useful for background jobs like SSH)
+        --run-nox-orig          run-orig and run-nox combined
+    -s, --mkdir-shared          create shared directory
+    -x, --run                   run vm
+        --run-orig              run from original vhd
+
+
+Only a single option is accepted.
+By default, the backup vhd is run.
+
+CC0
+Written in 2016 by Franco Masotti/frnmst <franco.masotti@student.unife.it>
+\end{textcode*}
+\caption{Pagina di aiuto di qvm}
+\end{listing}
+
+\subsection{Installazione e avvio di una nuova macchina virtuale con qvm}
+La prima cosa da compiere \'e quella di ottenere l'immagine \emph{ISO} della 
+distribuzione da installare.
+
+Successivamente si deve configurare il file \texttt{configvmrc} inserendo il 
+nome del file ISO.
+
+Poi \'e necessario eseguire \mint{bash}|$ ./qvm -c| per creare un nuovo 
+disco rigido virtuale, poi \mint{bash}|$ ./qvm -i| per l'installazione.
+
+Una volta terminata l'installazione si pu\'o aggiungere SSH sulla macchina 
+guest oltre che aggiungere la seguente riga nel file \texttt{/etc/fstab} della 
+macchina virtuale in modo da aggiungere la directory condivisa:
+
+\begin{listing}[H]
+\begin{textcode*}{}
+host_share /home/<shared_directory_path> 9p noauto,x-systemd.automount,trans=virtio,version=9p2000.L 0 0
+\end{textcode*}
+\caption{Comando fstab}
+\end{listing}
+
+Infine si avvia la macchina virtuale
+
+\chapter{Scrittura dei pacchetti per le varie distribuzioni} \label{Scrittura 
+dei pacchetti per le varie distribuzioni}
+Per affrontare il problema dell'installazione di R si \'e reas necessaria la 
+creazione di vari pacchetti.
+
+...
+
+% Appendici.
+\appendix
+\chapter{qvm}
+\bashcode{qvm}
+\bashcode{configvmrc}
+
+\chapter{smt}
+hi
 
 \bibliographystyle{plain}
 % file names without the extension, comma separated.
