@@ -19,20 +19,24 @@ all: default
 clean:
 	@echo "Removing object files..."
 	@rm -rfv *.pdf *.toc *.aux *.log *.cp *.cps *.fn* *.tp* *.lot* *.lol* *.lof* *.bbl *.blg *.dvi *.out*
+	@echo "Object files removed."
+
+fullclean: clean
 	@rm -rf qvm configvmrc
 	@rm -rf _minted-$(TEX_SRC)
-	@echo "Object files removed."
 
 getsourcefiles:
 	@curl -o qvm $(QVM_SRC)
 	@curl -o configvmrc $(QVM_CONFIG)
 
 # -shell-escape is necessary for minted
-compile: clean getsourcefiles
+compile: clean
 	@pdflatex -shell-escape $(TEX_SRC).tex
 	@bibtex $(TEX_SRC).aux
 	@pdflatex -shell-escape $(TEX_SRC).tex
 	@pdflatex -shell-escape $(TEX_SRC).tex
 
-.PHONY: default clean getsourcefiles compile all
+fullcompile: fullclean getsourcefiles compile
+
+.PHONY: default clean fullclean getsourcefiles compile fullcompile all
 
