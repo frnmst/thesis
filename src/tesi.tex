@@ -133,30 +133,35 @@ Possibili capitoli:
     \end{enumerate}
 \end{enumerate}
 
-\chapter{Ambiente di lavoro} \label{Ambiente di lavoro}
-Segue una lista dei pi\'u importanti software utilizzati. \'E da notare che 
-tutti sono software libero.
+\chapter{Descrizione dei principali componenti software} \label{ch:descrizione 
+dei-principali-componenti-software}
+Per migliorare l'iterfaccia web in questione \'e necessario spiegare il ruolo 
+dei pi\'u importanti software utilizzati.
 
-\section{SWISH ed SWI Prolog}
+\emph{SWI Prolog} \'e un interprete per la programmazione 
+logica\cite{swiprolog}, come suggersice il nome\cite{prolog}
+
 La piattaforma \emph{SWISH}\cite{SWISH} viene usata per la programmazione 
 logica attraverso un qualunque web browser dotato di Javascript. Questa 
-\'e collegata direttamente all'interprete SWI prolog ed \'e accessibile da 
+\'e collegata direttamente all'interprete SWI Prolog ed \'e accessibile da 
 shell con il comando \texttt{swipl}.
 
-\section{Cplint on SWISH}
 \emph{Cplint on SWISH} \'e una versione modificata di SWISH che include la 
 libreria \emph{cplint}, la quale permette di formulare inferenze e 
 compiere processi di apprendimento\cite{cplint}.
 
-\section{Il linguaggio R}
 \emph{R} \'e un ambiente software dedicato alla statistica e 
-alla rappresentazione grafica di dati\cite{R}.
+alla rappresentazione grafica di dati\cite{r}.
 
-\section{ggplot2}
 \emph{ggplot2} \'e un pacchetto R che permette di fare plot usando la 
 cosiddetta \emph{grammatica dei grafici}, cio\'e la divisione per contesti dei 
-vari aspetti di un grafico (check this...)
+vari aspetti di un grafico (check this and cite...)
 
+\emph{Docker} \'e un software... che permette di eseguire 
+\emph{containter} in modo isolato. ??? I container sono degli ambienti che 
+possono essere eseguiti su qualunque macchina in modo indipendente dalla 
+configurazione del sistema operativo in modo che il software 
+funzioni sempre allo stesso modo???\cite{docker}
 
 \chapter{Preparazione}
 Per completare tutto il lavoro e testare le modifiche sui programmi man 
@@ -171,7 +176,7 @@ distribuzioni GNU/Linux diverse quali: Antergos, Parabola GNU/Linux-libre,
 Debian e Trisquel.
 
 \subsection{Qemu Virtual Machine}
-Utilizzando il programma \emph{QEMU}\cite{QEMU} si \'e potuto scrivere uno 
+Utilizzando il programma \emph{QEMU}\cite{qemu} si \'e potuto scrivere uno 
 programma per 
 shell, \emph{qvm}, in modo da gestire facilmente tutti i casi d'uso che si 
 sono presentati\cite{qvm}. Questo si \'e rivelato molto utile per esempio per 
@@ -184,11 +189,11 @@ Lo script d\'a anche la possibilit\'a di condividere file fra la macchina host
 e guest attraverso una semplice directory.
 
 Poich\'e l'interfaccia web di SWISH \'e accessibile attraverso un port ben 
-definito, si \'e fatto in modo che tale port fosse accessibile dalla macchina 
-host. Oltre a questo \'e anche possibile l'accesso attraverso attraverso SSH. 
-Mettendo insieme queste due caratteristiche non \'e neccessario avviare 
-l'interfaccia grafica. Di seguito \'e riportata l'opzione di aiuto mentre lo 
-script si trova  cite appendix A.
+definito (di default 3050), si \'e fatto in modo che tale port fosse 
+accessibile dalla macchina host. Oltre a questo \'e anche possibile l'accesso 
+attraverso attraverso SSH. Mettendo insieme queste due caratteristiche non \'e 
+neccessario avviare l'interfaccia grafica. Di seguito \'e riportata l'opzione 
+di aiuto mentre lo script si trova nell'appendice~\ref{app:qvm}.
 
 \begin{code}
     \caption{Pagina di aiuto di qvm}
@@ -241,42 +246,67 @@ host_share /home/<shared_directory_path> 9p noauto,x-systemd.automount,trans=vir
     \end{textcode*}
 \end{code}
 
-Infine si avvia la macchina virtuale
+Successivamente si avvia la macchina virtuale con \mint{bash}|$ ./qvm -x| 
+oppure con \mint{bash}|$./qvm -n| rispettivamente a seconda che si utilizzi o 
+non si utilizzi l'interfaccia grafica sulla macchina guest.
 
-\chapter{Scrittura dei pacchetti per le varie distribuzioni} \label{Scrittura 
-dei pacchetti per le varie distribuzioni}
-Per affrontare il problema dell'installazione di R si \'e reas necessaria la 
-creazione di vari pacchetti...
+Infine, per collegarsi via SSH: \mint{bash}|./qvm -a|
 
 \chapter{Gestire R da SWISH}
-Il supporto per R all'inteno di SWISH \'e ancora sperimentale. Di solito 
-la parte computazionale \'e affidata all'interprete prolog, mentre la parte 
-grafica viene gestita dalla libreria c3js. Grazie ad alcuni programmi \'e 
-possibile utilizzare l'interprete R direttamente da SWISH.
+Il supporto per R all'inteno di SWISH \'e ancora sperimentale. Di solito, 
+infatti, la parte computazionale \'e affidata all'interprete prolog, mentre la 
+parte grafica viene gestita dalla libreria c3js.
 
-\chapter{La libreria cplint r} \label{La libreria cplint r}
-\emph{cplint r} \'e una libreria prolog che fornisce un'interfaccia fra SWI 
+Grazie ad alcuni programmi \'e per\'o possibile utilizzare l'interprete R 
+direttamente da SWISH. Questo comporta due vantaggi: una maggiore velocit\'a e 
+precisione computazionale .. cite .. e la possibilit\'a di usare i sistemi di 
+plot di R, come per esempio ggplot2.
+
+Nel caso presente tutte le chiamate fatte da Prolog a R sono gestite da un 
+socket UNIX creato dal programma \emph{Rserve}\cite{rserve}. Questo \'e stato 
+configurato opportunamente per quanto riguarda la sicurezza in quanto viene 
+eseguito all'interno di Docker e senza che venga esposta una connessione di 
+rete come si vede nell'appendice~\ref{app:rserve-sandbox}.
+
+\chapter{La libreria cplint\_r} \label{La libreria cplint_r}
+\emph{cplint\_r} \'e una libreria prolog che fornisce un'interfaccia fra SWI 
 Prolog ed R in modo da poter graficare i risultati generati dalla libreria 
 cplint.
 
-...
+\chapter{Pacchetti per le varie distribuzioni} \label{Pacchetti per le varie 
+distribuzioni}
+Per affrontare il problema dell'installazione di R si \'e resa necessaria la 
+creazione di vari pacchetti software che contengono instruzioni per installare 
+tutti i componenti necessari:
+\begin{itemize}
+    \item l'interfaccia web SWISH
+    \item l'interprete prolog
+    \item l'interprete R ed Rserve
+    \item tutte le dipendenze necessarie di prolog ed R.
+\end{itemize}
 
 % Appendici.
 \appendix
-\chapter{qvm} \label{qvm}
+\chapter{qvm} \label{app:qvm}
 
 \begin{code}
     \caption{Codice sorgente di qvm}
     \bashcode{qvm}
 \end{code}
 
+\newpage
+
 \begin{code}
     \caption{File di configurazione di qvm}
     \bashcode{configvmrc}
 \end{code}
 
-\chapter{smt}
-hi
+\chapter{Rserve sandbox} \label{app:rserve-sandbox}
+\begin{code}
+    \caption{File di configurazione di Rserve}
+    \bashcode{Rserv.conf}
+\end{code}
+
 
 \bibliographystyle{plain}
 % file names without the extension, comma separated.

@@ -12,9 +12,15 @@ QVM=$(GITHUB_FRNMST_ROOT)/qvm/master
 QVM_SRC=$(QVM)/qvm
 QVM_CONFIG=$(QVM)/configvmrc
 
+RSERVE_SANDBOX=https://raw.githubusercontent.com/frnmst/rserve-sandbox/distro-package
+RSERVE_SANDBOX_RSERV_CONF=$(RSERVE_SANDBOX)/Rserv.conf
+
 default: compile
 
 all: default
+
+help:
+	@echo "default clean fullclean getsourcefiles compile fullcompile all help"
 
 clean:
 	@echo "Removing object files..."
@@ -22,12 +28,13 @@ clean:
 	@echo "Object files removed."
 
 fullclean: clean
-	@rm -rf qvm configvmrc
+	@rm -rf qvm configvmrc Rserv.conf
 	@rm -rf _minted-$(TEX_SRC)
 
 getsourcefiles:
 	@curl -o qvm $(QVM_SRC)
 	@curl -o configvmrc $(QVM_CONFIG)
+	@curl -o Rserv.conf $(RSERVE_SANDBOX_RSERV_CONF)
 
 # -shell-escape is necessary for minted
 compile: clean
@@ -38,5 +45,5 @@ compile: clean
 
 fullcompile: fullclean getsourcefiles compile
 
-.PHONY: default clean fullclean getsourcefiles compile fullcompile all
+.PHONY: default clean fullclean getsourcefiles compile fullcompile all help
 
