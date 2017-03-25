@@ -27,8 +27,10 @@
 \usemintedstyle{vim}
 % Verbatim imput
 \newminted{text}{fontsize=\footnotesize,frame=single,framesep=10pt,breaklines,bgcolor=bg,linenos=true}
+\newminted{prolog}{fontsize=\footnotesize,frame=single,framesep=10pt,breaklines,bgcolor=bg,linenos=true}
 % Inputfiles
-\newmintedfile[bashcode]{bash}{fontsize=\footnotesize,frame=single,framesep=10pt,breaklines,bgcolor=bg,linenos=true}
+\newmintedfile[bashcodefile]{bash}{fontsize=\footnotesize,frame=single,framesep=10pt,breaklines,bgcolor=bg,linenos=true}
+\newmintedfile[prologcodefile]{prolog}{fontsize=\footnotesize,frame=single,framesep=10pt,breaklines,bgcolor=bg,linenos=true}
 
 
 
@@ -268,10 +270,33 @@ configurato opportunamente per quanto riguarda la sicurezza in quanto viene
 eseguito all'interno di Docker e senza che venga esposta una connessione di 
 rete come si vede nell'appendice~\ref{app:rserve-sandbox}.
 
-\chapter{La libreria cplint\_r} \label{La libreria cplint_r}
-\emph{cplint\_r} \'e una libreria prolog che fornisce un'interfaccia fra SWI 
-Prolog ed R in modo da poter graficare i risultati generati dalla libreria 
-cplint.
+\chapter{La libreria cplint\_r} \label{la-libreria-cplint-r}
+\emph{cplint\_r} \'e una libreria per SWI Prolog che fornisce un'interfaccia 
+fra l'interporete Prolog ed R, in modo da poter graficare i risultati generati 
+dalla libreria cplint.
+
+La liberia contiene un'interfaccia simile a quella 
+fornita da cplint. Esistono tuttavia alcune differenze, come ad esempio che uan 
+parte del lavoro viene fatto gestire da R automaticamente ... esempio bins 
+histograms ... ... code here ...
+
+La struttura di cplint\_r \'e composta da tre diversi tipi di predicati:
+\begin{enumerate}
+    \item I predicati che espongono un'interfaccia chiamano alcuni predicati di 
+          cplint.
+    \item Le funzioni grafiche ...
+    \item Sono stati scritti alcuni predicati che aiutano a gestire le liste di 
+valori generate da cplint. Queste liste vengono trasformate in data frame in 
+modo che possano essere utilizzati da R.
+\end{enumerate}
+
+cplint\_r contiene dei semplici test post installazione per verificare che la 
+libreria funzioni correttamente.
+
+
+\chapter{Trasformazione degli esempi da c3js ad R} \label{ch:trasformazione-
+degli-esempi-da-c3js-ad-r}
+...
 
 \chapter{Pacchetti per le varie distribuzioni} \label{Pacchetti per le varie 
 distribuzioni}
@@ -289,24 +314,68 @@ tutti i componenti necessari:
 \appendix
 \chapter{qvm} \label{app:qvm}
 
-\begin{code}
-    \caption{Codice sorgente di qvm}
-    \bashcode{qvm}
-\end{code}
+    \begin{code}
+        \caption{Codice sorgente di qvm}
+        \bashcodefile{qvm}
+    \end{code}
 
-\newpage
+    \newpage
 
-\begin{code}
-    \caption{File di configurazione di qvm}
-    \bashcode{configvmrc}
-\end{code}
+    \begin{code}
+        \caption{File di configurazione di qvm}
+        \bashcodefile{configvmrc}
+    \end{code}
 
 \chapter{Rserve sandbox} \label{app:rserve-sandbox}
-\begin{code}
-    \caption{File di configurazione di Rserve}
-    \bashcode{Rserv.conf}
-\end{code}
+    \begin{code}
+        \caption{File di configurazione di Rserve}
+        \bashcodefile{Rserv.conf}
+    \end{code}
 
+\chapter{cplint\_r} \label{app:cplint-r}
+    \begin{code}
+        \caption{Struttura dei predicati dell'interfaccia di cplint\_r}
+        \begin{prologcode*}{}
+predicato_interfaccia_r(input):-
+    load_r_libraries,
+    <operations on the input>,
+    geom_<something>(<new input, possibly lists>),
+    finalize_r_graph.
+        \end{prologcode*}
+    \end{code}
+
+    \begin{code}
+        \caption{Predicati per il disegno dei grafici di cplint\_r}
+        \begin{textcode*}{}
+geom_<something>(<Lists and/or other input>) :-
+    <handle lists>,
+    <create one or more R data frame with the lists data>,
+    <rename data frame colnames to avoid using default ones>,
+    <- ggplot <something>
+        \end{textcode*}
+    \end{code}
+
+        \begin{code}
+            \caption{Predicati per la gestione delle liste di cplint\_r}
+            \begin{textcode*}{}
+build_xy_list([], [], []).
+
+build_xy_list([XH|XT], [YH|YT], [XH-YH|Out]) :-
+        build_xy_list(XT, YT, Out).
+
+r_row(X,Y,r(X,Y)).
+
+get_set_from_xy_list(L,R) :-
+    maplist(key,L,X),
+    maplist(y,L,Y),
+maplist(r_row,X,Y,R).
+            \end{textcode*}
+        \end{code}
+
+    \begin{code}
+        \caption{La libreria cplint\_r}
+        \prologcodefile{cplint_r.pl}
+    \end{code}
 
 \bibliographystyle{plain}
 % file names without the extension, comma separated.
