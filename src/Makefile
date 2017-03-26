@@ -12,7 +12,7 @@ QVM=$(GITHUB_FRNMST_ROOT)/qvm/master
 QVM_SRC=$(QVM)/qvm
 QVM_CONFIG=$(QVM)/configvmrc
 
-RSERVE_SANDBOX=$(GITHUB_FRNMST_ROOT)//rserve-sandbox/distro-package
+RSERVE_SANDBOX=$(GITHUB_FRNMST_ROOT)/rserve-sandbox/distro-package
 RSERVE_SANDBOX_RSERV_CONF=$(RSERVE_SANDBOX)/Rserv.conf
 
 CPLINT_R=$(GITHUB_FRNMST_ROOT)/cplint_r/master

@@ -24,7 +24,7 @@
 \definecolor{bg}{rgb}{0.95,0.95,0.95}
 
 % Global minted options.
-\usemintedstyle{vim}
+\usemintedstyle{tango}
 % Verbatim imput
 \newminted{text}{fontsize=\footnotesize,frame=single,framesep=10pt,breaklines,bgcolor=bg,linenos=true}
 \newminted{prolog}{fontsize=\footnotesize,frame=single,framesep=10pt,breaklines,bgcolor=bg,linenos=true}
@@ -32,6 +32,11 @@
 \newmintedfile[bashcodefile]{bash}{fontsize=\footnotesize,frame=single,framesep=10pt,breaklines,bgcolor=bg,linenos=true}
 \newmintedfile[prologcodefile]{prolog}{fontsize=\footnotesize,frame=single,framesep=10pt,breaklines,bgcolor=bg,linenos=true}
 
+
+%%%%
+%%%%
+%%%%
+%%%%
 
 
 \title{Integrazione di una applicazione web con strumenti per la statistica}
@@ -135,6 +140,13 @@ Possibili capitoli:
     \end{enumerate}
 \end{enumerate}
 
+
+%%%%
+%%%%
+%%%%
+%%%%
+
+
 \chapter{Descrizione dei principali componenti software} \label{ch:descrizione 
 dei-principali-componenti-software}
 Per migliorare l'iterfaccia web in questione \'e necessario spiegare il ruolo 
@@ -164,6 +176,13 @@ vari aspetti di un grafico (check this and cite...)
 possono essere eseguiti su qualunque macchina in modo indipendente dalla 
 configurazione del sistema operativo in modo che il software 
 funzioni sempre allo stesso modo???\cite{docker}
+
+
+%%%%
+%%%%
+%%%%
+%%%%
+
 
 \chapter{Preparazione}
 Per completare tutto il lavoro e testare le modifiche sui programmi man 
@@ -254,15 +273,22 @@ non si utilizzi l'interfaccia grafica sulla macchina guest.
 
 Infine, per collegarsi via SSH: \mint{bash}|./qvm -a|
 
+
+%%%%
+%%%%
+%%%%
+%%%%
+
+
 \chapter{Gestire R da SWISH}
 Il supporto per R all'inteno di SWISH \'e ancora sperimentale. Di solito, 
-infatti, la parte computazionale \'e affidata all'interprete prolog, mentre la 
+infatti, la parte computazionale \'e affidata all'interprete Prolog, mentre la 
 parte grafica viene gestita dalla libreria c3js.
 
-Grazie ad alcuni programmi \'e per\'o possibile utilizzare l'interprete R 
-direttamente da SWISH. Questo comporta due vantaggi: una maggiore velocit\'a e 
-precisione computazionale .. cite .. e la possibilit\'a di usare i sistemi di 
-plot di R, come per esempio ggplot2.
+Grazie ad alcuni programmi \'e per\'o possibile utilizzare i comandi 
+disponibili dell'interprete R direttamente da SWISH. Questo comporta due 
+vantaggi: una maggiore velocit\'a e precisione computazionale .. cite .. e la 
+possibilit\'a di usare i sistemi di plot di R, come per esempio ggplot2.
 
 Nel caso presente tutte le chiamate fatte da Prolog a R sono gestite da un 
 socket UNIX creato dal programma \emph{Rserve}\cite{rserve}. Questo \'e stato 
@@ -270,45 +296,90 @@ configurato opportunamente per quanto riguarda la sicurezza in quanto viene
 eseguito all'interno di Docker e senza che venga esposta una connessione di 
 rete come si vede nell'appendice~\ref{app:rserve-sandbox}.
 
+Grazie ad una libreria di SWI Prolog chiamata 
+\emph{rserve\_client}\cite{rserveclient} 
+\'e possibile usare direttamente comandi di R facendo minime modifiche 
+rispetto allo stesso codice usato nell'interprete R.
+
+
+%%%%
+%%%%
+%%%%
+%%%%
+
+
 \chapter{La libreria cplint\_r} \label{la-libreria-cplint-r}
 \emph{cplint\_r} \'e una libreria per SWI Prolog che fornisce un'interfaccia 
-fra l'interporete Prolog ed R, in modo da poter graficare i risultati generati 
-dalla libreria cplint.
+fra l'interprete Prolog ed R, in modo da poter graficare i risultati generati 
+dalla libreria cplint. Questo significa che cplint\_r si occupa esclusivamente 
+del disegno dei grafici.
 
-La liberia contiene un'interfaccia simile a quella 
-fornita da cplint. Esistono tuttavia alcune differenze, come ad esempio che uan 
+...Esistono tuttavia alcune differenze, come ad esempio che una 
 parte del lavoro viene fatto gestire da R automaticamente ... esempio bins 
 histograms ... ... code here ...
+...
 
 La struttura di cplint\_r \'e composta da tre diversi tipi di predicati:
 \begin{enumerate}
-    \item I predicati che espongono un'interfaccia chiamano alcuni predicati di 
-          cplint.
-    \item Le funzioni grafiche ...
-    \item Sono stati scritti alcuni predicati che aiutano a gestire le liste di 
-valori generate da cplint. Queste liste vengono trasformate in data frame in 
-modo che possano essere utilizzati da R.
+    \item I predicati che espongono un'interfaccia. Questi chiamano alcuni 
+          predicati di cplint per quanto riguarda il calcolo dei risultati.
+    \item Le funzioni grafiche invece per prima cosa trasformano i dati in 
+          input in data frame leggibili da R, poi viene effettuato il disegno 
+          dei grafici.
+    \item Infine, sono stati scritti alcuni predicati che aiutano a gestire le 
+          liste di valori generate dalle funzioni di cplint. Queste liste 
+          vengono poi trasformate in \emph{data frame} in modo che possano 
+          essere utilizzati da R.
 \end{enumerate}
 
 cplint\_r contiene dei semplici test post installazione per verificare che la 
 libreria funzioni correttamente.
 
 
+%%%%
+%%%%
+%%%%
+%%%%
+
+
 \chapter{Trasformazione degli esempi da c3js ad R} \label{ch:trasformazione-
 degli-esempi-da-c3js-ad-r}
 ...
 
-\chapter{Pacchetti per le varie distribuzioni} \label{Pacchetti per le varie 
-distribuzioni}
-Per affrontare il problema dell'installazione di R si \'e resa necessaria la 
-creazione di vari pacchetti software che contengono instruzioni per installare 
-tutti i componenti necessari:
+
+%%%%
+%%%%
+%%%%
+%%%%
+
+
+\chapter{Pacchetti per le varie distribuzioni} 
+\label{ch:pacchetti-per-le-varie-distribuzioni}
+Un pacchetto software \'e una raccolta di istruzioni che permettono di 
+installare un programma in modo uniforme rispetto ad altri pacchetti, grazie ad 
+un altro programma chiamato \emph{gestore di pacchetti}.
+
+Questi gestori hanno contribuito al successo delle distribuzioni GNU/Linux (ed 
+altre) perch\'e consentono a chiunque di installare un programma senza aver 
+conoscenza di metodi di compilazione software oltre a rendere l'installazione 
+piu' veloce e meno prona a generare errori.
+
+Per affrontare il problema dell'installazione di tutti i componenti di cui si 
+\'e parlato fino ad ora, si \'e resa quindi necessaria la creazione di vari 
+pacchetti software:
 \begin{itemize}
     \item l'interfaccia web SWISH
     \item l'interprete prolog
     \item l'interprete R ed Rserve
     \item tutte le dipendenze necessarie di prolog ed R.
 \end{itemize}
+
+
+%%%%
+%%%%
+%%%%
+%%%%
+
 
 % Appendici.
 \appendix
@@ -326,6 +397,13 @@ tutti i componenti necessari:
         \bashcodefile{configvmrc}
     \end{code}
 
+
+%%%%
+%%%%
+%%%%
+%%%%
+
+
 \chapter{Rserve sandbox} \label{app:rserve-sandbox}
     \begin{code}
         \caption{File di configurazione di Rserve}
@@ -336,7 +414,7 @@ tutti i componenti necessari:
     \begin{code}
         \caption{Struttura dei predicati dell'interfaccia di cplint\_r}
         \begin{prologcode*}{}
-predicato_interfaccia_r(input):-
+<predicato_interfaccia_r>(input):-
     load_r_libraries,
     <operations on the input>,
     geom_<something>(<new input, possibly lists>),
@@ -346,13 +424,13 @@ predicato_interfaccia_r(input):-
 
     \begin{code}
         \caption{Predicati per il disegno dei grafici di cplint\_r}
-        \begin{textcode*}{}
+        \begin{prologcode*}{}
 geom_<something>(<Lists and/or other input>) :-
     <handle lists>,
     <create one or more R data frame with the lists data>,
     <rename data frame colnames to avoid using default ones>,
     <- ggplot <something>
-        \end{textcode*}
+        \end{prologcode*}
     \end{code}
 
         \begin{code}
@@ -376,6 +454,13 @@ maplist(r_row,X,Y,R).
         \caption{La libreria cplint\_r}
         \prologcodefile{cplint_r.pl}
     \end{code}
+
+
+%%%%
+%%%%
+%%%%
+%%%%
+
 
 \bibliographystyle{plain}
 % file names without the extension, comma separated.

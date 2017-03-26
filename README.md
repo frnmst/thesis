@@ -24,11 +24,21 @@ To be defined
 
 ### Dependencies
 
-Arch linux package group `texlive-most`
+All Texlive packages
 
 Bibtex
 
 Minted
+
+Curl
+
+## Arch Linux package dependencies
+
+    # pacman -S make texlive-most minted curl
+
+## Compile
+
+    # make fullcompile
 
 ## License
 
