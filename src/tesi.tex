@@ -28,6 +28,7 @@
 % Verbatim imput
 \newminted{text}{fontsize=\footnotesize,frame=single,framesep=10pt,breaklines,bgcolor=bg,linenos=true}
 \newminted{prolog}{fontsize=\footnotesize,frame=single,framesep=10pt,breaklines,bgcolor=bg,linenos=true}
+\newminted{r}{fontsize=\footnotesize,frame=single,framesep=10pt,breaklines,bgcolor=bg,linenos=true}
 % Inputfiles
 \newmintedfile[bashcodefile]{bash}{fontsize=\footnotesize,frame=single,framesep=10pt,breaklines,bgcolor=bg,linenos=true}
 \newmintedfile[prologcodefile]{prolog}{fontsize=\footnotesize,frame=single,framesep=10pt,breaklines,bgcolor=bg,linenos=true}
@@ -210,11 +211,12 @@ backup e corregere l'errore.
 Lo script d\'a anche la possibilit\'a di condividere file fra la macchina host 
 e guest attraverso una semplice directory.
 
-Poich\'e l'interfaccia web di SWISH \'e accessibile attraverso un port ben 
-definito (di default \emph{3050}), si \'e fatto in modo che tale port fosse 
-accessibile dalla macchina host. Oltre a questo \'e anche possibile l'accesso 
-attraverso attraverso \emph{SSH}. Mettendo insieme queste due caratteristiche 
-non \'e neccessario avviare l'interfaccia grafica.
+Poich\'e l'interfaccia web di SWISH \'e accessibile attraverso un \emph{port} 
+ben definito (di default \emph{3050}), si \'e fatto in modo che tale port 
+fosse accessibile dalla macchina host con il port \emph{5555}. Oltre a questo 
+\'e anche possibile l'accesso attraverso attraverso \emph{Secure 
+Shell} (\emph{SSH}). Mettendo insieme queste due caratteristiche non \'e 
+neccessario avviare l'interfaccia grafica.
 
 Di seguito \'e riportata l'opzione di aiuto, mentre lo script si trova 
 nell'appendice~\ref{app:qvm}.
@@ -264,7 +266,7 @@ guest oltre che aggiungere la seguente riga nel file \texttt{/etc/fstab} della
 macchina virtuale in modo da aggiungere la directory condivisa:
 
 \begin{code}
-    \caption{Comando fstab}
+   \caption{Comando fstab}
     \begin{textcode*}{}
 host_share /home/<shared_directory_path> 9p noauto,x-systemd.automount,trans=virtio,version=9p2000.L 0 0
     \end{textcode*}
@@ -280,11 +282,6 @@ non si utilizzi l'interfaccia grafica sulla macchina guest.
 
 Infine, per collegarsi via SSH: \mint{bash}|$ ./qvm -a|
 
-...A questo punto \'e 
-possibile collegarsi a SWISH dalla macchina host usando 
-\texttt{http://127.0.0.1:5555} come URL...
-
-
 %%%%
 %%%%
 %%%%
@@ -292,6 +289,7 @@ possibile collegarsi a SWISH dalla macchina host usando
 
 
 \chapter{Gestire R da SWISH}
+\section{Funzionamento interno}
 Il supporto per R all'inteno di SWISH \'e ancora sperimentale. Di solito, 
 infatti, la parte computazionale \'e affidata all'interprete Prolog, mentre la 
 parte grafica viene gestita dalla libreria c3js.
@@ -300,7 +298,7 @@ Grazie ad alcuni programmi \'e per\'o possibile utilizzare i comandi
 disponibili dell'interprete R direttamente da SWISH. Questo comporta due 
 vantaggi: una maggiore velocit\'a e precisione computazionale .. cite .. e la 
 possibilit\'a di usare i sistemi di plot di R, come per esempio ggplot2 ...
-che si rivelani pi\'u precisi ... cite ... ...
+che si rivelano pi\'u precisi ... cite ... ...
 
 Nel caso presente tutte le chiamate fatte da Prolog a R sono gestite da un 
 socket UNIX creato dal programma \emph{Rserve}\cite{rserve}. Questo \'e stato 
@@ -317,18 +315,42 @@ rispetto allo stesso codice usato nell'interprete R.
 
 ... ...
 
+\section{Scambiare i dati fra R e Prolog}
 Esistono due modalit\'a per usare i comandi di R all'interno di SWI Prolog:
 \begin{itemize}
-    \item usando l'operatore \texttt{<-} seguito dal comando R,
+    \item come Prolog term, usando l'operatore \texttt{<-} seguito dal comando R,
     \item oppure con una notazione chiamata \emph{quasi-quotation}
 \end{itemize}
-... Cite and same example for both cases here ...
+SWISH contiene un esempio per entambi i casi\cite{rprolognotations}:
 
-Nel secondo caso \'e possibile gestire alcuni casi particolari che 
-genererebbero errori, ad esempio:
+\begin{code}
+    \caption{Esempi notazioni R in SWI Prolog}
+    \begin{prologcode*}{}
+<- qplot(mpg, data=mtcars, geom="density", fill=gear, alpha='I'(0.5), main="Distribution of Gas Milage", xlab="Miles Per Gallon", ylab="Density").
 
-... example(s) ...
+<- {|r||qplot(mpg, data=mtcars, geom="density", fill=gear, alpha=I(.5), main="Distribution of Gas Milage", xlab="Miles Per Gallon", ylab="Density")|}.
+    \end{prologcode*}
+\end{code}
 
+Come si vede nel primo caso \'e necessario fare qualche piccola modifica 
+rispetto all'originale R. Nel secondo caso invece \'e possibile gestire alcuni 
+casi particolari che genererebbero errori oppure che non sarebbe possibile 
+possibile trasformare nel primo caso. Per esempio non sarebbe possibile 
+trasformare il seguente comando con la notazione abbreviata:
+
+\begin{code}
+    \caption{Esempio di quasi quotation}
+    \begin{rcode*}{}
+{|r||xbreakS <- if(max(df$probabilities) > scalingthresholD) element_blank() else scale_y_continuous(breaks=seq(0,max(df$probabilities),1))|},
+    \end{rcode*}
+\end{code}
+
+Questo \'e vero perch\'e ogni comando R inviato attraverso questo sistema viene 
+eseguito in un ambiente proprio. Le variabili devono 
+essere salvate in Prolog se devono essere usate successivamente... check 
+this and explain...
+
+\section{I data frame}
 Alcune funzioni disponibili nella libreria \emph{r\_swish} permettono il 
 passaggio di valori tra Prolog ed R attraverso i \emph{data frame}. Quesi sono 
 strutture fornite da R che permettono di organizzare i dati sotto forma 
