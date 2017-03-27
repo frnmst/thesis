@@ -201,20 +201,23 @@ Utilizzando il programma \emph{QEMU}\cite{qemu} si \'e potuto scrivere uno
 programma per 
 shell, \emph{qvm}, in modo da gestire facilmente tutti i casi d'uso che si 
 sono presentati\cite{qvm}. Questo si \'e rivelato molto utile per esempio per 
-gestire i backup  dei dischi rigidi virtuali. Per testare nuovi 
-pacchetti oppure nel caso che qualche componente del sistema si fosse 
-danneggiato. Sono infatti sufficienti un paio di comandi per ripristinare il 
+gestire i backup dei dischi rigidi virtuali. Infatti per testare nuovi 
+pacchetti e programmi \'e consigliabile partire sempre da un sistema pulito
+per evitare che precedenti installazioni possano alterare il funzionamento.
+Con qvm sono infatti sufficienti un paio di comandi per ripristinare il 
 backup e corregere l'errore.
 
 Lo script d\'a anche la possibilit\'a di condividere file fra la macchina host 
 e guest attraverso una semplice directory.
 
 Poich\'e l'interfaccia web di SWISH \'e accessibile attraverso un port ben 
-definito (di default 3050), si \'e fatto in modo che tale port fosse 
+definito (di default \emph{3050}), si \'e fatto in modo che tale port fosse 
 accessibile dalla macchina host. Oltre a questo \'e anche possibile l'accesso 
-attraverso attraverso SSH. Mettendo insieme queste due caratteristiche non \'e 
-neccessario avviare l'interfaccia grafica. Di seguito \'e riportata l'opzione 
-di aiuto mentre lo script si trova nell'appendice~\ref{app:qvm}.
+attraverso attraverso \emph{SSH}. Mettendo insieme queste due caratteristiche 
+non \'e neccessario avviare l'interfaccia grafica.
+
+Di seguito \'e riportata l'opzione di aiuto, mentre lo script si trova 
+nell'appendice~\ref{app:qvm}.
 
 \begin{code}
     \caption{Pagina di aiuto di qvm}
@@ -267,11 +270,19 @@ host_share /home/<shared_directory_path> 9p noauto,x-systemd.automount,trans=vir
     \end{textcode*}
 \end{code}
 
+Ora si pu\'o creare un backup dell'hard disk virtuale con \mint{bash}|$ ./qvm 
+-b| che nel caso fosse necessario rimuoverlo baster\'a fare \mint{bash}|$ ./qvm 
+-d|
+
 Successivamente si avvia la macchina virtuale con \mint{bash}|$ ./qvm -x| 
 oppure con \mint{bash}|$./qvm -n| rispettivamente a seconda che si utilizzi o 
 non si utilizzi l'interfaccia grafica sulla macchina guest.
 
-Infine, per collegarsi via SSH: \mint{bash}|./qvm -a|
+Infine, per collegarsi via SSH: \mint{bash}|$ ./qvm -a|
+
+...A questo punto \'e 
+possibile collegarsi a SWISH dalla macchina host usando 
+\texttt{http://127.0.0.1:5555} come URL...
 
 
 %%%%
@@ -288,7 +299,8 @@ parte grafica viene gestita dalla libreria c3js.
 Grazie ad alcuni programmi \'e per\'o possibile utilizzare i comandi 
 disponibili dell'interprete R direttamente da SWISH. Questo comporta due 
 vantaggi: una maggiore velocit\'a e precisione computazionale .. cite .. e la 
-possibilit\'a di usare i sistemi di plot di R, come per esempio ggplot2.
+possibilit\'a di usare i sistemi di plot di R, come per esempio ggplot2 ...
+che si rivelani pi\'u precisi ... cite ... ...
 
 Nel caso presente tutte le chiamate fatte da Prolog a R sono gestite da un 
 socket UNIX creato dal programma \emph{Rserve}\cite{rserve}. Questo \'e stato 
@@ -296,10 +308,32 @@ configurato opportunamente per quanto riguarda la sicurezza in quanto viene
 eseguito all'interno di Docker e senza che venga esposta una connessione di 
 rete come si vede nell'appendice~\ref{app:rserve-sandbox}.
 
+... A simple picure/schematic explaining this would be nice here ...
+
 Grazie ad una libreria di SWI Prolog chiamata 
 \emph{rserve\_client}\cite{rserveclient} 
 \'e possibile usare direttamente comandi di R facendo minime modifiche 
 rispetto allo stesso codice usato nell'interprete R.
+
+... ...
+
+Esistono due modalit\'a per usare i comandi di R all'interno di SWI Prolog:
+\begin{itemize}
+    \item usando l'operatore \texttt{<-} seguito dal comando R,
+    \item oppure con una notazione chiamata \emph{quasi-quotation}
+\end{itemize}
+... Cite and same example for both cases here ...
+
+Nel secondo caso \'e possibile gestire alcuni casi particolari che 
+genererebbero errori, ad esempio:
+
+... example(s) ...
+
+Alcune funzioni disponibili nella libreria \emph{r\_swish} permettono il 
+passaggio di valori tra Prolog ed R attraverso i \emph{data frame}. Quesi sono 
+strutture fornite da R che permettono di organizzare i dati sotto forma 
+tabulare che si rivela anche efficiente per R stesso. In questo modo \'e 
+possibile accedere ai valori di ciascuna colonna del data frame in questione.
 
 
 %%%%
@@ -344,8 +378,21 @@ libreria funzioni correttamente.
 
 \chapter{Trasformazione degli esempi da c3js ad R} \label{ch:trasformazione-
 degli-esempi-da-c3js-ad-r}
-...
+... Per prima cosa sono state fatte delle prove per vedere come fuzionava 
+prolog ed R ...
 
+Dopo aver definito le basi della libreria cplint\_r si \'e provveduto a 
+trasformare qualche esempio pi\'u semplice da c3js ad R. Infatti si \'e 
+dovuto cambiare una minima parte del codici, tranne in casi particolari, per la 
+trasformazione.
+
+Alcuni casi particolari non hanno permesso di sfruttare completamente la 
+libreria cplint\_r in quanto si sono dovuti creare predicati specifici per 
+risolvere il problema, che non sarebbero utili all'interno di una libreria. 
+... Si veda gpr\_R kalman\_filter\_R seven\_scientists\_R, etc... ...
+
+
+... La parte grafica si \'e spostata dagli esempi a cplint\_r ...
 
 %%%%
 %%%%
@@ -360,20 +407,25 @@ installare un programma in modo uniforme rispetto ad altri pacchetti, grazie ad
 un altro programma chiamato \emph{gestore di pacchetti}.
 
 Questi gestori hanno contribuito al successo delle distribuzioni GNU/Linux (ed 
-altre) perch\'e consentono a chiunque di installare un programma senza aver 
-conoscenza di metodi di compilazione software oltre a rendere l'installazione 
-piu' veloce e meno prona a generare errori.
+altre, BSD, etc...) perch\'e consentono a chiunque di installare un programma 
+senza aver conoscenza di metodi di compilazione software oltre a rendere 
+l'installazione pi\'u veloce e meno prona a generare errori.
 
 Per affrontare il problema dell'installazione di tutti i componenti di cui si 
 \'e parlato fino ad ora, si \'e resa quindi necessaria la creazione di vari 
-pacchetti software:
+pacchetti software per:
 \begin{itemize}
-    \item l'interfaccia web SWISH
-    \item l'interprete prolog
-    \item l'interprete R ed Rserve
-    \item tutte le dipendenze necessarie di prolog ed R.
+    \item l'interfaccia web SWISH,
+    \item l'interprete prolog,
+    \item l'interprete R ed Rserve,
+    \item ed infine tutte le dipendenze necessarie di prolog ed R.
 \end{itemize}
 
+Poich\'e ogni distribuzione ha il propro metodo per gestire i pacchetti \'e 
+necessario creare pacchetti diversi per ognuna. Per fare questo si sono 
+separate le parti in comune e quelle specifiche attraverso dei \emph{makefile}
+e degli script che costruiscono tali pacchetti. Con un singolo comando \'e 
+infatti possibile compilare tutti i pacchetti per una distribuzione.
 
 %%%%
 %%%%
@@ -432,23 +484,6 @@ geom_<something>(<Lists and/or other input>) :-
     <- ggplot <something>
         \end{prologcode*}
     \end{code}
-
-        \begin{code}
-            \caption{Predicati per la gestione delle liste di cplint\_r}
-            \begin{textcode*}{}
-build_xy_list([], [], []).
-
-build_xy_list([XH|XT], [YH|YT], [XH-YH|Out]) :-
-        build_xy_list(XT, YT, Out).
-
-r_row(X,Y,r(X,Y)).
-
-get_set_from_xy_list(L,R) :-
-    maplist(key,L,X),
-    maplist(y,L,Y),
-maplist(r_row,X,Y,R).
-            \end{textcode*}
-        \end{code}
 
     \begin{code}
         \caption{La libreria cplint\_r}
