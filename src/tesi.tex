@@ -7,6 +7,8 @@
 \usepackage{caption}
 \usepackage{minted}
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{csquotes}
+\renewcommand{\mkbegdispquote}[2]{\itshape}
 \usepackage{setspace}
     \doublespacing
 \DeclareCaptionFont{white}{\color{white}}
@@ -290,38 +292,68 @@ Infine, per collegarsi via SSH: \mint{bash}|$ ./qvm -a|
 
 \chapter{Gestire R da SWISH}
 \section{Funzionamento interno}
-Il supporto per R all'inteno di SWISH \'e ancora sperimentale. Di solito, 
-infatti, la parte computazionale \'e affidata all'interprete Prolog, mentre la 
-parte grafica viene gestita dalla libreria c3js.
+Il supporto per R all'inteno di SWISH \'e ancora di recente implementazione, 
+quindi di solito la parte computazionale \'e affidata all'interprete Prolog, 
+mentre la parte grafica viene gestita dalla libreria c3js.
 
 Grazie ad alcuni programmi \'e per\'o possibile utilizzare i comandi 
 disponibili dell'interprete R direttamente da SWISH. Questo comporta due 
-vantaggi: una maggiore velocit\'a e precisione computazionale .. cite .. e la 
-possibilit\'a di usare i sistemi di plot di R, come per esempio ggplot2 ...
+differenze: in alcuni casi si pu\'o ottenere una maggiore 
+velocit\'a\cite{rFaster}:
+\begin{displayquote}
+[..] It turns out R does the job faster on a large number of integers
+than Prolog.  Why?  Once in R, the array is a simple C array of integers,
+causing a blindly fast addition.  The Prolog counterpart adds the numbers
+one-by-one and does rigid overflow checking and handling.
+\end{displayquote}
+ 
+ed il 
+fatto che il disegno 
+la computazione per il disegno dei grafici \'e fatta sul server e non sul 
+computer locale attraverso il browser.
+ 
+e la possibilit\'a di usare i sistemi di plot di R, come per esempio ggplot2 
 che si rivelano pi\'u precisi ... cite ... ...
 
-Nel caso presente tutte le chiamate fatte da Prolog a R sono gestite da un 
-socket UNIX creato dal programma \emph{Rserve}\cite{rserve}. Questo \'e stato 
-configurato opportunamente per quanto riguarda la sicurezza in quanto viene 
-eseguito all'interno di Docker e senza che venga esposta una connessione di 
-rete come si vede nell'appendice~\ref{app:rserve-sandbox}.
+Nel caso presente tutte le chiamate fatte da Prolog a R vengono passtate 
+attraverso un socket UNIX creato dal programma \emph{Rserve}\cite{rserve}. 
+Questo \'e stato configurato opportunamente per quanto riguarda la sicurezza 
+in quanto viene eseguito all'interno di Docker e senza che venga esposta una 
+connessione di rete, come si vede nell'appendice~\ref{app:rserve-sandbox}.
 
 ... A simple picure/schematic explaining this would be nice here ...
 
+\section{Scambiare i dati fra R e Prolog}
 Grazie ad una libreria di SWI Prolog chiamata 
 \emph{rserve\_client}\cite{rserveclient} 
 \'e possibile usare direttamente comandi di R facendo minime modifiche 
 rispetto allo stesso codice usato nell'interprete R.
 
-... ...
-
-\section{Scambiare i dati fra R e Prolog}
 Esistono due modalit\'a per usare i comandi di R all'interno di SWI Prolog:
 \begin{itemize}
     \item come Prolog term, usando l'operatore \texttt{<-} seguito dal comando R,
     \item oppure con una notazione chiamata \emph{quasi-quotation}
 \end{itemize}
-SWISH contiene un esempio per entambi i casi\cite{rprolognotations}:
+La documentazione di SWISH contiene un esempio per entrambi i 
+casi\cite{rprolognotations}:
+\begin{displayquote}
+[..] We first give the example using an R quasi quotation, followed by 
+using a Prolog term.  Note that
+
+  - Quasi quotations can be used to copy/paste R code into your Prolog
+    program without changing it (except when it contains \texttt{|{\textbraceright}}).
+
+  - Prolog code may need minor modifications.  In the example, \texttt{I(.5)}
+    must be changed to \texttt{'I'(0.5)} because Prolog floats cannot start with
+    a \texttt{.} and functors (used as function symbols) cannot start with a
+    capital.  The Prolog approach however
+
+    - Is better portable.
+
+    - Profits from Prolog syntax checking.
+
+    - Makes it easier to compose R expressions from smaller elements.
+\end{displayquote}
 
 \begin{code}
     \caption{Esempi notazioni R in SWI Prolog}
@@ -335,27 +367,30 @@ SWISH contiene un esempio per entambi i casi\cite{rprolognotations}:
 Come si vede nel primo caso \'e necessario fare qualche piccola modifica 
 rispetto all'originale R. Nel secondo caso invece \'e possibile gestire alcuni 
 casi particolari che genererebbero errori oppure che non sarebbe possibile 
-possibile trasformare nel primo caso. Per esempio non sarebbe possibile 
-trasformare il seguente comando con la notazione abbreviata:
+possibile trasformare nel primo caso.
+
+Nella scrittura di cplint\_r si \'e anche trovato un caso non segnalato nella 
+documentazione in cui non \'e possibile trasformare un comando con la 
+notazione abbreviata, probabilmente per l'uso di istruzioni condizionali:
 
 \begin{code}
-    \caption{Esempio di quasi quotation}
+    \caption{Esempio di quasi quotation tratto da cplint\_r}
     \begin{rcode*}{}
 {|r||xbreakS <- if(max(df$probabilities) > scalingthresholD) element_blank() else scale_y_continuous(breaks=seq(0,max(df$probabilities),1))|},
     \end{rcode*}
 \end{code}
 
-Questo \'e vero perch\'e ogni comando R inviato attraverso questo sistema viene 
-eseguito in un ambiente proprio. Le variabili devono 
-essere salvate in Prolog se devono essere usate successivamente... check 
-this and explain...
+Un'altro fattore importante \'e che ogni comando R inviato attraverso questo 
+sistema viene eseguito in un ambiente proprio. Le variabili devono essere 
+salvate in Prolog se sono usate successivamente.
 
 \section{I data frame}
 Alcune funzioni disponibili nella libreria \emph{r\_swish} permettono il 
-passaggio di valori tra Prolog ed R attraverso i \emph{data frame}. Quesi sono 
+passaggio di valori tra Prolog ed R attraverso i \emph{data frame}. Queste sono 
 strutture fornite da R che permettono di organizzare i dati sotto forma 
-tabulare che si rivela anche efficiente per R stesso. In questo modo \'e 
-possibile accedere ai valori di ciascuna colonna del data frame in questione.
+tabulare. I data frame si rivelano anche efficienti per R stesso.... cite ... 
+In questo modo \'e anche possibile accedere ai valori di ciascuna colonna del 
+data frame in questione.
 
 
 %%%%
@@ -371,8 +406,8 @@ dalla libreria cplint. Questo significa che cplint\_r si occupa esclusivamente
 del disegno dei grafici.
 
 ...Esistono tuttavia alcune differenze, come ad esempio che una 
-parte del lavoro viene fatto gestire da R automaticamente ... esempio bins 
-histograms ... ... code here ...
+parte del lavoro viene fatto gestire da R e ggplot2 automaticamente ... esempio 
+bins histograms ... ... code here ...
 ...
 
 La struttura di cplint\_r \'e composta da tre diversi tipi di predicati:
@@ -381,10 +416,10 @@ La struttura di cplint\_r \'e composta da tre diversi tipi di predicati:
           predicati di cplint per quanto riguarda il calcolo dei risultati.
     \item Le funzioni grafiche invece per prima cosa trasformano i dati in 
           input in data frame leggibili da R, poi viene effettuato il disegno 
-          dei grafici.
+          dei grafici. Qui viene fatto un uso estensivo dei data frame.
     \item Infine, sono stati scritti alcuni predicati che aiutano a gestire le 
           liste di valori generate dalle funzioni di cplint. Queste liste 
-          vengono poi trasformate in \emph{data frame} in modo che possano 
+          vengono poi trasformate in data frame in modo che possano 
           essere utilizzati da R.
 \end{enumerate}
 
@@ -424,30 +459,106 @@ risolvere il problema, che non sarebbero utili all'interno di una libreria.
 
 \chapter{Pacchetti per le varie distribuzioni} 
 \label{ch:pacchetti-per-le-varie-distribuzioni}
+Per affrontare il problema dell'installazione di tutti i componenti di cui si 
+\'e parlato fino ad ora, si \'e resa quindi necessaria la creazione di vari 
+pacchetti software per:
+\begin{itemize}
+    \item l'interfaccia web SWISH,
+    \item il daemon Rserve,
+    \item ed infine tutte le dipendenze necessarie di prolog ed R.
+\end{itemize}
+
+Ora verranno spiegata la terminologia.
+
+\section{Pacchetto e gestore di pacchetti} \label{pacchetto-e-gestore-di-pacchetti}
 Un pacchetto software \'e una raccolta di istruzioni che permettono di 
-installare un programma in modo uniforme rispetto ad altri pacchetti, grazie ad 
-un altro programma chiamato \emph{gestore di pacchetti}.
+installare un programma in modo uniforme rispetto a tutti gli altri programmi 
+di un sistema, grazie ad un altro software chiamato \emph{gestore di 
+pacchetti}.
 
 Questi gestori hanno contribuito al successo delle distribuzioni GNU/Linux (ed 
 altre, BSD, etc...) perch\'e consentono a chiunque di installare un programma 
 senza aver conoscenza di metodi di compilazione software oltre a rendere 
 l'installazione pi\'u veloce e meno prona a generare errori.
 
-Per affrontare il problema dell'installazione di tutti i componenti di cui si 
-\'e parlato fino ad ora, si \'e resa quindi necessaria la creazione di vari 
-pacchetti software per:
+In generale, per costruire un pacchetto software \'e necessario delineare prima 
+alcune caratteristiche:
 \begin{itemize}
-    \item l'interfaccia web SWISH,
-    \item l'interprete prolog,
-    \item l'interprete R ed Rserve,
-    \item ed infine tutte le dipendenze necessarie di prolog ed R.
+    \item Quali sono le dipendenze e come si relazionano tra di loro.
+    \item in che modo \'e necessario adattare il pacchetto in modo che funzioni 
+          con la specifica distribuzione; cio\'e quali \emph{helper} devono 
+essere creati e come.
+    \item Il software funziona cos\'i com'\'e oppure bisogna creare utenti, 
+file, etc...
 \end{itemize}
 
-Poich\'e ogni distribuzione ha il propro metodo per gestire i pacchetti \'e 
-necessario creare pacchetti diversi per ognuna. Per fare questo si sono 
-separate le parti in comune e quelle specifiche attraverso dei \emph{makefile}
-e degli script che costruiscono tali pacchetti. Con un singolo comando \'e 
-infatti possibile compilare tutti i pacchetti per una distribuzione.
+Poich\'e l'obbiettivo \'e stato quello di creare pacchetti per varie 
+distribuzioni \'e stato necessario un'ulteriore passaggio: separare le parti in 
+comune che esistono tra le distribuzioni con le parti specifiche. In questo 
+caso le parti in comune comprendono:
+\begin{itemize}
+    \item Gli script per avviare e fermare i daemon.
+    \item Le istruzioni per installare i pacchetti Prolog.
+    \item Le configurazioni per i sistemi di init (nel caso in questiojne \'e 
+presente solo \emph{Systemd} ma si potrebbe generalizzare per qualunque 
+sistema).
+    \item Le azioni da fare prima, durante e dopo l'intallazione e la rimozione 
+del pacchetto. Queste vengono date in forma generica e quindi vanno adattate al 
+caso in uso.
+\end{itemize}
+
+\section{Arch Linux}
+Una volta definite le caratteritiche di base, si \'e passato alla scrittura dei 
+pacchetti veri e propri. Si \'e deciso di iniziare con la 
+distribuzione \emph{Arch Linux} e derivate, in quanto adotta un sistema di 
+pacchettizzazione relativamente semplice. Questo \'e simile al sistema 
+\emph{ports} di alcuni sistemi BSD\cite{portsLikeSystem}:
+\begin{displayquote}
+Ports è il sistema usato da FreeBSD per l'automazione della generazione di 
+pacchetti a partire dal codice sorgente. Il sistema usa un port per scaricare, 
+scompattare, patchare, compilare e installare il software desiderato. Un port è 
+solo una piccola directory nel computer dell'utente, chiamata come il 
+corrispondente software che vi verrà installato, che contiene un po' di file 
+con le istruzioni per scaricare ed installare il pacchetto dai sorgenti. Questo 
+rende possibile la la generazione del pacchetto con un semplice make o make 
+install clean all'interno della directory port.
+\end{displayquote}
+
+Nei casi pi\'u semplici \'e sufficiente definire un file chiamato 
+\emph{PKGBUILD}. Questo contiene le istruzioni solo per fare il buold del 
+pacchetto, di come copiare il contenuto nel \emph{filesystem} e di come 
+recuperare il software. Nel nostro caso \'e stato per\'o necessario aggiungere
+il file \emph{.install}. Questo si occupa degli \emph{hook} per l'instalazione 
+e la rimozione. Infine sono stati aggiunti i file per \emph{Systemd} e gli 
+script per avviare i daemon. Tutto questo \'e stato ripetuto per ogni 
+pacchetto.
+
+\section{Debian}
+Il procedimento descritto nella sezione~\ref{pacchetto-e-gestore-di-pacchetti}
+si \'e ripetuto anche per \emph{Debian} e \emph{Ubuntu}. Una delle pi\'u 
+importanti differenze rispetto ad Arch \'e che in questo caso \'e necessario 
+avere gi\'a scaricato il software prima di fare il build del pacchetto.
+
+Deve essere creata una la directory \texttt{debian} nella directory principale 
+del codice sorgente. All'interno di questa verranno posti tutti file 
+necessari come \texttt{rules}, \texttt{control}, etc...
+
+...
+
+\section{Build e installazione dei pacchetti}
+Per gestire questa situazione complessa, per ogni distribuzione esiste un 
+\texttt{Nakefile} ed uno script shell chiamato \texttt{build\_pkg.sh}. 
+Quest'ultimo viene chiamato dal \texttt{Makefile} con parameteri diversi volta 
+per volta. Entrambi si occupano di costruire automaticamente i pacchettisenza 
+che l'utente abbia alcuna conoscenza dei meccanismi interni. \'E sufficiente 
+infatti eseguire \mint{bash}|$ make| per costruire tutti i pacchetti 
+dispionibili.
+
+L'installazione avviene con \mint{bash}|# makepkg -sri|
+per Arch e \mint{bash}|# debuild -us -uc && dpkg -i| per Debian
+
+\section{Problemi}
+...
 
 %%%%
 %%%%
