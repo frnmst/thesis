@@ -414,9 +414,31 @@ La struttura di cplint\_r \'e composta da tre diversi tipi di predicati:
 \begin{enumerate}
     \item I predicati che espongono un'interfaccia. Questi chiamano alcuni 
           predicati di cplint per quanto riguarda il calcolo dei risultati.
+
+        \begin{code}
+            \caption{Struttura dei predicati dell'interfaccia di cplint\_r}
+            \begin{prologcode*}{}
+<predicato_interfaccia_r>(input):-
+    load_r_libraries,
+    <operations on the input>,
+    geom_<something>(<new input, possibly lists>),
+    finalize_r_graph.
+            \end{prologcode*}
+        \end{code}
     \item Le funzioni grafiche invece per prima cosa trasformano i dati in 
           input in data frame leggibili da R, poi viene effettuato il disegno 
           dei grafici. Qui viene fatto un uso estensivo dei data frame.
+
+    \begin{code}
+        \caption{Predicati per il disegno dei grafici di cplint\_r}
+        \begin{prologcode*}{}
+geom_<something>(<Lists and/or other input>) :-
+    <handle lists>,
+    <create one or more R data frame with the lists data>,
+    <rename data frame colnames to avoid using default ones>,
+    <- ggplot <something>
+        \end{prologcode*}
+    \end{code}
     \item Infine, sono stati scritti alcuni predicati che aiutano a gestire le 
           liste di valori generate dalle funzioni di cplint. Queste liste 
           vengono poi trasformate in data frame in modo che possano 
@@ -514,14 +536,14 @@ distribuzione \emph{Arch Linux} e derivate, in quanto adotta un sistema di
 pacchettizzazione relativamente semplice. Questo \'e simile al sistema 
 \emph{ports} di alcuni sistemi BSD\cite{portsLikeSystem}:
 \begin{displayquote}
-Ports è il sistema usato da FreeBSD per l'automazione della generazione di 
+Ports \'e il sistema usato da FreeBSD per l'automazione della generazione di 
 pacchetti a partire dal codice sorgente. Il sistema usa un port per scaricare, 
-scompattare, patchare, compilare e installare il software desiderato. Un port è 
-solo una piccola directory nel computer dell'utente, chiamata come il 
-corrispondente software che vi verrà installato, che contiene un po' di file 
+scompattare, patchare, compilare e installare il software desiderato. Un port 
+\'e solo una piccola directory nel computer dell'utente, chiamata come il 
+corrispondente software che vi verr\'a installato, che contiene un po' di file 
 con le istruzioni per scaricare ed installare il pacchetto dai sorgenti. Questo 
-rende possibile la la generazione del pacchetto con un semplice make o make 
-install clean all'interno della directory port.
+rende possibile la generazione del pacchetto con un semplice \texttt{make} o 
+\texttt{make install clean} all'interno della directory port.
 \end{displayquote}
 
 Nei casi pi\'u semplici \'e sufficiente definire un file chiamato 
@@ -554,11 +576,14 @@ che l'utente abbia alcuna conoscenza dei meccanismi interni. \'E sufficiente
 infatti eseguire \mint{bash}|$ make| per costruire tutti i pacchetti 
 dispionibili.
 
-L'installazione avviene con \mint{bash}|# makepkg -sri|
-per Arch e \mint{bash}|# debuild -us -uc && dpkg -i| per Debian
+L'installazione avviene con \mint{bash}|$ makepkg -sri|
+per Arch e \mint{bash}|$ debuild -us -uc && dpkg -i| per Debian
 
 \section{Problemi}
-...
+... Tutto questo comporta il dover tener traccia di molti fattori
+all'aumentare del numero di distribuzioni supportate. Nell'ultimo periodo 
+stanno emergendo gestori di pacchetti che sono indipendenti dalla distribuzione 
+in uso e che dovrebbero semplificare anche la gestione delle dipendenze ...
 
 %%%%
 %%%%
@@ -596,28 +621,6 @@ per Arch e \mint{bash}|# debuild -us -uc && dpkg -i| per Debian
     \end{code}
 
 \chapter{cplint\_r} \label{app:cplint-r}
-    \begin{code}
-        \caption{Struttura dei predicati dell'interfaccia di cplint\_r}
-        \begin{prologcode*}{}
-<predicato_interfaccia_r>(input):-
-    load_r_libraries,
-    <operations on the input>,
-    geom_<something>(<new input, possibly lists>),
-    finalize_r_graph.
-        \end{prologcode*}
-    \end{code}
-
-    \begin{code}
-        \caption{Predicati per il disegno dei grafici di cplint\_r}
-        \begin{prologcode*}{}
-geom_<something>(<Lists and/or other input>) :-
-    <handle lists>,
-    <create one or more R data frame with the lists data>,
-    <rename data frame colnames to avoid using default ones>,
-    <- ggplot <something>
-        \end{prologcode*}
-    \end{code}
-
     \begin{code}
         \caption{La libreria cplint\_r}
         \prologcodefile{cplint_r.pl}
