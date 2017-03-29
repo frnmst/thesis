@@ -490,17 +490,17 @@ pacchetti software per:
     \item ed infine tutte le dipendenze necessarie di prolog ed R.
 \end{itemize}
 
-Ora verranno spiegata la terminologia.
+Ora verr\'a spiegata la terminologia ed il procedimento.
 
 \section{Pacchetto e gestore di pacchetti} \label{pacchetto-e-gestore-di-pacchetti}
 Un pacchetto software \'e una raccolta di istruzioni che permettono di 
 installare un programma in modo uniforme rispetto a tutti gli altri programmi 
-di un sistema, grazie ad un altro software chiamato \emph{gestore di 
+di un sistema. Questo \'e possibile grazie ad un \emph{gestore di 
 pacchetti}.
 
 Questi gestori hanno contribuito al successo delle distribuzioni GNU/Linux (ed 
-altre, BSD, etc...) perch\'e consentono a chiunque di installare un programma 
-senza aver conoscenza di metodi di compilazione software oltre a rendere 
+altre, per emepio BSD) perch\'e consentono a chiunque di installare un 
+programma senza aver conoscenza di metodi di compilazione oltre a rendere 
 l'installazione pi\'u veloce e meno prona a generare errori.
 
 In generale, per costruire un pacchetto software \'e necessario delineare prima 
@@ -516,8 +516,8 @@ file, etc...
 
 Poich\'e l'obbiettivo \'e stato quello di creare pacchetti per varie 
 distribuzioni \'e stato necessario un'ulteriore passaggio: separare le parti in 
-comune che esistono tra le distribuzioni con le parti specifiche. In questo 
-caso le parti in comune comprendono:
+comune che esistono tra le distribuzioni con le loro parti specifiche. In 
+questo caso le parti in comune comprendono:
 \begin{itemize}
     \item Gli script per avviare e fermare i daemon.
     \item Le istruzioni per installare i pacchetti Prolog.
@@ -525,11 +525,32 @@ caso le parti in comune comprendono:
 presente solo \emph{Systemd} ma si potrebbe generalizzare per qualunque 
 sistema).
     \item Le azioni da fare prima, durante e dopo l'intallazione e la rimozione 
-del pacchetto. Queste vengono date in forma generica e quindi vanno adattate al 
-caso in uso.
+del pacchetto. Queste vengono date in forma generica e quindi vanno adattate 
+con qualche modifica al caso in uso.
 \end{itemize}
 
 \section{Arch Linux}
+\emph{Arch Linux} \'e una distribuzione \emph{bleeding edge} e \emph{rolling 
+release}. Questo significa che i pacchetti sono sempre all'ultima versione 
+stabile e che la distribuzione non viene rilasciata con un numero di versione, 
+come accade per la maggior parte delle distribuzioni. Tutto questo \'e speigato 
+nella wiki ufficiale\cite{archLinux}:
+\begin{displayquote}
+Arch Linux \'e una distribuzione indipendente sviluppata per i686/x86-64, 
+abbastanza versatile ed adatta ad ogni ruolo. Il suo sviluppo si concentra 
+sulla semplicit\'a, il minimalismo e l'eleganza del codice. Arch \'e installato 
+come sistema di base minimale (configurato dall'utente) sul quale viene 
+costruito il proprio ambiente ideale, installando solo ci\'o che \'e necessario 
+in base alle proprie necessit\'a. Le GUI delle utility di configurazione non 
+sono fornite ufficialmente e la maggior parte della configurazione del sistema viene 
+eseguita dalla Shell e da un editor di testo. Basata sul modello 
+rolling-release, Arch si sforza di rimanere all'avanguardia, e di solito offre 
+le ultime versioni stabili della maggior parte dei software.
+\end{displayquote}
+Lo svantaggio principale di questo sistema \'e che il software distribuito 
+pu\'o non esssere sempre stabile in quanto non testato pienamente
+
+\subsection{Struttura}
 Una volta definite le caratteritiche di base, si \'e passato alla scrittura dei 
 pacchetti veri e propri. Si \'e deciso di iniziare con la 
 distribuzione \emph{Arch Linux} e derivate, in quanto adotta un sistema di 
@@ -547,15 +568,19 @@ rende possibile la generazione del pacchetto con un semplice \texttt{make} o
 \end{displayquote}
 
 Nei casi pi\'u semplici \'e sufficiente definire un file chiamato 
-\emph{PKGBUILD}. Questo contiene le istruzioni solo per fare il buold del 
+\texttt{PKGBUILD}. Questo contiene le istruzioni solo per fare il build del 
 pacchetto, di come copiare il contenuto nel \emph{filesystem} e di come 
 recuperare il software. Nel nostro caso \'e stato per\'o necessario aggiungere
-il file \emph{.install}. Questo si occupa degli \emph{hook} per l'instalazione 
-e la rimozione. Infine sono stati aggiunti i file per \emph{Systemd} e gli 
-script per avviare i daemon. Tutto questo \'e stato ripetuto per ogni 
-pacchetto.
+il file \texttt{.install}. Questo si occupa degli \emph{hook} per 
+l'installazione e la rimozione. Infine sono stati aggiunti i file per 
+\emph{Systemd} e gli script per avviare i daemon. Tutto questo \'e stato 
+ripetuto per ogni pacchetto.
 
-\section{Debian}
+\section{Debian e Ubuntu}
+Debian GNU/Linux \'e tra le prime distribuzioni mai create ed \'e tra le pi\'u 
+stabili considerate oggi. Ubuntiu \'e invece meno stabile, tuttavia ha a 
+disposizione pacchetti pi\'u recenti. 
+
 Il procedimento descritto nella sezione~\ref{pacchetto-e-gestore-di-pacchetti}
 si \'e ripetuto anche per \emph{Debian} e \emph{Ubuntu}. Una delle pi\'u 
 importanti differenze rispetto ad Arch \'e che in questo caso \'e necessario 
@@ -563,9 +588,52 @@ avere gi\'a scaricato il software prima di fare il build del pacchetto.
 
 Deve essere creata una la directory \texttt{debian} nella directory principale 
 del codice sorgente. All'interno di questa verranno posti tutti file 
-necessari come \texttt{rules}, \texttt{control}, etc...
+necessari come \texttt{rules}, \texttt{control} e molti altri obbligatori e 
+facoltativi. Il file \texttt{rules} \'e un makefile che contiene istruzioni per 
+quanto riguarda la compilazione del pacchetto. Si pu\'o per esempio specificare 
+di incudere i file per Systemd poch\'e non viene fatto di default. Il file 
+\texttt{control} invece contiene informazioni sulle dipendenze, maintainer, 
+descrizioni, etc... 
 
+\subsection{Struttura}
+.. APT descriptiion ...
+
+\section{Descrizione dei pacchetti e delle funzionalit\'a}
+Come accennato all'inizio del capitolo~\ref{ch:pacchetti-per-le-varie-distribuzioni}
+i pacchetti software creati comprendono SWISH, l'ambiente R, e tutto il 
+necessario.
+
+Per Arch Linux sono stati scritti il maggiorn numero di pacchetti:
+\begin{itemize}
+    \item \texttt{swish}: installa la versione ufficiale di SWISH, che non 
+contiene modifiche
+    \item \texttt{siwsh-cplint}: \'e una versione modificata che comprende 
+cplint e cplint\_r
+    \item \texttt{rserve-sandbox-docker}: installa l'ambiente R che permette di 
+creare il socket gestito da Rserve. Questa \'e una dipendenza fondamentale di 
+\texttt{swish-cplint}
+    \item \texttt{swish-cplint-bin} e \texttt{rserve-sandbox-docker-bin}: 
+questi sono analoghi alle versioni non \emph{bin} per quanto riguarda le 
+funzionalit\'a. Quello che cambia \'e che i componenti pi\'u importanti sono 
+precompilati. Questo \'e stat o necessario poich\'e sia \texttt{swish-cplint}, 
+sia \texttt{rserve-sandbox-docker} sono basati su componenti che devono essere 
+scaricati da Internet nel momento della creazione dei pacchetti. Nel caso 
+qualche componente non fosse raggiungibile, l'installazione o qualche 
+funzionalit\'a fallirebbe. In particolare, \texttt{rserve-sandbox-docker-bin} 
+fa riferimento ad un immagine Docker precompilata e poi resa disponibile 
+attraverso un repository git. \texttt{swish-cplint-bin} invece contiene tante 
+dipendenze Javascript\cite{javascriptDepsSWISH} .. cite and explain...:
 ...
+Queste sono sparse su molti repository diversi. Fortunatamente gli sviluppatori 
+di SWISH hanno messo a disposizione un file \emph{zip} con tutti gli strumenti 
+precompilati. \'E sufficiente quindi usare questi ed \'e proprio quello che fa 
+\texttt{swish-cplint-bin}.
+\end{itemize}
+
+Per Debian/Ubuntu, viste delle difficolt\'a spiegate nella 
+sezione~\ref{sec:problemi}, si \'e provveduto soltanto a scrivere 
+\texttt{rserve-sandbox-docker} e \texttt{swish-cplint}... Sarebbe possibile 
+completare "il lavoro" anche per gli altri pacchetti.
 
 \section{Build e installazione dei pacchetti}
 Per gestire questa situazione complessa, per ogni distribuzione esiste un 
@@ -579,11 +647,27 @@ dispionibili.
 L'installazione avviene con \mint{bash}|$ makepkg -sri|
 per Arch e \mint{bash}|$ debuild -us -uc && dpkg -i| per Debian
 
-\section{Problemi}
+\section{Problemi} \label{sec:problemi}
 ... Tutto questo comporta il dover tener traccia di molti fattori
 all'aumentare del numero di distribuzioni supportate. Nell'ultimo periodo 
 stanno emergendo gestori di pacchetti che sono indipendenti dalla distribuzione 
 in uso e che dovrebbero semplificare anche la gestione delle dipendenze ...
+
+Un'altro problema \'e che Debian ha a disposizione software che non \'e
+abbastanza recente per il caso in questione. Questo \'e vero sia che si 
+utilizzi la versione \emph{stable} sia \emph{unstable}. Per quanto riguarda 
+SWISH \'e infatti necessario avere sempre l'ultima versione di SWI Prolog ...
+come \'e descritto ... ... \cite{somethingOnGithub}, cosa che sarebbe possibile 
+soltato ricompilando il software.Ma anche questo non \' fattibile poich\'e 
+mancano ancora alcune librerie fondamentali. L'unico software che sembra 
+funzionare correttamente \'e Rserve sandbox.
+
+Viste queste difficolt\'a si \'e deciso utilizzare una distribuzione derivata 
+da Ubuntu, chiamata \emph{Trisquel}. In questo caso, abilitando i PPA ... to 
+explain before ... di SWI Prolog, si \'e riuscito ad installare tutto con 
+minime difficolt\'a. Tuttavia \'e presente qualche problema che inibisce 
+l'accesso ad Rserve da SWISH.
+
 
 %%%%
 %%%%
