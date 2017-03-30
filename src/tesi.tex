@@ -406,17 +406,31 @@ data frame in questione.
 \emph{cplint\_r} \'e una libreria per SWI Prolog che fornisce un'interfaccia 
 fra l'interprete Prolog ed R, in modo da poter graficare i risultati generati 
 dalla libreria cplint. Questo significa che cplint\_r si occupa esclusivamente 
-del disegno dei grafici.
+del disegno dei grafici. cplint\_r usa estensivamente la libreria ggplot2 per 
+graficare. Questa fornisce risultati esteticamente migliori rispetto a quella 
+fornita di default.
+
+\section{Descrizione dei tipi di predicati}
+clint\_r \'e in grado di disegnare
+\begin{itemize}
+    \item istrogrammi
+    \item grafici a barre
+    \item e funzioni di densit\'a
+\end{itemize}
+
+...
 
 ...Esistono tuttavia alcune differenze, come ad esempio che una 
 parte del lavoro viene fatto gestire da R e ggplot2 automaticamente ... esempio 
 bins histograms ... ... code here ...
 ...
 
+\section{Struttura}
 La struttura di cplint\_r \'e composta da tre diversi tipi di predicati:
 \begin{enumerate}
     \item I predicati che espongono un'interfaccia. Questi chiamano alcuni 
-          predicati di cplint per quanto riguarda il calcolo dei risultati.
+          predicati di cplint per quanto riguarda il calcolo dei risultati. 
+Iniziano con gli stessi nomi di cplint e terminano con \texttt{\_r}.
 
         \begin{code}
             \caption{Struttura dei predicati dell'interfaccia di cplint\_r}
@@ -430,7 +444,8 @@ La struttura di cplint\_r \'e composta da tre diversi tipi di predicati:
         \end{code}
     \item Le funzioni grafiche invece per prima cosa trasformano i dati in 
           input in data frame leggibili da R, poi viene effettuato il disegno 
-          dei grafici. Qui viene fatto un uso estensivo dei data frame.
+          dei grafici. Tutti questi hanno il prefisso \texttt{geom}. Qui viene 
+fatto un uso estensivo dei data frame.
 
     \begin{code}
         \caption{Predicati per il disegno dei grafici di cplint\_r}
@@ -445,20 +460,25 @@ geom_<something>(<Lists and/or other input>) :-
     \item Infine, sono stati scritti alcuni predicati che aiutano a gestire le 
           liste di valori generate dalle funzioni di cplint. Queste liste 
           vengono poi trasformate in data frame in modo che possano 
-          essere utilizzati da R.
+          essere utilizzati da R. Da notare che questi predicati si trovano 
+all'interno delle funzioni grafiche.
 \end{enumerate}
 
-cplint\_r contiene dei semplici test post installazione per verificare che la 
-libreria funzioni correttamente.
+Per ogni insieme di valori si \'e deciso di usare un date frame divero. In 
+questo modo \'e stato possibile aggregare pi\'u insiemi di valori quando 
+necessario. ... example + cite ...
 
+\section{La libreria come pacchetto}
+Come succede con altre librerie Prolog, cplint\_r \'e distribuita sotto forma 
+di \emph{pack} SWI Prolog. Esiste un gestore di pacchetti in modo che 
+l'installazione di librerie risulti triviale: ... pack\_install('cplint\_r'). 
+...
 
-%%%%
-%%%%
-%%%%
-%%%%
+All'interno del pack sono elencate tutte le dipendenze in un file di 
+configurazione. Al momento dell'installazione cplint\_r contiene dei semplici 
+test per verificare che la libreria stessa funzioni correttamente.
 
-
-\chapter{Trasformazione degli esempi da c3js ad R} \label{ch:trasformazione-
+\section{Trasformazione degli esempi da c3js ad R} \label{sec:trasformazione-
 degli-esempi-da-c3js-ad-r}
 ... Per prima cosa sono state fatte delle prove per vedere come fuzionava 
 prolog ed R ...
@@ -475,6 +495,7 @@ risolvere il problema, che non sarebbero utili all'interno di una libreria.
 
 
 ... La parte grafica si \'e spostata dagli esempi a cplint\_r ...
+
 
 %%%%
 %%%%
@@ -659,7 +680,7 @@ L'installazione avviene con \mint{bash}|$ makepkg -sri|
 per Arch e \mint{bash}|$ debuild -us -uc && dpkg -i| per Debian
 
 \section{Distribuzione dei pacchetti}
-...
+... I pacchetti sono stati distribuiti su AUR ...
 
 \section{Problemi} \label{sec:problemi}
 \subsection{Debian}
