@@ -62,6 +62,8 @@
 
 \pagenumbering{arabic}
 
+\iffalse
+
 \chapter{Indice provvisorio} \label{Indice provvisorio}
 L'oggetto di questa tesi \'e spiegare come \'e avvenuta l'integrazione di 
 componenti per la statistica per l'applicazione "SWISH" in particolare
@@ -143,6 +145,7 @@ Possibili capitoli:
     \end{enumerate}
 \end{enumerate}
 
+\fi
 
 %%%%
 %%%%
@@ -581,6 +584,9 @@ Debian GNU/Linux \'e tra le prime distribuzioni mai create ed \'e tra le pi\'u
 stabili considerate oggi. Ubuntiu \'e invece meno stabile, tuttavia ha a 
 disposizione pacchetti pi\'u recenti. 
 
+... Debian + Ubuntu description...
+
+\subsection{Struttura}
 Il procedimento descritto nella sezione~\ref{pacchetto-e-gestore-di-pacchetti}
 si \'e ripetuto anche per \emph{Debian} e \emph{Ubuntu}. Una delle pi\'u 
 importanti differenze rispetto ad Arch \'e che in questo caso \'e necessario 
@@ -595,8 +601,7 @@ di incudere i file per Systemd poch\'e non viene fatto di default. Il file
 \texttt{control} invece contiene informazioni sulle dipendenze, maintainer, 
 descrizioni, etc... 
 
-\subsection{Struttura}
-.. APT descriptiion ...
+.. Brief APT + PPA descriptiion ...
 
 \section{Descrizione dei pacchetti e delle funzionalit\'a}
 Come accennato all'inizio del capitolo~\ref{ch:pacchetti-per-le-varie-distribuzioni}
@@ -607,7 +612,7 @@ Per Arch Linux sono stati scritti il maggiorn numero di pacchetti:
 \begin{itemize}
     \item \texttt{swish}: installa la versione ufficiale di SWISH, che non 
 contiene modifiche
-    \item \texttt{siwsh-cplint}: \'e una versione modificata che comprende 
+    \item \texttt{swish-cplint}: \'e una versione modificata che comprende 
 cplint e cplint\_r
     \item \texttt{rserve-sandbox-docker}: installa l'ambiente R che permette di 
 creare il socket gestito da Rserve. Questa \'e una dipendenza fondamentale di 
@@ -622,12 +627,18 @@ qualche componente non fosse raggiungibile, l'installazione o qualche
 funzionalit\'a fallirebbe. In particolare, \texttt{rserve-sandbox-docker-bin} 
 fa riferimento ad un immagine Docker precompilata e poi resa disponibile 
 attraverso un repository git. \texttt{swish-cplint-bin} invece contiene tante 
-dipendenze Javascript\cite{javascriptDepsSWISH} .. cite and explain...:
-...
-Queste sono sparse su molti repository diversi. Fortunatamente gli sviluppatori 
-di SWISH hanno messo a disposizione un file \emph{zip} con tutti gli strumenti 
-precompilati. \'E sufficiente quindi usare questi ed \'e proprio quello che fa 
-\texttt{swish-cplint-bin}.
+dipendenze Javascript\cite{javascriptDepsSWISH} Queste sono sparse su molti 
+repository diversi. Come alternativa, gli sviluppatori 
+di SWISH hanno messo a disposizione un file \emph{zip}\cite{SWISHwebDepsZip} 
+con tutti gli strumenti precompilati. \'E sufficiente quindi usare questi ed 
+\'e proprio quello che fa \texttt{swish-cplint-bin}:
+\begin{displayquote}
+As installing node and bower is not a pleasure on all operating systems,
+you can also download  the  dependencies  as   a  single  zip  file from
+\texttt{http://www.swi-prolog.org/download/swish/swish-bower-components.zip}.
+Unpack the zip file, maintaining the directory structure, from the swish
+root directory to create the directory web/bower\_components.
+\end{displayquote}
 \end{itemize}
 
 Per Debian/Ubuntu, viste delle difficolt\'a spiegate nella 
@@ -637,9 +648,9 @@ completare "il lavoro" anche per gli altri pacchetti.
 
 \section{Build e installazione dei pacchetti}
 Per gestire questa situazione complessa, per ogni distribuzione esiste un 
-\texttt{Nakefile} ed uno script shell chiamato \texttt{build\_pkg.sh}. 
+\texttt{Makefile} ed uno script shell chiamato \texttt{build\_pkg.sh}. 
 Quest'ultimo viene chiamato dal \texttt{Makefile} con parameteri diversi volta 
-per volta. Entrambi si occupano di costruire automaticamente i pacchettisenza 
+per volta. Entrambi si occupano di costruire automaticamente i pacchetti senza 
 che l'utente abbia alcuna conoscenza dei meccanismi interni. \'E sufficiente 
 infatti eseguire \mint{bash}|$ make| per costruire tutti i pacchetti 
 dispionibili.
@@ -647,26 +658,38 @@ dispionibili.
 L'installazione avviene con \mint{bash}|$ makepkg -sri|
 per Arch e \mint{bash}|$ debuild -us -uc && dpkg -i| per Debian
 
-\section{Problemi} \label{sec:problemi}
-... Tutto questo comporta il dover tener traccia di molti fattori
-all'aumentare del numero di distribuzioni supportate. Nell'ultimo periodo 
-stanno emergendo gestori di pacchetti che sono indipendenti dalla distribuzione 
-in uso e che dovrebbero semplificare anche la gestione delle dipendenze ...
+\section{Distribuzione dei pacchetti}
+...
 
+\section{Problemi} \label{sec:problemi}
+\subsection{Debian}
 Un'altro problema \'e che Debian ha a disposizione software che non \'e
 abbastanza recente per il caso in questione. Questo \'e vero sia che si 
 utilizzi la versione \emph{stable} sia \emph{unstable}. Per quanto riguarda 
-SWISH \'e infatti necessario avere sempre l'ultima versione di SWI Prolog ...
-come \'e descritto ... ... \cite{somethingOnGithub}, cosa che sarebbe possibile 
-soltato ricompilando il software.Ma anche questo non \' fattibile poich\'e 
-mancano ancora alcune librerie fondamentali. L'unico software che sembra 
-funzionare correttamente \'e Rserve sandbox.
+SWISH \'e infatti necessario avere sempre l'ultima versione di SWI Prolog,
+come \'e descritto nella documentazione ufficiale \cite{lastestSWIProlog}:
+\begin{displayquote}
+Install the latest  SWI Prolog development version. As SWISH is very much in 
+flux and depends on the recent SWI-Prolog pengines and sandboxing libraries, 
+it is quite common that you need the nightly build (Windows) or build the 
+system from the current git development repository swipl-devel.git.
+\end{displayquote}
+
+Questo sarebbe possibile  soltanto ricompilando il software. Ma anche questo 
+non \'e fattibile poich\'e mancano ancora alcune librerie fondamentali. L'unico 
+software che sembra funzionare correttamente \'e Rserve sandbox.
 
 Viste queste difficolt\'a si \'e deciso utilizzare una distribuzione derivata 
 da Ubuntu, chiamata \emph{Trisquel}. In questo caso, abilitando i PPA ... to 
 explain before ... di SWI Prolog, si \'e riuscito ad installare tutto con 
 minime difficolt\'a. Tuttavia \'e presente qualche problema che inibisce 
 l'accesso ad Rserve da SWISH.
+
+\subsection{Alternative}
+... Tutto questo comporta il dover tener traccia di molti fattori
+all'aumentare del numero di distribuzioni supportate. Nell'ultimo periodo 
+stanno emergendo gestori di pacchetti che sono indipendenti dalla distribuzione 
+in uso e che dovrebbero semplificare anche la gestione delle dipendenze ...
 
 
 %%%%
