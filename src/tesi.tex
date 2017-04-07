@@ -7,6 +7,7 @@
 \usepackage{caption}
 \usepackage{minted}
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{tikz}
 \usepackage{csquotes}
 \renewcommand{\mkbegdispquote}[2]{\itshape}
 \usepackage{setspace}
@@ -53,10 +54,10 @@
 \newpage
 \tableofcontents
 \newpage
-\listoffigures
-\newpage
-\listoftables
-\newpage
+%\listoffigures
+%\newpage
+%\listoftables
+%\newpage
 \listoflistings
 \cleardoublepage
 
@@ -287,6 +288,16 @@ non si utilizzi l'interfaccia grafica sulla macchina guest.
 
 Infine, per collegarsi via SSH: \mint{bash}|$ ./qvm -a|
 
+
+... Picture/Schematic here ...
+
+.--------.Host
+| 5555 2222  |
+| ------ |
+| |3050| 22 |  
+| ------ |
+| guest  |
+.--------.
 %%%%
 %%%%
 %%%%
@@ -389,12 +400,12 @@ salvate in Prolog se sono usate successivamente.
 
 \section{I data frame}
 Alcune funzioni disponibili nella libreria \emph{r\_swish} permettono il 
-passaggio di valori tra Prolog ed R attraverso i \emph{data frame}. Queste sono 
-strutture fornite da R che permettono di organizzare i dati sotto forma 
-tabulare. I data frame si rivelano anche efficienti per R stesso.... cite ... 
-In questo modo \'e anche possibile accedere ai valori di ciascuna colonna del 
-data frame in questione.
-
+passaggio di valori tra Prolog ed R attraverso i \emph{data frame}. Questi sono 
+strutture, o meglio \emph{oggetti}, forniti da R che permettono di organizzare 
+i dati sotto forma tabulare. I data frame si rivelano anche efficienti per R 
+stesso.... cite ... In questo modo \'e anche possibile accedere ai valori di 
+ciascuna colonna del data frame in questione.
+\mint{r}|df$x,df$y|.
 
 %%%%
 %%%%
@@ -411,22 +422,15 @@ graficare. Questa fornisce risultati esteticamente migliori rispetto a quella
 fornita di default.
 
 \section{Descrizione dei tipi di predicati}
-clint\_r \'e in grado di disegnare
+cplint\_r \'e in grado di disegnare:
 \begin{itemize}
-    \item istrogrammi
-    \item grafici a barre
-    \item e funzioni di densit\'a
+    \item istogrammi,
+    \item grafici a barre,
+    \item e curve che rappresentano funzioni di densit\'a.
 \end{itemize}
 
-...
-
-...Esistono tuttavia alcune differenze, come ad esempio che una 
-parte del lavoro viene fatto gestire da R e ggplot2 automaticamente ... esempio 
-bins histograms ... ... code here ...
-...
-
 \section{Struttura}
-La struttura di cplint\_r \'e composta da tre diversi tipi di predicati:
+cplint\_r \'e composta da tre diversi tipi di predicati:
 \begin{enumerate}
     \item I predicati che espongono un'interfaccia. Questi chiamano alcuni 
           predicati di cplint per quanto riguarda il calcolo dei risultati. 
@@ -461,21 +465,28 @@ geom_<something>(<Lists and/or other input>) :-
           liste di valori generate dalle funzioni di cplint. Queste liste 
           vengono poi trasformate in data frame in modo che possano 
           essere utilizzati da R. Da notare che questi predicati si trovano 
-all'interno delle funzioni grafiche.
+          all'interno delle funzioni grafiche.
 \end{enumerate}
 
-Per ogni insieme di valori si \'e deciso di usare un date frame divero. In 
+Per ogni insieme di valori si \'e deciso di usare un data frame diverso. In 
 questo modo \'e stato possibile aggregare pi\'u insiemi di valori quando 
 necessario. ... example + cite ...
 
 \section{La libreria come pacchetto}
-Come succede con altre librerie Prolog, cplint\_r \'e distribuita sotto forma 
-di \emph{pack} SWI Prolog. Esiste un gestore di pacchetti in modo che 
-l'installazione di librerie risulti triviale: ... pack\_install('cplint\_r'). 
-...
+Come succede con altre librerie SWI Prolog, cplint\_r \'e distribuita sotto 
+forma di \emph{pack}, cio\'e pacchetto. Esiste infatti un gestore di pacchetti 
+in modo che l'installazione di librerie risulti semplice ed uniforme: 
+\mint{prolog}|pack_install(cplint_r).|
 
-All'interno del pack sono elencate tutte le dipendenze in un file di 
-configurazione. Al momento dell'installazione cplint\_r contiene dei semplici 
+In questo modo \'e possibile avere a disposizione la libreria con 
+\mint{prolog}|use_module(library(cplint_r)).|
+
+Nel file di configurazione \texttt{pack.pl} che si trova al'interno del pack 
+sono elencate tutte le dipendenze, la versione della libreria, descrizioni, 
+ed altre informazioni di cplint\_r. Il gestore di pacchetti andr\'a a leggere 
+questo file per installare il tutto in \texttt{\~/lib/pack/..../cplint\_r}
+
+Al momento dell'installazione cplint\_r esegue dei semplici 
 test per verificare che la libreria stessa funzioni correttamente.
 
 \section{Trasformazione degli esempi da c3js ad R} \label{sec:trasformazione-
@@ -485,16 +496,22 @@ prolog ed R ...
 
 Dopo aver definito le basi della libreria cplint\_r si \'e provveduto a 
 trasformare qualche esempio pi\'u semplice da c3js ad R. Infatti si \'e 
-dovuto cambiare una minima parte del codici, tranne in casi particolari, per la 
-trasformazione.
+dovuto cambiare una minima parte del codici, tranne in casi particolari, che 
+non hanno permesso di sfruttare completamente la 
+libreria cplint\_r. In questi casi si sono dovuti creare predicati specifici 
+per risolvere il problema, che non sarebbero utili all'interno di una 
+libreria. ... Si veda gpr\_R kalman\_filter\_R seven\_scientists\_R, etc... 
+...
 
-Alcuni casi particolari non hanno permesso di sfruttare completamente la 
-libreria cplint\_r in quanto si sono dovuti creare predicati specifici per 
-risolvere il problema, che non sarebbero utili all'interno di una libreria. 
-... Si veda gpr\_R kalman\_filter\_R seven\_scientists\_R, etc... ...
+\section{Differenze rispetto a cplint}
+...Esistono tuttavia alcune differenze rispetto a cplint, come ad esempio che 
+una parte del lavoro viene fatto gestire da ggplot2 automaticamente ... esempio 
+bins histograms ... ... code here ...
+...
 
-
-... La parte grafica si \'e spostata dagli esempi a cplint\_r ...
+La libreria cplint delega la parte grafica all'interno di ogni esempio usando 
+c3js mentre in cplint\_r \'e la libreria stessa a gestire tutto (come piegato 
+prima).
 
 
 %%%%
@@ -511,7 +528,7 @@ pacchetti software per:
 \begin{itemize}
     \item l'interfaccia web SWISH,
     \item il daemon Rserve,
-    \item ed infine tutte le dipendenze necessarie di prolog ed R.
+    \item ed infine tutte le dipendenze necessarie di Prolog ed R.
 \end{itemize}
 
 Ora verr\'a spiegata la terminologia ed il procedimento.
@@ -553,12 +570,16 @@ del pacchetto. Queste vengono date in forma generica e quindi vanno adattate
 con qualche modifica al caso in uso.
 \end{itemize}
 
+Una volta definite le caratteritiche di base, si \'e passato alla scrittura dei
+pacchetti veri e propri. Si \'e deciso di iniziare con la
+distribuzione \emph{Arch Linux} per poi passare a \emph{Debian}.
+
 \section{Arch Linux}
 \emph{Arch Linux} \'e una distribuzione \emph{bleeding edge} e \emph{rolling 
 release}. Questo significa che i pacchetti sono sempre all'ultima versione 
-stabile e che la distribuzione non viene rilasciata con un numero di versione, 
-come accade per la maggior parte delle distribuzioni. Tutto questo \'e speigato 
-nella wiki ufficiale\cite{archLinux}:
+stabile e che la distribuzione non viene rilasciata come versione stabile, 
+cosa che accade per la maggior parte delle distribuzioni. Tutto questo \'e 
+speigato nella wiki ufficiale\cite{archLinux}:
 \begin{displayquote}
 Arch Linux \'e una distribuzione indipendente sviluppata per i686/x86-64, 
 abbastanza versatile ed adatta ad ogni ruolo. Il suo sviluppo si concentra 
@@ -572,14 +593,12 @@ rolling-release, Arch si sforza di rimanere all'avanguardia, e di solito offre
 le ultime versioni stabili della maggior parte dei software.
 \end{displayquote}
 Lo svantaggio principale di questo sistema \'e che il software distribuito 
-pu\'o non esssere sempre stabile in quanto non testato pienamente
+pu\'o non esssere sempre stabile in quanto non testato pienamente.
 
 \subsection{Struttura}
-Una volta definite le caratteritiche di base, si \'e passato alla scrittura dei 
-pacchetti veri e propri. Si \'e deciso di iniziare con la 
-distribuzione \emph{Arch Linux} e derivate, in quanto adotta un sistema di 
-pacchettizzazione relativamente semplice. Questo \'e simile al sistema 
-\emph{ports} di alcuni sistemi BSD\cite{portsLikeSystem}:
+Arch Linux adotta un sistema di pacchettizzazione relativamente semplice 
+che \'e simile al sistema \emph{ports} di alcuni sistemi 
+BSD\cite{portsLikeSystem}:
 \begin{displayquote}
 Ports \'e il sistema usato da FreeBSD per l'automazione della generazione di 
 pacchetti a partire dal codice sorgente. Il sistema usa un port per scaricare, 
@@ -595,17 +614,39 @@ Nei casi pi\'u semplici \'e sufficiente definire un file chiamato
 \texttt{PKGBUILD}. Questo contiene le istruzioni solo per fare il build del 
 pacchetto, di come copiare il contenuto nel \emph{filesystem} e di come 
 recuperare il software. Nel nostro caso \'e stato per\'o necessario aggiungere
-il file \texttt{.install}. Questo si occupa degli \emph{hook} per 
-l'installazione e la rimozione. Infine sono stati aggiunti i file per 
-\emph{Systemd} e gli script per avviare i daemon. Tutto questo \'e stato 
+il file \texttt{.install}. Questo si occupa degli \emph{hook}, cio\'e delle 
+azioni, per l'installazione e la rimozione. Infine sono stati aggiunti i file 
+per \emph{Systemd} e gli script per avviare i daemon. Tutto questo \'e stato 
 ripetuto per ogni pacchetto.
 
 \section{Debian e Ubuntu}
-Debian GNU/Linux \'e tra le prime distribuzioni mai create ed \'e tra le pi\'u 
-stabili considerate oggi. Ubuntiu \'e invece meno stabile, tuttavia ha a 
-disposizione pacchetti pi\'u recenti. 
+Debian GNU/Linux \'e tra le prime distribuzioni mai 
+create\cite{debianFirstDistro} ed 
+\'e tra le pi\'u stabili considerate oggi... cite ...
+ 
+\cite{debian}
+\begin{displayquote}
+Il Progetto Debian \'e una associazione di persone che ha come scopo comune la 
+creazione di un sistema operativo libero. Il sistema operativo che abbiamo 
+creato si chiama Debian.
 
-... Debian + Ubuntu description...
+[...]
+
+Certo, la cosa che la gente vuole \'e il software applicativo. Strumenti che 
+permettano loro di ottenere che sia fatto ci\'o che vogliono, dallo scrivere 
+documenti a gestire il lavoro ad eseguire giochi a scrivere altro software. 
+Debian si presenta con pi\'u di 43000 pacchetti (software precompilato messo 
+insieme in un formato adatto ad essere installato in maniera semplice sulla 
+propria macchina), un gestore di pacchetti (APT) e altri programmi di utilit\'a 
+che permettono di gestire migliaia di pacchetti su migliaia di computer con la 
+stessa semplicità con cui si installa un'applicazione. Tutto completamente 
+free. 
+\end{displayquote}
+
+Ubuntu \'e invece meno stabile, tuttavia ha a
+disposizione pacchetti pi\'u recenti.
+
+... Ubuntu description...
 
 \subsection{Struttura}
 Il procedimento descritto nella sezione~\ref{pacchetto-e-gestore-di-pacchetti}
@@ -629,7 +670,7 @@ Come accennato all'inizio del capitolo~\ref{ch:pacchetti-per-le-varie-distribuzi
 i pacchetti software creati comprendono SWISH, l'ambiente R, e tutto il 
 necessario.
 
-Per Arch Linux sono stati scritti il maggiorn numero di pacchetti:
+Per Arch Linux sono stati scritti il maggior numero di pacchetti:
 \begin{itemize}
     \item \texttt{swish}: installa la versione ufficiale di SWISH, che non 
 contiene modifiche
@@ -654,18 +695,17 @@ di SWISH hanno messo a disposizione un file \emph{zip}\cite{SWISHwebDepsZip}
 con tutti gli strumenti precompilati. \'E sufficiente quindi usare questi ed 
 \'e proprio quello che fa \texttt{swish-cplint-bin}:
 \begin{displayquote}
+[...]
 As installing node and bower is not a pleasure on all operating systems,
-you can also download  the  dependencies  as   a  single  zip  file from
-\texttt{http://www.swi-prolog.org/download/swish/swish-bower-components.zip}.
+you can also download the dependencies as a single zip file [...]
 Unpack the zip file, maintaining the directory structure, from the swish
 root directory to create the directory web/bower\_components.
 \end{displayquote}
 \end{itemize}
 
-Per Debian/Ubuntu, viste delle difficolt\'a spiegate nella 
+Per Debian/Ubuntu, viste alcune difficolt\'a spiegate nella 
 sezione~\ref{sec:problemi}, si \'e provveduto soltanto a scrivere 
-\texttt{rserve-sandbox-docker} e \texttt{swish-cplint}... Sarebbe possibile 
-completare "il lavoro" anche per gli altri pacchetti.
+\texttt{rserve-sandbox-docker} e \texttt{swish-cplint}.
 
 \section{Build e installazione dei pacchetti}
 Per gestire questa situazione complessa, per ogni distribuzione esiste un 
@@ -674,13 +714,23 @@ Quest'ultimo viene chiamato dal \texttt{Makefile} con parameteri diversi volta
 per volta. Entrambi si occupano di costruire automaticamente i pacchetti senza 
 che l'utente abbia alcuna conoscenza dei meccanismi interni. \'E sufficiente 
 infatti eseguire \mint{bash}|$ make| per costruire tutti i pacchetti 
-dispionibili.
-
-L'installazione avviene con \mint{bash}|$ makepkg -sri|
-per Arch e \mint{bash}|$ debuild -us -uc && dpkg -i| per Debian
+disponibili, mentre l'installazione avviene con \mint{bash}|$ makepkg -sri|
+per Arch e \mint{bash}|$ debuild -us -uc && dpkg -i| per Debian.
 
 \section{Distribuzione dei pacchetti}
-... I pacchetti sono stati distribuiti su AUR ...
+Alcune distribuzioni dispongono di repository per gli utenti. In questo modo 
+chiunque pu\'o mettere a disposizione pubblicamente i propri pacchetti.
+
+Arch Linux per esempio ha l'\emph{AUR}\cite{aur}
+\begin{displayquote}
+Arch User Repository (AUR) è un repository sostenuto dalla comunità per utenti 
+Arch. Contiene le descrizioni dei pacchetti (i PKGBUILD) che ti permettono di 
+compilare i sorgenti grazie al comando makepkg e quindi installarli con pacman. 
+AUR \'e stato creato per creare e scambiare pacchetti tra la comunità e per 
+aiutarne lo sviluppo, inclusi i pacchetti del repository community. Questo 
+documento spiega come accedere ed installare i pacchetti presenti in AUR. 
+\end{displayquote}
+
 
 \section{Problemi} \label{sec:problemi}
 \subsection{Debian}
@@ -701,16 +751,17 @@ non \'e fattibile poich\'e mancano ancora alcune librerie fondamentali. L'unico
 software che sembra funzionare correttamente \'e Rserve sandbox.
 
 Viste queste difficolt\'a si \'e deciso utilizzare una distribuzione derivata 
-da Ubuntu, chiamata \emph{Trisquel}. In questo caso, abilitando i PPA ... to 
-explain before ... di SWI Prolog, si \'e riuscito ad installare tutto con 
-minime difficolt\'a. Tuttavia \'e presente qualche problema che inibisce 
-l'accesso ad Rserve da SWISH.
+da Ubuntu, chiamata \emph{Trisquel}. In questo caso, abilitando i PPA di SWI 
+Prolog\cite{SWIPrologPPA}, si \'e riuscito ad installare tutto con minime 
+difficolt\'a. Tuttavia \'e presente qualche problema che inibisce l'accesso ad 
+Rserve da SWISH.
 
 \subsection{Alternative}
-... Tutto questo comporta il dover tener traccia di molti fattori
-all'aumentare del numero di distribuzioni supportate. Nell'ultimo periodo 
-stanno emergendo gestori di pacchetti che sono indipendenti dalla distribuzione 
-in uso e che dovrebbero semplificare anche la gestione delle dipendenze ...
+... Tutto il sistema spiegato fino ad ora comporta il dover tener traccia di 
+molti fattori all'aumentare del numero di distribuzioni supportate. Nell'ultimo 
+periodo stanno emergendo gestori di pacchetti che sono indipendenti dalla 
+distribuzione in uso e che dovrebbero semplificare anche la gestione delle 
+dipendenze (OBS, Flatpack, Snappy) ...
 
 
 %%%%
@@ -721,6 +772,7 @@ in uso e che dovrebbero semplificare anche la gestione delle dipendenze ...
 
 % Appendici.
 \appendix
+
 \chapter{qvm} \label{app:qvm}
 
     \begin{code}
