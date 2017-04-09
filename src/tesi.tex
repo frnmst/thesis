@@ -2,7 +2,7 @@
 \usepackage[margin=1in,a4paper]{geometry}
 \usepackage[italian]{babel}
 \usepackage{lmodern}
-\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage{graphics,url,amsfonts,epsfig,hyperref,float,listings}
 \usepackage{caption}
 \usepackage{minted}
@@ -66,7 +66,7 @@
 \iffalse
 
 \chapter{Indice provvisorio} \label{Indice provvisorio}
-L'oggetto di questa tesi \'e spiegare come \'e avvenuta l'integrazione di 
+L'oggetto di questa tesi è spiegare come è avvenuta l'integrazione di 
 componenti per la statistica per l'applicazione "SWISH" in particolare
 per quel che riguarda
 \begin{itemize}
@@ -88,11 +88,11 @@ Possibili capitoli:
             \begin{enumerate}
                 \item Antergos + Parabola
                 \item Debian + Trisquel
-                \item speigare perch\'e 
+                \item speigare perché 
                       l'utilizzo di distro FSDG e non mainstrewam (free sw + 
                       super updated (Parabola)).
             \end{enumerate}
-        \item Perch\'e in macchina virtuale piuttosto che direttamente sul PC
+        \item perché in macchina virtuale piuttosto che direttamente sul PC
         \item Mio script qvm semplifica l'uso di qemu attraverso l'utilizzo di 
               backup del VHD, etc...
     \end{enumerate}
@@ -102,10 +102,10 @@ Possibili capitoli:
               (rserve-sandbox-docker) oltre che fornire un modo semplice per 
               installare l'interfaccia web (swish-cplint).
         \item Scrittura del pacchetto swish da swish-cplint
-        \item Linee guida da apllicare a tutte le distribuzioni: perch\'e e 
+        \item Linee guida da apllicare a tutte le distribuzioni: perché e 
               come funzionano.
-        \item pacchetti Debian e Ubuntu-like (Trisquel). Spiegare perch\'e \'e 
-              pi\'u fifficile fare qualcosa per questi sistemi (pacchetti 
+        \item pacchetti Debian e Ubuntu-like (Trisquel). Spiegare perché è 
+              più fifficile fare qualcosa per questi sistemi (pacchetti 
               obsoleti).
         \item pacchetti bin: nel caso non si riesca a compilare/scariare 
               qualcosa.
@@ -114,28 +114,28 @@ Possibili capitoli:
     \begin{enumerate}
         \item Libreria prolog che si interfaccia con R e che consente il plot 
               dei gafici.
-        \item Perch\'e ggplot2 (grammar of graphs)
+        \item perché ggplot2 (grammar of graphs)
         \item Metodo della libreria: Adattare i predicati della libreria cplint 
               ed adattarli alla nuova situazione, mantenendo i necessari e 
               creandone di nuovi (ovviamente solo quando necessario)
         \item Metodo degli esempi: copia file .pl in \_R.pl, adattamento per 
               usare la libreria, confronto con grafici originali in c3js
-        \item <cplint\_r include cplint direttamente perche' in cplint c'\'e la 
+        \item <cplint\_r include cplint direttamente perche' in cplint c'è la 
               parte dei conti matematici (ancora valida) mentre la parte di plot 
-              \'e presente in ogni esempio, quindi i predicati di cplint si 
+              è presente in ogni esempio, quindi i predicati di cplint si 
               possono chiamare direttamente facendo poche modifiche.
         \item Cose degne di nota: Come funziona il passaggio di valori da 
               prolog ad R (e viceversa): speigare gli helpers che ho scritto. 
     \end{enumerate}
     \item Esempi prolog slegati da cplint\_r
     \begin{enumerate}
-        \item Quali (gpr\_R.pl esempio pi\'u difficile da trasformare).
-        \item Perch\'e: es: perch\'e non si poteva usare cplint\_r
+        \item Quali (gpr\_R.pl esempio più difficile da trasformare).
+        \item perché: es: perché non si poteva usare cplint\_r
         \item Come
     \end{enumerate}
     \item Documentazione
     \begin{enumerate}
-        \item Perch\'e in texinfo: perch\'e permette di creare output in vari 
+        \item perché in texinfo: perché permette di creare output in vari 
               formati automaticamente.
     \end{enumerate}
     \item Conclusione
@@ -156,29 +156,29 @@ Possibili capitoli:
 
 \chapter{Descrizione dei principali componenti software} \label{ch:descrizione 
 dei-principali-componenti-software}
-Per migliorare l'iterfaccia web in questione \'e necessario spiegare il ruolo 
-dei pi\'u importanti software utilizzati.
+Per migliorare l'iterfaccia web in questione è necessario spiegare il ruolo 
+dei più importanti software utilizzati.
 
-\emph{SWI Prolog} \'e un interprete per la programmazione 
+\emph{SWI Prolog} è un interprete per la programmazione 
 logica\cite{swiprolog}, come suggersice il nome\cite{prolog}
 
 La piattaforma \emph{SWISH}\cite{SWISH} viene usata per la programmazione 
 logica attraverso un qualunque web browser dotato di Javascript. Questa 
-\'e collegata direttamente all'interprete SWI Prolog ed \'e accessibile da 
+è collegata direttamente all'interprete SWI Prolog ed è accessibile da 
 shell con il comando \texttt{swipl}.
 
-\emph{Cplint on SWISH} \'e una versione modificata di SWISH che include la 
+\emph{Cplint on SWISH} è una versione modificata di SWISH che include la 
 libreria \emph{cplint}, la quale permette di formulare inferenze e 
 compiere processi di apprendimento\cite{cplint}.
 
-\emph{R} \'e un ambiente software dedicato alla statistica e 
+\emph{R} è un ambiente software dedicato alla statistica e 
 alla rappresentazione grafica di dati\cite{r}.
 
-\emph{ggplot2} \'e un pacchetto R che permette di fare plot usando la 
-cosiddetta \emph{grammatica dei grafici}, cio\'e la divisione per contesti dei 
+\emph{ggplot2} è un pacchetto R che permette di fare plot usando la 
+cosiddetta \emph{grammatica dei grafici}, cioè la divisione per contesti dei 
 vari aspetti di un grafico (check this and cite...)
 
-\emph{Docker} \'e un software... che permette di eseguire 
+\emph{Docker} è un software... che permette di eseguire 
 \emph{containter} in modo isolato. ??? I container sono degli ambienti che 
 possono essere eseguiti su qualunque macchina in modo indipendente dalla 
 configurazione del sistema operativo in modo che il software 
@@ -193,9 +193,9 @@ funzioni sempre allo stesso modo???\cite{docker}
 
 \chapter{Preparazione}
 Per completare tutto il lavoro e testare le modifiche sui programmi man 
-mano, \'e stato necessario installare l'intera piattaforma sul computer. 
-Questo \'e stato possibile attraverso l'utilizzo di macchine virtuali 
-per ragioni di comodit\'a.
+mano, è stato necessario installare l'intera piattaforma sul computer. 
+Questo è stato possibile attraverso l'utilizzo di macchine virtuali 
+per ragioni di comodità.
 
 \section{Macchine virtuali}
 Per agevolare l'installazione ed il mantenimento della piattaforma web su una 
@@ -204,27 +204,27 @@ distribuzioni GNU/Linux diverse quali: Antergos, Parabola GNU/Linux-libre,
 Debian e Trisquel.
 
 \subsection{Qemu Virtual Machine}
-Utilizzando il programma \emph{QEMU}\cite{qemu} si \'e potuto scrivere uno 
+Utilizzando il programma \emph{QEMU}\cite{qemu} si è potuto scrivere uno 
 programma per 
 shell, \emph{qvm}, in modo da gestire facilmente tutti i casi d'uso che si 
-sono presentati\cite{qvm}. Questo si \'e rivelato molto utile per esempio per 
+sono presentati\cite{qvm}. Questo si è rivelato molto utile per esempio per 
 gestire i backup dei dischi rigidi virtuali. Infatti per testare nuovi 
-pacchetti e programmi \'e consigliabile partire sempre da un sistema pulito
+pacchetti e programmi è consigliabile partire sempre da un sistema pulito
 per evitare che precedenti installazioni possano alterare il funzionamento.
 Con qvm sono infatti sufficienti un paio di comandi per ripristinare il 
 backup e corregere l'errore.
 
-Lo script d\'a anche la possibilit\'a di condividere file fra la macchina host 
+Lo script dà anche la possibilità di condividere file fra la macchina host 
 e guest attraverso una semplice directory.
 
-Poich\'e l'interfaccia web di SWISH \'e accessibile attraverso un \emph{port} 
-ben definito (di default \emph{3050}), si \'e fatto in modo che tale port 
+poiché l'interfaccia web di SWISH è accessibile attraverso un \emph{port} 
+ben definito (di default \emph{3050}), si è fatto in modo che tale port 
 fosse accessibile dalla macchina host con il port \emph{5555}. Oltre a questo 
-\'e anche possibile l'accesso attraverso attraverso \emph{Secure 
-Shell} (\emph{SSH}). Mettendo insieme queste due caratteristiche non \'e 
+è anche possibile l'accesso attraverso attraverso \emph{Secure 
+Shell} (\emph{SSH}). Mettendo insieme queste due caratteristiche non è 
 neccessario avviare l'interfaccia grafica.
 
-Di seguito \'e riportata l'opzione di aiuto, mentre lo script si trova 
+Di seguito è riportata l'opzione di aiuto, mentre lo script si trova 
 nell'appendice~\ref{app:qvm}.
 
 \begin{code}
@@ -258,16 +258,16 @@ Written in 2016 by Franco Masotti/frnmst <franco.masotti@student.unife.it>
 \end{code}
 
 \subsection{Installazione e avvio di una nuova macchina virtuale con qvm}
-La prima cosa da compiere \'e quella di ottenere l'immagine \emph{ISO} della 
+La prima cosa da compiere è quella di ottenere l'immagine \emph{ISO} della 
 distribuzione da installare.
 
 Successivamente si deve configurare il file \texttt{configvmrc} inserendo il 
 nome del file ISO.
 
-Poi \'e necessario eseguire \mint{bash}|$ ./qvm -c| per creare un nuovo 
+Poi è necessario eseguire \mint{bash}|$ ./qvm -c| per creare un nuovo 
 disco rigido virtuale, poi \mint{bash}|$ ./qvm -i| per l'installazione.
 
-Una volta terminata l'installazione si pu\'o aggiungere SSH sulla macchina 
+Una volta terminata l'installazione si può aggiungere SSH sulla macchina 
 guest oltre che aggiungere la seguente riga nel file \texttt{/etc/fstab} della 
 macchina virtuale in modo da aggiungere la directory condivisa:
 
@@ -278,8 +278,8 @@ host_share /home/<shared_directory_path> 9p noauto,x-systemd.automount,trans=vir
     \end{textcode*}
 \end{code}
 
-Ora si pu\'o creare un backup dell'hard disk virtuale con \mint{bash}|$ ./qvm 
--b| che nel caso fosse necessario rimuoverlo baster\'a fare \mint{bash}|$ ./qvm 
+Ora si può creare un backup dell'hard disk virtuale con \mint{bash}|$ ./qvm 
+-b| che nel caso fosse necessario rimuoverlo basterà fare \mint{bash}|$ ./qvm 
 -d|
 
 Successivamente si avvia la macchina virtuale con \mint{bash}|$ ./qvm -x| 
@@ -306,14 +306,14 @@ Infine, per collegarsi via SSH: \mint{bash}|$ ./qvm -a|
 
 \chapter{Gestire R da SWISH}
 \section{Funzionamento interno}
-Il supporto per R all'inteno di SWISH \'e ancora di recente implementazione, 
-quindi di solito la parte computazionale \'e affidata all'interprete Prolog, 
+Il supporto per R all'inteno di SWISH è ancora di recente implementazione, 
+quindi di solito la parte computazionale è affidata all'interprete Prolog, 
 mentre la parte grafica viene gestita dalla libreria c3js.
 
-Grazie ad alcuni programmi \'e per\'o possibile utilizzare i comandi 
+Grazie ad alcuni programmi è però possibile utilizzare i comandi 
 disponibili dell'interprete R direttamente da SWISH. Questo comporta due 
-differenze: in alcuni casi si pu\'o ottenere una maggiore 
-velocit\'a\cite{rFaster}:
+differenze: in alcuni casi si può ottenere una maggiore 
+velocità\cite{rFaster}:
 \begin{displayquote}
 [..] It turns out R does the job faster on a large number of integers
 than Prolog.  Why?  Once in R, the array is a simple C array of integers,
@@ -323,15 +323,15 @@ one-by-one and does rigid overflow checking and handling.
  
 ed il 
 fatto che il disegno 
-la computazione per il disegno dei grafici \'e fatta sul server e non sul 
+la computazione per il disegno dei grafici è fatta sul server e non sul 
 computer locale attraverso il browser.
  
-e la possibilit\'a di usare i sistemi di plot di R, come per esempio ggplot2 
-che si rivelano pi\'u precisi ... cite ... ...
+e la possibilità di usare i sistemi di plot di R, come per esempio ggplot2 
+che si rivelano più precisi ... cite ... ...
 
 Nel caso presente tutte le chiamate fatte da Prolog a R vengono passtate 
 attraverso un socket UNIX creato dal programma \emph{Rserve}\cite{rserve}. 
-Questo \'e stato configurato opportunamente per quanto riguarda la sicurezza 
+Questo è stato configurato opportunamente per quanto riguarda la sicurezza 
 in quanto viene eseguito all'interno di Docker e senza che venga esposta una 
 connessione di rete, come si vede nell'appendice~\ref{app:rserve-sandbox}.
 
@@ -340,10 +340,10 @@ connessione di rete, come si vede nell'appendice~\ref{app:rserve-sandbox}.
 \section{Scambiare i dati fra R e Prolog}
 Grazie ad una libreria di SWI Prolog chiamata 
 \emph{rserve\_client}\cite{rserveclient} 
-\'e possibile usare direttamente comandi di R facendo minime modifiche 
+è possibile usare direttamente comandi di R facendo minime modifiche 
 rispetto allo stesso codice usato nell'interprete R.
 
-Esistono due modalit\'a per usare i comandi di R all'interno di SWI Prolog:
+Esistono due modalità per usare i comandi di R all'interno di SWI Prolog:
 \begin{itemize}
     \item come Prolog term, usando l'operatore \texttt{<-} seguito dal comando R,
     \item oppure con una notazione chiamata \emph{quasi-quotation}
@@ -378,13 +378,13 @@ using a Prolog term.  Note that
     \end{prologcode*}
 \end{code}
 
-Come si vede nel primo caso \'e necessario fare qualche piccola modifica 
-rispetto all'originale R. Nel secondo caso invece \'e possibile gestire alcuni 
+Come si vede nel primo caso è necessario fare qualche piccola modifica 
+rispetto all'originale R. Nel secondo caso invece è possibile gestire alcuni 
 casi particolari che genererebbero errori oppure che non sarebbe possibile 
 possibile trasformare nel primo caso.
 
-Nella scrittura di cplint\_r si \'e anche trovato un caso non segnalato nella 
-documentazione in cui non \'e possibile trasformare un comando con la 
+Nella scrittura di cplint\_r si è anche trovato un caso non segnalato nella 
+documentazione in cui non è possibile trasformare un comando con la 
 notazione abbreviata, probabilmente per l'uso di istruzioni condizionali:
 
 \begin{code}
@@ -394,7 +394,7 @@ notazione abbreviata, probabilmente per l'uso di istruzioni condizionali:
     \end{rcode*}
 \end{code}
 
-Un'altro fattore importante \'e che ogni comando R inviato attraverso questo 
+Un'altro fattore importante è che ogni comando R inviato attraverso questo 
 sistema viene eseguito in un ambiente proprio. Le variabili devono essere 
 salvate in Prolog se sono usate successivamente.
 
@@ -403,7 +403,7 @@ Alcune funzioni disponibili nella libreria \emph{r\_swish} permettono il
 passaggio di valori tra Prolog ed R attraverso i \emph{data frame}. Questi sono 
 strutture, o meglio \emph{oggetti}, forniti da R che permettono di organizzare 
 i dati sotto forma tabulare. I data frame si rivelano anche efficienti per R 
-stesso.... cite ... In questo modo \'e anche possibile accedere ai valori di 
+stesso.... cite ... In questo modo è anche possibile accedere ai valori di 
 ciascuna colonna del data frame in questione.
 \mint{r}|df$x,df$y|.
 
@@ -414,7 +414,7 @@ ciascuna colonna del data frame in questione.
 
 
 \chapter{La libreria cplint\_r} \label{la-libreria-cplint-r}
-\emph{cplint\_r} \'e una libreria per SWI Prolog che fornisce un'interfaccia 
+\emph{cplint\_r} è una libreria per SWI Prolog che fornisce un'interfaccia 
 fra l'interprete Prolog ed R, in modo da poter graficare i risultati generati 
 dalla libreria cplint. Questo significa che cplint\_r si occupa esclusivamente 
 del disegno dei grafici. cplint\_r usa estensivamente la libreria ggplot2 per 
@@ -422,15 +422,15 @@ graficare. Questa fornisce risultati esteticamente migliori rispetto a quella
 fornita di default.
 
 \section{Descrizione dei tipi di predicati}
-cplint\_r \'e in grado di disegnare:
+cplint\_r è in grado di disegnare:
 \begin{itemize}
     \item istogrammi,
     \item grafici a barre,
-    \item e curve che rappresentano funzioni di densit\'a.
+    \item e curve che rappresentano funzioni di densità.
 \end{itemize}
 
 \section{Struttura}
-cplint\_r \'e composta da tre diversi tipi di predicati:
+cplint\_r è composta da tre diversi tipi di predicati:
 \begin{enumerate}
     \item I predicati che espongono un'interfaccia. Questi chiamano alcuni 
           predicati di cplint per quanto riguarda il calcolo dei risultati. 
@@ -468,22 +468,22 @@ geom_<something>(<Lists and/or other input>) :-
           all'interno delle funzioni grafiche.
 \end{enumerate}
 
-Per ogni insieme di valori si \'e deciso di usare un data frame diverso. In 
-questo modo \'e stato possibile aggregare pi\'u insiemi di valori quando 
+Per ogni insieme di valori si è deciso di usare un data frame diverso. In 
+questo modo è stato possibile aggregare più insiemi di valori quando 
 necessario. ... example + cite ...
 
 \section{La libreria come pacchetto}
-Come succede con altre librerie SWI Prolog, cplint\_r \'e distribuita sotto 
-forma di \emph{pack}, cio\'e pacchetto. Esiste infatti un gestore di pacchetti 
+Come succede con altre librerie SWI Prolog, cplint\_r è distribuita sotto 
+forma di \emph{pack}, cioè pacchetto. Esiste infatti un gestore di pacchetti 
 in modo che l'installazione di librerie risulti semplice ed uniforme: 
 \mint{prolog}|pack_install(cplint_r).|
 
-In questo modo \'e possibile avere a disposizione la libreria con 
+In questo modo è possibile avere a disposizione la libreria con 
 \mint{prolog}|use_module(library(cplint_r)).|
 
 Nel file di configurazione \texttt{pack.pl} che si trova al'interno del pack 
 sono elencate tutte le dipendenze, la versione della libreria, descrizioni, 
-ed altre informazioni di cplint\_r. Il gestore di pacchetti andr\'a a leggere 
+ed altre informazioni di cplint\_r. Il gestore di pacchetti andrà a leggere 
 questo file per installare il tutto in \texttt{\~/lib/pack/..../cplint\_r}
 
 Al momento dell'installazione cplint\_r esegue dei semplici 
@@ -494,8 +494,8 @@ degli-esempi-da-c3js-ad-r}
 ... Per prima cosa sono state fatte delle prove per vedere come fuzionava 
 prolog ed R ...
 
-Dopo aver definito le basi della libreria cplint\_r si \'e provveduto a 
-trasformare qualche esempio pi\'u semplice da c3js ad R. Infatti si \'e 
+Dopo aver definito le basi della libreria cplint\_r si è provveduto a 
+trasformare qualche esempio più semplice da c3js ad R. Infatti si è 
 dovuto cambiare una minima parte del codici, tranne in casi particolari, che 
 non hanno permesso di sfruttare completamente la 
 libreria cplint\_r. In questi casi si sono dovuti creare predicati specifici 
@@ -510,7 +510,7 @@ bins histograms ... ... code here ...
 ...
 
 La libreria cplint delega la parte grafica all'interno di ogni esempio usando 
-c3js mentre in cplint\_r \'e la libreria stessa a gestire tutto (come piegato 
+c3js mentre in cplint\_r è la libreria stessa a gestire tutto (come piegato 
 prima).
 
 
@@ -523,7 +523,7 @@ prima).
 \chapter{Pacchetti per le varie distribuzioni} 
 \label{ch:pacchetti-per-le-varie-distribuzioni}
 Per affrontare il problema dell'installazione di tutti i componenti di cui si 
-\'e parlato fino ad ora, si \'e resa quindi necessaria la creazione di vari 
+è parlato fino ad ora, si è resa quindi necessaria la creazione di vari 
 pacchetti software per:
 \begin{itemize}
     \item l'interfaccia web SWISH,
@@ -531,38 +531,38 @@ pacchetti software per:
     \item ed infine tutte le dipendenze necessarie di Prolog ed R.
 \end{itemize}
 
-Ora verr\'a spiegata la terminologia ed il procedimento.
+Ora verrà spiegata la terminologia ed il procedimento.
 
 \section{Pacchetto e gestore di pacchetti} \label{pacchetto-e-gestore-di-pacchetti}
-Un pacchetto software \'e una raccolta di istruzioni che permettono di 
+Un pacchetto software è una raccolta di istruzioni che permettono di 
 installare un programma in modo uniforme rispetto a tutti gli altri programmi 
-di un sistema. Questo \'e possibile grazie ad un \emph{gestore di 
+di un sistema. Questo è possibile grazie ad un \emph{gestore di 
 pacchetti}.
 
 Questi gestori hanno contribuito al successo delle distribuzioni GNU/Linux (ed 
-altre, per emepio BSD) perch\'e consentono a chiunque di installare un 
+altre, per emepio BSD) perché consentono a chiunque di installare un 
 programma senza aver conoscenza di metodi di compilazione oltre a rendere 
-l'installazione pi\'u veloce e meno prona a generare errori.
+l'installazione più veloce e meno prona a generare errori.
 
-In generale, per costruire un pacchetto software \'e necessario delineare prima 
+In generale, per costruire un pacchetto software è necessario delineare prima 
 alcune caratteristiche:
 \begin{itemize}
     \item Quali sono le dipendenze e come si relazionano tra di loro.
-    \item in che modo \'e necessario adattare il pacchetto in modo che funzioni 
-          con la specifica distribuzione; cio\'e quali \emph{helper} devono 
+    \item in che modo è necessario adattare il pacchetto in modo che funzioni 
+          con la specifica distribuzione; cioè quali \emph{helper} devono 
 essere creati e come.
-    \item Il software funziona cos\'i com'\'e oppure bisogna creare utenti, 
+    \item Il software funziona così com'è oppure bisogna creare utenti, 
 file, etc...
 \end{itemize}
 
-Poich\'e l'obbiettivo \'e stato quello di creare pacchetti per varie 
-distribuzioni \'e stato necessario un'ulteriore passaggio: separare le parti in 
+poiché l'obbiettivo è stato quello di creare pacchetti per varie 
+distribuzioni è stato necessario un'ulteriore passaggio: separare le parti in 
 comune che esistono tra le distribuzioni con le loro parti specifiche. In 
 questo caso le parti in comune comprendono:
 \begin{itemize}
     \item Gli script per avviare e fermare i daemon.
     \item Le istruzioni per installare i pacchetti Prolog.
-    \item Le configurazioni per i sistemi di init (nel caso in questiojne \'e 
+    \item Le configurazioni per i sistemi di init (nel caso in questiojne è 
 presente solo \emph{Systemd} ma si potrebbe generalizzare per qualunque 
 sistema).
     \item Le azioni da fare prima, durante e dopo l'intallazione e la rimozione 
@@ -570,102 +570,102 @@ del pacchetto. Queste vengono date in forma generica e quindi vanno adattate
 con qualche modifica al caso in uso.
 \end{itemize}
 
-Una volta definite le caratteritiche di base, si \'e passato alla scrittura dei
-pacchetti veri e propri. Si \'e deciso di iniziare con la
+Una volta definite le caratteritiche di base, si è passato alla scrittura dei
+pacchetti veri e propri. Si è deciso di iniziare con la
 distribuzione \emph{Arch Linux} per poi passare a \emph{Debian}.
 
 \section{Arch Linux}
-\emph{Arch Linux} \'e una distribuzione \emph{bleeding edge} e \emph{rolling 
+\emph{Arch Linux} è una distribuzione \emph{bleeding edge} e \emph{rolling 
 release}. Questo significa che i pacchetti sono sempre all'ultima versione 
 stabile e che la distribuzione non viene rilasciata come versione stabile, 
-cosa che accade per la maggior parte delle distribuzioni. Tutto questo \'e 
+cosa che accade per la maggior parte delle distribuzioni. Tutto questo è 
 speigato nella wiki ufficiale\cite{archLinux}:
 \begin{displayquote}
-Arch Linux \'e una distribuzione indipendente sviluppata per i686/x86-64, 
+Arch Linux è una distribuzione indipendente sviluppata per i686/x86-64, 
 abbastanza versatile ed adatta ad ogni ruolo. Il suo sviluppo si concentra 
-sulla semplicit\'a, il minimalismo e l'eleganza del codice. Arch \'e installato 
+sulla semplicità, il minimalismo e l'eleganza del codice. Arch è installato 
 come sistema di base minimale (configurato dall'utente) sul quale viene 
-costruito il proprio ambiente ideale, installando solo ci\'o che \'e necessario 
-in base alle proprie necessit\'a. Le GUI delle utility di configurazione non 
+costruito il proprio ambiente ideale, installando solo ciò che è necessario 
+in base alle proprie necessità. Le GUI delle utility di configurazione non 
 sono fornite ufficialmente e la maggior parte della configurazione del sistema viene 
 eseguita dalla Shell e da un editor di testo. Basata sul modello 
 rolling-release, Arch si sforza di rimanere all'avanguardia, e di solito offre 
 le ultime versioni stabili della maggior parte dei software.
 \end{displayquote}
-Lo svantaggio principale di questo sistema \'e che il software distribuito 
-pu\'o non esssere sempre stabile in quanto non testato pienamente.
+Lo svantaggio principale di questo sistema è che il software distribuito 
+può non esssere sempre stabile in quanto non testato pienamente.
 
 \subsection{Struttura}
 Arch Linux adotta un sistema di pacchettizzazione relativamente semplice 
-che \'e simile al sistema \emph{ports} di alcuni sistemi 
+che è simile al sistema \emph{ports} di alcuni sistemi 
 BSD\cite{portsLikeSystem}:
 \begin{displayquote}
-Ports \'e il sistema usato da FreeBSD per l'automazione della generazione di 
+Ports è il sistema usato da FreeBSD per l'automazione della generazione di 
 pacchetti a partire dal codice sorgente. Il sistema usa un port per scaricare, 
 scompattare, patchare, compilare e installare il software desiderato. Un port 
-\'e solo una piccola directory nel computer dell'utente, chiamata come il 
-corrispondente software che vi verr\'a installato, che contiene un po' di file 
+è solo una piccola directory nel computer dell'utente, chiamata come il 
+corrispondente software che vi verrà installato, che contiene un po' di file 
 con le istruzioni per scaricare ed installare il pacchetto dai sorgenti. Questo 
 rende possibile la generazione del pacchetto con un semplice \texttt{make} o 
 \texttt{make install clean} all'interno della directory port.
 \end{displayquote}
 
-Nei casi pi\'u semplici \'e sufficiente definire un file chiamato 
+Nei casi più semplici è sufficiente definire un file chiamato 
 \texttt{PKGBUILD}. Questo contiene le istruzioni solo per fare il build del 
 pacchetto, di come copiare il contenuto nel \emph{filesystem} e di come 
-recuperare il software. Nel nostro caso \'e stato per\'o necessario aggiungere
-il file \texttt{.install}. Questo si occupa degli \emph{hook}, cio\'e delle 
+recuperare il software. Nel nostro caso è stato però necessario aggiungere
+il file \texttt{.install}. Questo si occupa degli \emph{hook}, cioè delle 
 azioni, per l'installazione e la rimozione. Infine sono stati aggiunti i file 
-per \emph{Systemd} e gli script per avviare i daemon. Tutto questo \'e stato 
+per \emph{Systemd} e gli script per avviare i daemon. Tutto questo è stato 
 ripetuto per ogni pacchetto.
 
 \section{Debian e Ubuntu}
-Debian GNU/Linux \'e tra le prime distribuzioni mai 
+Debian GNU/Linux è tra le prime distribuzioni mai 
 create\cite{debianFirstDistro} ed 
-\'e tra le pi\'u stabili considerate oggi... cite ...
+è tra le più stabili considerate oggi... cite ...
  
 \cite{debian}
 \begin{displayquote}
-Il Progetto Debian \'e una associazione di persone che ha come scopo comune la 
+Il Progetto Debian è una associazione di persone che ha come scopo comune la 
 creazione di un sistema operativo libero. Il sistema operativo che abbiamo 
 creato si chiama Debian.
 
 [...]
 
-Certo, la cosa che la gente vuole \'e il software applicativo. Strumenti che 
-permettano loro di ottenere che sia fatto ci\'o che vogliono, dallo scrivere 
+Certo, la cosa che la gente vuole è il software applicativo. Strumenti che 
+permettano loro di ottenere che sia fatto ciò che vogliono, dallo scrivere 
 documenti a gestire il lavoro ad eseguire giochi a scrivere altro software. 
-Debian si presenta con pi\'u di 43000 pacchetti (software precompilato messo 
+Debian si presenta con più di 43000 pacchetti (software precompilato messo 
 insieme in un formato adatto ad essere installato in maniera semplice sulla 
-propria macchina), un gestore di pacchetti (APT) e altri programmi di utilit\'a 
+propria macchina), un gestore di pacchetti (APT) e altri programmi di utilità 
 che permettono di gestire migliaia di pacchetti su migliaia di computer con la 
 stessa semplicità con cui si installa un'applicazione. Tutto completamente 
 free. 
 \end{displayquote}
 
-Ubuntu \'e invece meno stabile, tuttavia ha a
-disposizione pacchetti pi\'u recenti.
+Ubuntu è invece meno stabile, tuttavia ha a
+disposizione pacchetti più recenti.
 
 ... Ubuntu description...
 
 \subsection{Struttura}
 Il procedimento descritto nella sezione~\ref{pacchetto-e-gestore-di-pacchetti}
-si \'e ripetuto anche per \emph{Debian} e \emph{Ubuntu}. Una delle pi\'u 
-importanti differenze rispetto ad Arch \'e che in questo caso \'e necessario 
-avere gi\'a scaricato il software prima di fare il build del pacchetto.
+si è ripetuto anche per \emph{Debian} e \emph{Ubuntu}. Una delle più 
+importanti differenze rispetto ad Arch è che in questo caso è necessario 
+avere già scaricato il software prima di fare il build del pacchetto.
 
 Deve essere creata una la directory \texttt{debian} nella directory principale 
 del codice sorgente. All'interno di questa verranno posti tutti file 
 necessari come \texttt{rules}, \texttt{control} e molti altri obbligatori e 
-facoltativi. Il file \texttt{rules} \'e un makefile che contiene istruzioni per 
-quanto riguarda la compilazione del pacchetto. Si pu\'o per esempio specificare 
-di incudere i file per Systemd poch\'e non viene fatto di default. Il file 
+facoltativi. Il file \texttt{rules} è un makefile che contiene istruzioni per 
+quanto riguarda la compilazione del pacchetto. Si può per esempio specificare 
+di incudere i file per Systemd poiché non viene fatto di default. Il file 
 \texttt{control} invece contiene informazioni sulle dipendenze, maintainer, 
 descrizioni, etc... 
 
 .. Brief APT + PPA descriptiion ...
 
-\section{Descrizione dei pacchetti e delle funzionalit\'a}
+\section{Descrizione dei pacchetti e delle funzionalità}
 Come accennato all'inizio del capitolo~\ref{ch:pacchetti-per-le-varie-distribuzioni}
 i pacchetti software creati comprendono SWISH, l'ambiente R, e tutto il 
 necessario.
@@ -674,26 +674,26 @@ Per Arch Linux sono stati scritti il maggior numero di pacchetti:
 \begin{itemize}
     \item \texttt{swish}: installa la versione ufficiale di SWISH, che non 
 contiene modifiche
-    \item \texttt{swish-cplint}: \'e una versione modificata che comprende 
+    \item \texttt{swish-cplint}: è una versione modificata che comprende 
 cplint e cplint\_r
     \item \texttt{rserve-sandbox-docker}: installa l'ambiente R che permette di 
-creare il socket gestito da Rserve. Questa \'e una dipendenza fondamentale di 
+creare il socket gestito da Rserve. Questa è una dipendenza fondamentale di 
 \texttt{swish-cplint}
     \item \texttt{swish-cplint-bin} e \texttt{rserve-sandbox-docker-bin}: 
 questi sono analoghi alle versioni non \emph{bin} per quanto riguarda le 
-funzionalit\'a. Quello che cambia \'e che i componenti pi\'u importanti sono 
-precompilati. Questo \'e stat o necessario poich\'e sia \texttt{swish-cplint}, 
+funzionalità. Quello che cambia è che i componenti più importanti sono 
+precompilati. Questo è stat o necessario poiché sia \texttt{swish-cplint}, 
 sia \texttt{rserve-sandbox-docker} sono basati su componenti che devono essere 
 scaricati da Internet nel momento della creazione dei pacchetti. Nel caso 
 qualche componente non fosse raggiungibile, l'installazione o qualche 
-funzionalit\'a fallirebbe. In particolare, \texttt{rserve-sandbox-docker-bin} 
+funzionalità fallirebbe. In particolare, \texttt{rserve-sandbox-docker-bin} 
 fa riferimento ad un immagine Docker precompilata e poi resa disponibile 
 attraverso un repository git. \texttt{swish-cplint-bin} invece contiene tante 
 dipendenze Javascript\cite{javascriptDepsSWISH} Queste sono sparse su molti 
 repository diversi. Come alternativa, gli sviluppatori 
 di SWISH hanno messo a disposizione un file \emph{zip}\cite{SWISHwebDepsZip} 
-con tutti gli strumenti precompilati. \'E sufficiente quindi usare questi ed 
-\'e proprio quello che fa \texttt{swish-cplint-bin}:
+con tutti gli strumenti precompilati. è sufficiente quindi usare questi ed 
+è proprio quello che fa \texttt{swish-cplint-bin}:
 \begin{displayquote}
 [...]
 As installing node and bower is not a pleasure on all operating systems,
@@ -703,8 +703,8 @@ root directory to create the directory web/bower\_components.
 \end{displayquote}
 \end{itemize}
 
-Per Debian/Ubuntu, viste alcune difficolt\'a spiegate nella 
-sezione~\ref{sec:problemi}, si \'e provveduto soltanto a scrivere 
+Per Debian/Ubuntu, viste alcune difficoltà spiegate nella 
+sezione~\ref{sec:problemi}, si è provveduto soltanto a scrivere 
 \texttt{rserve-sandbox-docker} e \texttt{swish-cplint}.
 
 \section{Build e installazione dei pacchetti}
@@ -712,21 +712,21 @@ Per gestire questa situazione complessa, per ogni distribuzione esiste un
 \texttt{Makefile} ed uno script shell chiamato \texttt{build\_pkg.sh}. 
 Quest'ultimo viene chiamato dal \texttt{Makefile} con parameteri diversi volta 
 per volta. Entrambi si occupano di costruire automaticamente i pacchetti senza 
-che l'utente abbia alcuna conoscenza dei meccanismi interni. \'E sufficiente 
+che l'utente abbia alcuna conoscenza dei meccanismi interni. è sufficiente 
 infatti eseguire \mint{bash}|$ make| per costruire tutti i pacchetti 
 disponibili, mentre l'installazione avviene con \mint{bash}|$ makepkg -sri|
 per Arch e \mint{bash}|$ debuild -us -uc && dpkg -i| per Debian.
 
 \section{Distribuzione dei pacchetti}
 Alcune distribuzioni dispongono di repository per gli utenti. In questo modo 
-chiunque pu\'o mettere a disposizione pubblicamente i propri pacchetti.
+chiunque può mettere a disposizione pubblicamente i propri pacchetti.
 
 Arch Linux per esempio ha l'\emph{AUR}\cite{aur}
 \begin{displayquote}
 Arch User Repository (AUR) è un repository sostenuto dalla comunità per utenti 
 Arch. Contiene le descrizioni dei pacchetti (i PKGBUILD) che ti permettono di 
 compilare i sorgenti grazie al comando makepkg e quindi installarli con pacman. 
-AUR \'e stato creato per creare e scambiare pacchetti tra la comunità e per 
+AUR è stato creato per creare e scambiare pacchetti tra la comunità e per 
 aiutarne lo sviluppo, inclusi i pacchetti del repository community. Questo 
 documento spiega come accedere ed installare i pacchetti presenti in AUR. 
 \end{displayquote}
@@ -734,11 +734,11 @@ documento spiega come accedere ed installare i pacchetti presenti in AUR.
 
 \section{Problemi} \label{sec:problemi}
 \subsection{Debian}
-Un'altro problema \'e che Debian ha a disposizione software che non \'e
-abbastanza recente per il caso in questione. Questo \'e vero sia che si 
+Un'altro problema è che Debian ha a disposizione software che non è
+abbastanza recente per il caso in questione. Questo è vero sia che si 
 utilizzi la versione \emph{stable} sia \emph{unstable}. Per quanto riguarda 
-SWISH \'e infatti necessario avere sempre l'ultima versione di SWI Prolog,
-come \'e descritto nella documentazione ufficiale \cite{lastestSWIProlog}:
+SWISH è infatti necessario avere sempre l'ultima versione di SWI Prolog,
+come è descritto nella documentazione ufficiale \cite{lastestSWIProlog}:
 \begin{displayquote}
 Install the latest  SWI Prolog development version. As SWISH is very much in 
 flux and depends on the recent SWI-Prolog pengines and sandboxing libraries, 
@@ -747,13 +747,13 @@ system from the current git development repository swipl-devel.git.
 \end{displayquote}
 
 Questo sarebbe possibile  soltanto ricompilando il software. Ma anche questo 
-non \'e fattibile poich\'e mancano ancora alcune librerie fondamentali. L'unico 
-software che sembra funzionare correttamente \'e Rserve sandbox.
+non è fattibile poiché mancano ancora alcune librerie fondamentali. L'unico 
+software che sembra funzionare correttamente è Rserve sandbox.
 
-Viste queste difficolt\'a si \'e deciso utilizzare una distribuzione derivata 
+Viste queste difficoltà si è deciso utilizzare una distribuzione derivata 
 da Ubuntu, chiamata \emph{Trisquel}. In questo caso, abilitando i PPA di SWI 
-Prolog\cite{SWIPrologPPA}, si \'e riuscito ad installare tutto con minime 
-difficolt\'a. Tuttavia \'e presente qualche problema che inibisce l'accesso ad 
+Prolog\cite{SWIPrologPPA}, si è riuscito ad installare tutto con minime 
+difficoltà. Tuttavia è presente qualche problema che inibisce l'accesso ad 
 Rserve da SWISH.
 
 \subsection{Alternative}
