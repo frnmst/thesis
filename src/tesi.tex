@@ -421,23 +421,30 @@ non si utilizzi l'interfaccia grafica sulla macchina guest.
 
 Infine, per collegarsi via SSH: \mint{bash}|$ ./qvm -a|
 
-
-... Picture/Schematic here ...
-
-.--------.Host
-| 5555 2222  |
-| ------ |
-| |3050| 22 |  
-| ------ |
-| guest  |
-.--------.
+\begin{figure}[H]
+\centering
+\caption{Schema relazione tra i port della macchina host e guest}
+\begin{tikzpicture}
+    \draw[thick] 
+(-5,5) -- node[align=left, below]{Host \\ SWISH: 5555 \\ SSH: 2222}
+(5,5) -- 
+(5,-5) -- 
+(-5,-5) --
+cycle;
+    \draw[thick]
+(-3,1) -- node[align=left, below]{Guest \\ SWISH: 3050 \\ SSH: 22}
+(4,1) --
+(4,-4) --
+(-3, -4) --
+cycle;
+\end{tikzpicture}
+\end{figure}
 
 
 %%%%
 %%%%
 %%%%
 %%%%
-
 
 
 \chapter{Pacchetti per le varie distribuzioni} 
