@@ -1,3 +1,9 @@
+*.pdf
+*.pl
+*qvm
+*Rserv.conf
+*configvmrc
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
