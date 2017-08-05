@@ -173,9 +173,12 @@ funzioni sempre allo stesso modo???\cite{docker}
 %%%%
 
     \section{R}
-R è ...
+R è un ambiente software per il calcolo statistico e la 
+visuallizzazione grafica. Con il termine R si definisce l'interprete
+mentre con S il linguaggio di programmazione.
 
-...R mette a disposizioni strutture dati chiamate oggetti...
+Come molti linguaggi di programmazione, R mette a disposizione strutture dati 
+chiamate oggetti...
 
         \subsection{I data frame}
 Alcune funzioni disponibili nella libreria \emph{r\_swish} permettono il 
@@ -190,12 +193,13 @@ ciascuna colonna del data frame in questione.
 %%%%
 
     \section{rserve\_client}
-Il supporto per R all'inteno di SWISH è ancora di recente implementazione, 
-quindi di solito la parte computazionale è affidata all'interprete Prolog, 
-mentre la parte grafica viene gestita dalla libreria c3js.
-
-La libreria rserve\_client permette di utilizzare  i comandi 
-disponibili dell'interprete R direttamente da SWISH.
+La libreria rserve\_client permette di utilizzare i comandi 
+disponibili dell'interprete R direttamente da SWISH poiché il supporto per R 
+all'interno di SWISH è ancora di recente implementazione. 
+Di solito quindi la parte computazionale viene affidata all'interprete Prolog, 
+mentre la parte grafica viene gestita dalla libreria c3js. Con questa libreria
+invece sia la parte grafica sia quella computazionale sono passate eseguite
+da R e visualizzate da SWISH.
 
         \subsection{Funzionamento interno}
 L'utilizzo di R rispetto a Javascript comporta due 
