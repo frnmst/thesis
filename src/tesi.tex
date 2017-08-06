@@ -179,23 +179,41 @@ TODO
     \section{R}
 R è un ambiente software per il calcolo statistico e la 
 visuallizzazione grafica. Con il termine R si definisce l'interprete
-mentre con S il linguaggio di programmazione.
+dei comandi mentre con S il linguaggio di programmazione. R comprende anche un 
+gestore di pacchetti attraverso il quale si possono installare facilmente
+funzioni utili non comprese in R stesso.
 
         \subsection{Comandi}
-TODO
+L'assegnazione di un valore di una variabile avviene con il 
+comando \mint{r}|<- c(<qualcosa>)|, dove "c" serve a concatenare valori.
+... cite: Page 13, Par 2.1 R-intro.pdf ...
 
         \subsection{Oggetti}
 Come molti linguaggi di programmazione, R mette a disposizione strutture dati 
-chiamate oggetti...
+chiamate oggetti. Questi possono essere variabili, array di numeri, stringhe, 
+funzioni e qualunque cosa derivata da queste ... cite: Page 11, Par 11.1 
+R-intro.pdf ...
 
-        \subsection{I data frame}
+        \subsection{Le liste}
+In R le liste sono una collezione ordinata di oggetti, qui chiamati anche 
+componenti, che possono essere di tipo diverso tra di loro. Con queste liste si 
+ha la possibilità di accedere direttamente alle componenti sia attraverso il 
+principio dell'indicizzazione, sia attraverso l'uso della notezione 
+\mint{r}|lista$componente|.
+... cite: Page 32, Par 6.1, R-intro.pdf ....
+
+        \subsection{Dalle liste ai data frame}
 Alcune funzioni disponibili nella libreria \emph{r\_swish} permettono il 
-passaggio di valori tra Prolog ed R attraverso i \emph{data frame}. Questi sono 
-strutture, o meglio \emph{oggetti}, forniti da R che permettono di organizzare 
-i dati sotto forma tabulare. I data frame si rivelano anche efficienti per R 
-stesso.... cite ... In questo modo è anche possibile accedere ai valori di 
-ciascuna colonna del data frame in questione.
-\mint{r}|df$x,df$y|.
+passaggio di valori tra Prolog ed R attraverso i \emph{data frame}. Questi 
+sono un tipo particolare di \emph{oggetti} che permettono 
+di organizzare i dati sotto forma matriciale. ... cite Page 18, Par 2.8, 
+R-intro.pdf... 
+I data frame in R sono definiti come specializzazione della classe lista.
+Rispetto ad una lista, infatti, esistono delle restrizioni...
+
+I data frame si rivelano anche efficienti per R stesso.... cite ...
+
+... cite: Page 27, Par 6.3.1, R-intro.pdf ...
 
 %%%%
 %%%%
@@ -913,3 +931,4 @@ TODO
 \bibliography{ref}
 
 \end{document}
+z
