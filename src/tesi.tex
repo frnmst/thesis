@@ -128,7 +128,17 @@ ed utilizzano un pacchetto R chiamato \emph{ggplot2}. Questo permette di
 disegnare gafici standard permettendo allo sviluppatore di definire soltanto 
 quali sono i dati ed occupandosi della parte grafica. Infatti permette di fare 
 plot usando la cosiddetta \emph{grammatica dei grafici}, cioè la divisione per 
-contesti dei vari aspetti di un grafico ...check this and cite...
+contesti dei vari aspetti di un grafico come per esempio la geometria, la 
+scala, la rappresentazione estetica, ecc... \cite{grammarOfGraphics} 
+\cite{ggplot2}
+
+\begin{displayquote}
+ggplot2 is a plotting system for R, based on the grammar of graphics, which 
+tries to take the good parts of base and lattice graphics and none of the bad 
+parts. It takes care of many of the fiddly details that make plotting a hassle 
+(like drawing legends) as well as providing a powerful model of graphics that 
+makes it easy to produce complex multi-layered graphics.
+\end{displayquote}
 
         \subsection{Semplificazione dell'installazione}
 Per semplificare l'installazione e per renderla uniforme a quella di qualunque 
@@ -162,15 +172,32 @@ Detailed description of
 %%%%
 
     \section{Docker}
-\emph{Docker} è un software libero che permette di eseguire applicazioni 
-all'interno di ambienti isolati chiamati
-\emph{containter}. Questi container sono degli ambienti che 
-possono essere eseguiti su qualunque macchina in modo indipendente dalla 
-configurazione del sistema operativo in modo che il software 
-funzioni sempre allo stesso modo???\cite{docker}
+\emph{Docker} è un implementazione di una virtualizzazione a livello di sistema 
+operativo. Questo significa che è possibile l'esistenza di molteplici istanze 
+isolate basate su utenti singoli. In Docker queste istanze sono chiamate 
+\emph{container}. Questi ambienti possono essere eseguiti su qualunque macchina 
+in modo indipendente dalla 
+configurazione del sistema operativo cosicché il software che è eseguito al 
+loro interno è garantito funzionare in modo affidabile e come lo 
+sviluppatore aveva inteso che 
+funzionasse.\cite{operatingSystemLevelVirtualization} \cite{docker}
+
+        \subsection{Immagini}
+Attraverso un documento di testo chiamato \emph{Dockerfile} è 
+possibile far aggiungere programmi, file e utenti per creare un'immagine
+...
+Quando si esegue un'immagine si ottiene un cotainer...
+La comunità di utilizzatori di Docker continua a creare nuove immagini ognuna 
+con un particolare utilizzo.
+... \cite{DockerfileReference}
 
         \subsection{Comandi}
-TODO
+docker build
+
+docker run
+
+docker stop
+...
 
 
 %%%%
@@ -238,10 +265,8 @@ causing a blindly fast addition.  The Prolog counterpart adds the numbers
 one-by-one and does rigid overflow checking and handling.
 \end{displayquote}
  
-ed il 
-fatto che il disegno 
-la computazione per il disegno dei grafici è fatta sul server e non sul 
-computer locale attraverso il browser.
+Inoltre, la computazione per il disegno dei grafici è fatta sul server e non 
+sul computer locale attraverso il browser.
  
 e la possibilità di usare i sistemi di plot di R, come per esempio ggplot2 
 che si rivelano più precisi ... cite ... ...
