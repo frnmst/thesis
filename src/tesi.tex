@@ -153,6 +153,7 @@ le interfaccie web, sia per la situazione descritta nella sezioni precedenti.
 
 
 \chapter{Architettura}
+TODO
 Detailed description of
     \section{SWISH}
     \section{Cplint on SWISH con supporto R}
@@ -174,22 +175,31 @@ Detailed description of
     \section{Docker}
 \emph{Docker} è un implementazione di una virtualizzazione a livello di sistema 
 operativo. Questo significa che è possibile l'esistenza di molteplici istanze 
-isolate basate su utenti singoli. In Docker queste istanze sono chiamate 
-\emph{container}. Questi ambienti possono essere eseguiti su qualunque macchina 
-in modo indipendente dalla 
-configurazione del sistema operativo cosicché il software che è eseguito al 
-loro interno è garantito funzionare in modo affidabile e come lo 
-sviluppatore aveva inteso che 
-funzionasse.\cite{operatingSystemLevelVirtualization} \cite{docker}
+di ambienti isolati basate su utenti singoli. Con Docker in particolare, 
+questi ambienti possono essere eseguiti su qualunque macchina in modo 
+indipendente dalla configurazione del sistema operativo ospite, a patto che i 
+kernel virtualizzato sia dello stesso tipo di quello ospite.. check this.... In 
+questo modo il software che è eseguito al loro interno è garantito funzionare 
+in modo affidabile e come lo sviluppatore aveva inteso che funzionasse.
+\cite{operatingSystemLevelVirtualization} \cite{docker}
 
         \subsection{Immagini}
-Attraverso un documento di testo chiamato \emph{Dockerfile} è 
-possibile far aggiungere programmi, file e utenti per creare un'immagine
-...
-Quando si esegue un'immagine si ottiene un cotainer...
+Attraverso un documento di testo chiamato \emph{Dockerfile}, Docker viene 
+istruito nel costruire un'\emph{immagine} che comprende un'insieme di 
+programmi, file, utenti e tutto ciò che è necessario allo svolgimento di
+un specifico compito.
+
+L'istanza di un immagine è chiamata \emph{container}.
+
 La comunità di utilizzatori di Docker continua a creare nuove immagini ognuna 
-con un particolare utilizzo.
-... \cite{DockerfileReference}
+con un particolare utilizzo. \cite{DockerfileReference} Partendo da queste 
+immagini è anche possibile costruirne di derivate ...cite and expand...
+
+Una volta costruita l'immagine è possibile anche distribuirla. Il vantaggio di 
+questo metodo è che l'utente finale è in grado di utilizzare subito l'immagine, 
+senza che possano sorgere problemi. Lo svantaggio tuttavia è che l'immagine può 
+essere anche molto grande (nell'ordine del Gigabyte) e quindi difficile da 
+distribuire con i mezzi di rete più noti.
 
         \subsection{Comandi}
 docker build
@@ -197,7 +207,8 @@ docker build
 docker run
 
 docker stop
-...
+
+TODO
 
 
 %%%%
@@ -213,13 +224,13 @@ funzioni utili non comprese in R stesso.
         \subsection{Comandi}
 L'assegnazione di un valore di una variabile avviene con il 
 comando \mint{r}|<- c(<qualcosa>)|, dove "c" serve a concatenare valori.
-... cite: Page 13, Par 2.1 R-intro.pdf ...
+\cite{rAssignmentOperator}
 
         \subsection{Oggetti}
 Come molti linguaggi di programmazione, R mette a disposizione strutture dati 
 chiamate oggetti. Questi possono essere variabili, array di numeri, stringhe, 
-funzioni e qualunque cosa derivata da queste ... cite: Page 11, Par 11.1 
-R-intro.pdf ...
+funzioni e qualunque cosa derivata da queste.
+\cite{rObject}
 
         \subsection{Le liste}
 In R le liste sono una collezione ordinata di oggetti, qui chiamati anche 
@@ -227,20 +238,18 @@ componenti, che possono essere di tipo diverso tra di loro. Con queste liste si
 ha la possibilità di accedere direttamente alle componenti sia attraverso il 
 principio dell'indicizzazione, sia attraverso l'uso della notezione 
 \mint{r}|lista$componente|.
-... cite: Page 32, Par 6.1, R-intro.pdf ....
+\cite{rList}
 
         \subsection{Dalle liste ai data frame}
 Alcune funzioni disponibili nella libreria \emph{r\_swish} permettono il 
 passaggio di valori tra Prolog ed R attraverso i \emph{data frame}. Questi 
 sono un tipo particolare di \emph{oggetti} che permettono 
-di organizzare i dati sotto forma matriciale. ... cite Page 18, Par 2.8, 
-R-intro.pdf... 
+di organizzare i dati sotto forma matriciale. ...
 I data frame in R sono definiti come specializzazione della classe lista.
 Rispetto ad una lista, infatti, esistono delle restrizioni...
 
 I data frame si rivelano anche efficienti per R stesso.... cite ...
-
-... cite: Page 27, Par 6.3.1, R-intro.pdf ...
+\cite{rDataFrame}
 
 %%%%
 %%%%
