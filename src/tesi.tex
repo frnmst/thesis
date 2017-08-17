@@ -111,25 +111,26 @@ Questo è accessibile da shell con il comando \texttt{swipl}.
     \section{Obbiettivi}
 L'obbiettivo di questa tesi è quello di illustrare come includere l'accesso di 
 R da parte di Cplint on SWISH, oltre che di descrivere i predicati Prolog che 
-disegnano grafici standard per Cplint. Si spiegherà infine come si \'e 
+disegnano grafici standard per Cplint. Si spiegherà infine come si è 
 semplificata l'installazione di questo ambiente software.
 
         \subsection{Accesso di R da Cplint on SWISH}
 Nativamente Prolog non è in grado di accedere all'interprete R. Esistono 
 tuttavia delle librerie che permettono di collegarsi all'interprete R
 attraverso un \emph{socket} fornito da R stesso. Per motivi di sicurezza 
-(\emph{privilege} escalation) il collegamento non può essere diretto ma deve 
+(\emph{privilege escalation}) il collegamento non può essere diretto ma deve 
 passare per un ambiente virtuale isolato chiamato Docker. Tutto questo però 
 complica notevolmente l'installazione.
 
         \subsection{Funzioni grafiche standardizzate}
-Queste funzioni grafiche sono alternative a quelle fornite dalla libreria c3js 
-ed utilizzano un pacchetto R chiamato \emph{ggplot2}. Questo permette di 
-disegnare gafici standard permettendo allo sviluppatore di definire soltanto 
-quali sono i dati ed occupandosi della parte grafica. Infatti permette di fare 
-plot usando la cosiddetta \emph{grammatica dei grafici}, cioè la divisione per 
-contesti dei vari aspetti di un grafico come per esempio la geometria, la 
-scala, la rappresentazione estetica, ecc... \cite{grammarOfGraphics} 
+Esitino funzioni grafiche che sono alternative a quelle fornite dalla libreria 
+c3js ed utilizzano invece un pacchetto R chiamato \emph{ggplot2}. Questo 
+permette di disegnare gafici standard permettendo allo sviluppatore di 
+stabilire soltanto quali sono i dati, ed occupandosi della parte grafica. 
+I plot sono definiti usando la cosiddetta \emph{grammatica dei 
+grafici}, cioè la divisione per contesti dei vari aspetti di un grafico come 
+per esempio la geometria, la scala, la rappresentazione estetica, ecc... 
+\cite{grammarOfGraphics} 
 \cite{ggplot2}
 
 \begin{displayquote}
@@ -143,7 +144,8 @@ makes it easy to produce complex multi-layered graphics.
         \subsection{Semplificazione dell'installazione}
 Per semplificare l'installazione e per renderla uniforme a quella di qualunque 
 altro programma si sono creati alcuni \emph{pacchetti software} sia per 
-le interfaccie web, sia per la situazione descritta nella sezioni precedenti.
+le interfaccie web, sia per gli altri programmi descritti nelle sezioni 
+precedenti.
 
 
 %%%%
@@ -174,10 +176,10 @@ Detailed description of
 
     \section{Docker}
 \emph{Docker} è un implementazione di una virtualizzazione a livello di sistema 
-operativo. Questo significa che è possibile l'esistenza di molteplici istanze 
-di ambienti isolati basate su utenti singoli. Con Docker in particolare, 
+operativo, cioé permette l'esistenza di molteplici istanze 
+di ambienti isolati basate su utenti separati. Con Docker in particolare, 
 questi ambienti possono essere eseguiti su qualunque macchina in modo 
-indipendente dalla configurazione del sistema operativo ospite, a patto che i 
+indipendente dalla configurazione del sistema operativo, a patto che i 
 kernel virtualizzato sia dello stesso tipo di quello ospite.. check this.... In 
 questo modo il software che è eseguito al loro interno è garantito funzionare 
 in modo affidabile e come lo sviluppatore aveva inteso che funzionasse.
@@ -187,29 +189,38 @@ in modo affidabile e come lo sviluppatore aveva inteso che funzionasse.
 Attraverso un documento di testo chiamato \emph{Dockerfile}, Docker viene 
 istruito nel costruire un'\emph{immagine} che comprende un'insieme di 
 programmi, file, utenti e tutto ciò che è necessario allo svolgimento di
-un specifico compito.
+un specifico compito. Le istruzoni nel documento di testo sono nella forma
+\mintinline{bash}{ISTRUZIONE_DOCKER argomento}. Per aggiungere utenti, 
+gruppi ed altre operazioni viene usata l'istruzione \textbf{RUN} seguita dal 
+percorso di una shell disponibile e infine dal comando che deve essere eseguito. Per 
+semplicità si può anche omettere la shell ne verrà usata una di default. Per 
+esempio \\
+\mintinline{shell}{RUN /bin/bash -c groupadd -g newgroupid groupname}
 
-L'istanza di un immagine è chiamata \emph{container}.
+Altri comandi importanti sono:
+\begin{itemize}
+    \item \textbf{CMD}, che stabilisce l'istruzione che deve essere 
+eseguita ad ogni avvio dell'immagine
+    \item \textbf{ENV}, che imposta variabili d'ambiente
+    \item \textbf{USER}, che effettua un cambio di utente per tutti i comandi che lo seguono
+    \item \textbf{WORKDIR}, che cambia directory al volo
+    \item \textbf{ADD}, che copia file nell'immagine
+\end{itemize}
 
-La comunità di utilizzatori di Docker continua a creare nuove immagini ognuna 
-con un particolare utilizzo. \cite{DockerfileReference} Partendo da queste 
-immagini è anche possibile costruirne di derivate ...cite and expand...
+Dopo aver costruito l'immagine con \mintinline{bash}{$ docker build <nome 
+immagine> .},
+la si può eseguire con \mintinline{bash}{$ docker run <nome immagine>}.
+L'istanza di un immagine è chiamata \emph{container} 
+\cite{DockerfileReference}.
 
-Una volta costruita l'immagine è possibile anche distribuirla. Il vantaggio di 
-questo metodo è che l'utente finale è in grado di utilizzare subito l'immagine, 
-senza che possano sorgere problemi. Lo svantaggio tuttavia è che l'immagine può 
-essere anche molto grande (nell'ordine del Gigabyte) e quindi difficile da 
-distribuire con i mezzi di rete più noti.
-
-        \subsection{Comandi}
-docker build
-
-docker run
-
-docker stop
-
-TODO
-
+Utilizzando i Dockerfile la comunità di utilizzatori di Docker continua a 
+creare e a distribuire nuove immagini precomilate ognuna con un particolare 
+utilizzo.
+Il vantaggio di questo metodo è che l'utente finale è in grado di utilizzare 
+subito l'immagine, senza che possano sorgere problemi nella fase di build. Lo 
+svantaggio tuttavia è che l'immagine può  essere anche molto grande 
+(nell'ordine del Gigabyte) e quindi difficile da distribuire con i mezzi di 
+rete più noti.
 
 %%%%
 %%%%
@@ -236,8 +247,8 @@ funzioni e qualunque cosa derivata da queste.
 In R le liste sono una collezione ordinata di oggetti, qui chiamati anche 
 componenti, che possono essere di tipo diverso tra di loro. Con queste liste si 
 ha la possibilità di accedere direttamente alle componenti sia attraverso il 
-principio dell'indicizzazione, sia attraverso l'uso della notezione 
-\mint{r}|lista$componente|.
+principio dell'indicizzazione, sia attraverso l'uso della notazione 
+\mintinline{r}{lista$componente}.
 \cite{rList}
 
         \subsection{Dalle liste ai data frame}
@@ -260,7 +271,7 @@ disponibili dell'interprete R direttamente da SWISH poiché il supporto per R
 all'interno di SWISH è ancora di recente implementazione. 
 Di solito quindi la parte computazionale viene affidata all'interprete Prolog, 
 mentre la parte grafica viene gestita dalla libreria c3js. Con questa libreria
-invece sia la parte grafica sia quella computazionale sono passate eseguite
+invece sia la parte grafica sia quella computazionale sono eseguite
 da R e visualizzate da SWISH.
 
         \subsection{Funzionamento interno}
@@ -960,9 +971,9 @@ TODO
 %%%%
 
 
-\bibliographystyle{plain}
+\bibliographystyle{unsrt}
+%\bibliographystyle{plain}
 % file names without the extension, comma separated.
 \bibliography{ref}
 
 \end{document}
-z
