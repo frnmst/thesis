@@ -3,6 +3,8 @@
 *qvm
 *Rserv.conf
 *configvmrc
+*Makefile.rserve
+*Dockerfile.in
 
 ## Core latex/pdflatex auxiliary files:
 *.aux

@@ -109,23 +109,25 @@ logica\cite{swiprolog}, come suggersice il nome\cite{prolog}.
 Questo è accessibile da shell con il comando \texttt{swipl}.
 
     \section{Obbiettivi}
-L'obbiettivo di questa tesi è quello di illustrare come includere l'accesso di 
-R da parte di Cplint on SWISH, oltre che di descrivere i predicati Prolog che 
-disegnano grafici standard per Cplint. Si spiegherà infine come si è 
+L'obbiettivo di questa tesi è quello di illustrare come 
+includere l'accesso ad R da parte di Cplint on SWISH, 
+oltre che di descrivere i predicati Prolog che disegnano 
+grafici standard per Cplint. Si spiegherà infine come si è 
 semplificata l'installazione di questo ambiente software.
 
-        \subsection{Accesso di R da Cplint on SWISH}
+        \subsection{Accesso ad R da Cplint on SWISH}
 Nativamente Prolog non è in grado di accedere all'interprete R. Esistono 
 tuttavia delle librerie che permettono di collegarsi all'interprete R
-attraverso un \emph{socket} fornito da R stesso. Per motivi di sicurezza 
-(\emph{privilege escalation}) il collegamento non può essere diretto ma deve 
-passare per un ambiente virtuale isolato chiamato Docker. Tutto questo però 
-complica notevolmente l'installazione.
+attraverso un \emph{socket} fornito da R stesso. Poiché stiamo utilizzando  
+un \emph{server web}, per avere meno problemi di sicurezza, quali ad esempio 
+\emph{privilege escalation}, il collegamento tra R e Prolog non può essere 
+diretto ma deve passare per un ambiente virtuale isolato chiamato Docker. 
+Tutto questo però complica notevolmente l'installazione.
 
         \subsection{Funzioni grafiche standardizzate}
 Esitino funzioni grafiche che sono alternative a quelle fornite dalla libreria 
 c3js ed utilizzano invece un pacchetto R chiamato \emph{ggplot2}. Questo 
-permette di disegnare gafici standard permettendo allo sviluppatore di 
+permette di disegnare gafici standard permettendo all'utente di 
 stabilire soltanto quali sono i dati, ed occupandosi della parte grafica. 
 I plot sono definiti usando la cosiddetta \emph{grammatica dei 
 grafici}, cioè la divisione per contesti dei vari aspetti di un grafico come 
@@ -160,8 +162,9 @@ Detailed description of
     \section{SWISH}
     \section{Cplint on SWISH con supporto R}
     \section{Installazione}
-        \subsection{Installazione automatica}
         \subsection{Installazione manuale}
+        \subsection{Installazione automatica}
+
 
 %%%%
 %%%%
@@ -272,7 +275,7 @@ all'interno di SWISH è ancora di recente implementazione.
 Di solito quindi la parte computazionale viene affidata all'interprete Prolog, 
 mentre la parte grafica viene gestita dalla libreria c3js. Con questa libreria
 invece sia la parte grafica sia quella computazionale sono eseguite
-da R e visualizzate da SWISH.
+da R e visualizzate con SWISH.
 
         \subsection{Funzionamento interno}
 L'utilizzo di R rispetto a Javascript comporta due 
@@ -295,7 +298,7 @@ Nel caso presente tutte le chiamate fatte da Prolog a R vengono passtate
 attraverso un socket UNIX creato dal programma \emph{Rserve}\cite{rserve}. 
 Questo è stato configurato opportunamente per quanto riguarda la sicurezza 
 in quanto viene eseguito all'interno di Docker e senza che venga esposta una 
-connessione di rete, come si vede nell'appendice~\ref{app:rserve-sandbox}.
+connessione di rete.
 
 \begin{figure}[H]
 \centering
@@ -333,6 +336,11 @@ cycle;
 (0,-2.5);
 \end{tikzpicture}
 \end{figure}
+
+\begin{code}
+    \caption{File di configurazione di Rserve}
+    \bashcodefile{Rserv.conf}
+\end{code}
 
 \subsection{Scambiare i dati fra R e Prolog}
 Grazie ad una libreria di SWI Prolog chiamata 
@@ -519,6 +527,18 @@ cycle;
 (1,-3.0);
 \end{tikzpicture}
 \end{figure}
+
+\begin{code}
+    \caption{Codice sorgente di qvm}
+    \bashcodefile{qvm}
+\end{code}
+
+\newpage
+
+\begin{code}
+    \caption{File di configurazione di qvm}
+    \bashcodefile{configvmrc}
+\end{code}
 
 
 %%%%
@@ -785,7 +805,7 @@ Rserve da SWISH.
 molti fattori all'aumentare del numero di distribuzioni supportate. Nell'ultimo 
 periodo stanno emergendo gestori di pacchetti che sono indipendenti dalla 
 distribuzione in uso e che dovrebbero semplificare anche la gestione delle 
-dipendenze (OBS, Flatpack, Snappy) ...
+dipendenze (OBS, Flatpack, Snap) ...
 
 
 %%%%
@@ -816,7 +836,8 @@ cplint\_r è composta da tre diversi tipi di predicati:
 \begin{enumerate}
     \item I predicati che espongono un'interfaccia. Questi chiamano alcuni 
           predicati di cplint per quanto riguarda il calcolo dei risultati. 
-Iniziano con gli stessi nomi di cplint e terminano con \texttt{\_r}.
+          Hanno gli stessi nomi di cplint con, in aggiunta, il suffisso 
+          \texttt{\_r}.
 
         \begin{code}
             \caption{Struttura dei predicati dell'interfaccia di cplint\_r}
@@ -869,7 +890,7 @@ In questo modo è possibile avere a disposizione la libreria con
 Nel file di configurazione \texttt{pack.pl} che si trova al'interno del pack 
 sono elencate tutte le dipendenze, la versione della libreria, descrizioni, 
 ed altre informazioni di cplint\_r. Il gestore di pacchetti andrà a leggere 
-questo file per installare il tutto in \texttt{\~/lib/pack/..../cplint\_r}
+questo file per installare il tutto in \texttt{\$HOME/lib/pack/..../cplint\_r}
 
 Al momento dell'installazione cplint\_r esegue dei semplici 
 test per verificare che la libreria stessa funzioni correttamente.
@@ -886,10 +907,9 @@ Dopo aver definito le basi della libreria cplint\_r si è provveduto a
 trasformare qualche esempio più semplice da c3js ad R. Infatti si è 
 dovuto cambiare una minima parte del codici, tranne in casi particolari, che 
 non hanno permesso di sfruttare completamente la 
-libreria cplint\_r. In questi casi si sono dovuti creare predicati specifici 
-per risolvere il problema, che non sarebbero utili all'interno di una 
-libreria. ... Si veda gpr\_R kalman\_filter\_R seven\_scientists\_R, etc... 
-...
+libreria cplint\_r. Per queste occasioni si sono dovuti creare predicati 
+specifici per risolvere il problema. 
+... Si veda gpr\_R kalman\_filter\_R seven\_scientists\_R, etc... 
 
 \section{Differenze rispetto a cplint}
 ...Esistono tuttavia alcune differenze rispetto a cplint, come ad esempio che 
@@ -898,8 +918,13 @@ bins histograms ... ... code here ...
 ...
 
 La libreria cplint delega la parte grafica all'interno di ogni esempio usando 
-c3js mentre in cplint\_r è la libreria stessa a gestire tutto (come piegato 
+c3js mentre in cplint\_r è la libreria stessa a gestire tutto (come spiegato 
 prima).
+
+\begin{code}
+    \caption{La libreria cplint\_r}
+    \prologcodefile{cplint_r.pl}
+\end{code}
 
 
 %%%%
@@ -921,49 +946,6 @@ TODO
 \chapter{Conclusioni}
 
 TODO
-
-%%%%
-%%%%
-%%%%
-%%%%
-
-
-% Appendici
-\appendix
-
-\chapter{qvm} \label{app:qvm}
-
-    \begin{code}
-        \caption{Codice sorgente di qvm}
-        \bashcodefile{qvm}
-    \end{code}
-
-    \newpage
-
-    \begin{code}
-        \caption{File di configurazione di qvm}
-        \bashcodefile{configvmrc}
-    \end{code}
-
-
-%%%%
-%%%%
-%%%%
-%%%%
-
-
-\chapter{Rserve sandbox} \label{app:rserve-sandbox}
-    \begin{code}
-        \caption{File di configurazione di Rserve}
-        \bashcodefile{Rserv.conf}
-    \end{code}
-
-\chapter{cplint\_r} \label{app:cplint-r}
-    \begin{code}
-        \caption{La libreria cplint\_r}
-        \prologcodefile{cplint_r.pl}
-    \end{code}
-
 
 %%%%
 %%%%
