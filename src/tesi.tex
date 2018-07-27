@@ -106,7 +106,6 @@ alla rappresentazione grafica di dati\cite{r}.
 
 \emph{SWI Prolog} è un interprete per la programmazione 
 logica\cite{swiprolog}, come suggersice il nome\cite{prolog}.
-Questo è accessibile da shell con il comando \texttt{swipl}.
 
     \section{Obbiettivi}
 L'obbiettivo di questa tesi è quello di illustrare come 
@@ -163,6 +162,13 @@ Detailed description of
     \section{Cplint on SWISH con supporto R}
     \section{Installazione}
         \subsection{Installazione manuale}
+L'installazione manuale consiste in vari passaggi:
+\begin{itemize}
+    \item nel cercare tutte le dipendenze software
+    \item come si installano
+    \item e quali altre azioni sono necessarie
+\end{itemize}
+    Vedere https://frnmst.github.io/swish-installer/swish-installer.html\#Rserve-sandbox-1
         \subsection{Installazione automatica}
 
 
@@ -343,6 +349,8 @@ cycle;
 \end{code}
 
 \subsection{Scambiare i dati fra R e Prolog}
+SWI Prolog è accessibile da shell con il comando \texttt{swipl}.
+
 Grazie ad una libreria di SWI Prolog chiamata 
 \emph{rserve\_client}\cite{rserveclient} 
 è possibile usare direttamente comandi di R facendo minime modifiche 
@@ -908,8 +916,7 @@ trasformare qualche esempio più semplice da c3js ad R. Infatti si è
 dovuto cambiare una minima parte del codici, tranne in casi particolari, che 
 non hanno permesso di sfruttare completamente la 
 libreria cplint\_r. Per queste occasioni si sono dovuti creare predicati 
-specifici per risolvere il problema. 
-... Si veda gpr\_R kalman\_filter\_R seven\_scientists\_R, etc... 
+specifici per risolvere il problema. Si vedano gli esempi.
 
 \section{Differenze rispetto a cplint}
 ...Esistono tuttavia alcune differenze rispetto a cplint, come ad esempio che 
@@ -935,7 +942,31 @@ prima).
 
 \chapter{Esempi}
 
-TODO
+- Che cosa è
+- Che cosa fa
+- Come lo fa.
+
+
+\section{Utilizzo di cplint\_r}
+Utilizzando solo cplint\_r
+
+
+\section{Casi particolari}
+Come detto precedentemente, sono state create alcune funzioni ad-hoc
+nei casi in cui non è stato possibile generalizzare.
+
+\subsection{gpr\_R}
+
+\subsection{kalman\_filter\_R} 
+
+\subsection{seven\_scientists\_R}
+- Funzione \code{geom\_bar} riga 63. Genera un "diagramma a barre" utilizzando 
+alcune funzioni definite in cplint\_r. Poichè abbiamo 7 elementi fissi sulle
+ascisse dobbiamo usare \code{numlist(1,7,X)}, una lista da e 
+\code{breaks=seq(0,7,1)}.
+Inoltre \code{breaks=seq(0,max(df\$val),2)} per imitare il comportamento della 
+versione c3js. CHECK.
+
 
 %%%%
 %%%%
