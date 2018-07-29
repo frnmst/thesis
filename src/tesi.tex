@@ -208,12 +208,12 @@ esempio \\
 
 Altri comandi importanti sono:
 \begin{itemize}
-    \item \textbf{CMD}, che stabilisce l'istruzione che deve essere 
+    \item \textbf{CMD}: stabilisce l'istruzione che deve essere 
 eseguita ad ogni avvio dell'immagine
-    \item \textbf{ENV}, che imposta variabili d'ambiente
-    \item \textbf{USER}, che effettua un cambio di utente per tutti i comandi che lo seguono
-    \item \textbf{WORKDIR}, che cambia directory al volo
-    \item \textbf{ADD}, che copia file nell'immagine
+    \item \textbf{ENV}: imposta variabili d'ambiente
+    \item \textbf{USER}: effettua un cambio di utente per tutti i comandi che lo seguono
+    \item \textbf{WORKDIR}: cambia directory
+    \item \textbf{ADD}: copia file nell'immagine
 \end{itemize}
 
 Dopo aver costruito l'immagine con \mintinline{bash}{$ docker build <nome 
@@ -222,7 +222,7 @@ la si può eseguire con \mintinline{bash}{$ docker run <nome immagine>}.
 L'istanza di un immagine è chiamata \emph{container} 
 \cite{DockerfileReference}.
 
-Utilizzando i Dockerfile la comunità di utilizzatori di Docker continua a 
+Utilizzando i dockerfile la comunità di utilizzatori di Docker continua a 
 creare e a distribuire nuove immagini precomilate ognuna con un particolare 
 utilizzo.
 Il vantaggio di questo metodo è che l'utente finale è in grado di utilizzare 
@@ -247,9 +247,9 @@ comando \mint{r}|<- c(<qualcosa>)|, dove "c" serve a concatenare valori.
 \cite{rAssignmentOperator}
 
         \subsection{Oggetti}
-Come molti linguaggi di programmazione, R mette a disposizione strutture dati 
-chiamate oggetti. Questi possono essere variabili, array di numeri, stringhe, 
-funzioni e qualunque cosa derivata da queste.
+Come molti altri linguaggi di programmazione, anche R mette a disposizione 
+strutture dati chiamate oggetti. Questi possono essere variabili, array di 
+numeri, stringhe, funzioni e qualunque cosa derivata da queste.
 \cite{rObject}
 
         \subsection{Le liste}
@@ -358,7 +358,8 @@ rispetto allo stesso codice usato nell'interprete R.
 
 Esistono due modalità per usare i comandi di R all'interno di SWI Prolog:
 \begin{itemize}
-    \item come Prolog term, usando l'operatore \texttt{<-} seguito dal comando R,
+    \item come \emph{Prolog term}, usando l'operatore \texttt{<-} seguito dal 
+comando R,
     \item oppure con una notazione chiamata \emph{quasi-quotation}
 \end{itemize}
 La documentazione di SWISH contiene un esempio per entrambi i 
@@ -879,9 +880,9 @@ geom_<something>(<Lists and/or other input>) :-
           all'interno delle funzioni grafiche.
 \end{enumerate}
 
-Per ogni insieme di valori si è deciso di usare un data frame diverso. In 
+?Per ogni insieme di valori si è deciso di usare un data frame diverso. In 
 questo modo è stato possibile aggregare più insiemi di valori quando 
-necessario. ... example + cite ...
+necessario. ... example + cite ...?
 
 %%%%
 %%%%
@@ -917,16 +918,6 @@ dovuto cambiare una minima parte del codici, tranne in casi particolari, che
 non hanno permesso di sfruttare completamente la 
 libreria cplint\_r. Per queste occasioni si sono dovuti creare predicati 
 specifici per risolvere il problema. Si vedano gli esempi.
-
-\section{Differenze rispetto a cplint}
-...Esistono tuttavia alcune differenze rispetto a cplint, come ad esempio che 
-una parte del lavoro viene fatto gestire da ggplot2 automaticamente ... esempio 
-bins histograms ... ... code here ...
-...
-
-La libreria cplint delega la parte grafica all'interno di ogni esempio usando 
-c3js mentre in cplint\_r è la libreria stessa a gestire tutto (come spiegato 
-prima).
 
 \begin{code}
     \caption{La libreria cplint\_r}
