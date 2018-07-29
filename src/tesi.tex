@@ -908,8 +908,8 @@ test per verificare che la libreria stessa funzioni correttamente.
 
 \section{Trasformazione degli esempi da c3js ad R} \label{sec:trasformazione-
 degli-esempi-da-c3js-ad-r}
-... Per prima cosa sono state fatte delle prove per vedere come fuzionava 
-prolog ed R ...
+Per applicare la nuova libreria cplint\_r a casi reali si sono trasformati 
+esempi da c3js ad R.
 
 Dopo aver definito le basi della libreria cplint\_r si è provveduto a 
 trasformare qualche esempio più semplice da c3js ad R. Infatti si è 
@@ -941,17 +941,13 @@ prima).
 
 
 \chapter{Esempi}
-
-- Che cosa è
-- Che cosa fa
-- Come lo fa.
-
+Di seguito vengono riportati i principali esempi di programmi trasformati dalla 
+versione c3js alla versione R.
 
 \section{Utilizzo di cplint\_r}
 Utilizzando solo cplint\_r
 
-
-\section{Casi particolari}
+\section{Casi particolari} \label{sec:case-particolari}
 Come detto precedentemente, sono state create alcune funzioni ad-hoc
 nei casi in cui non è stato possibile generalizzare.
 
@@ -960,12 +956,12 @@ nei casi in cui non è stato possibile generalizzare.
 \subsection{kalman\_filter\_R} 
 
 \subsection{seven\_scientists\_R}
-- Funzione \code{geom\_bar} riga 63. Genera un "diagramma a barre" utilizzando 
-alcune funzioni definite in cplint\_r. Poichè abbiamo 7 elementi fissi sulle
-ascisse dobbiamo usare \code{numlist(1,7,X)}, una lista da e 
-\code{breaks=seq(0,7,1)}.
-Inoltre \code{breaks=seq(0,max(df\$val),2)} per imitare il comportamento della 
-versione c3js. CHECK.
+Il predicato \texttt{geom\_bar/1}  genera un diagramma a barre 
+utilizzando alcune funzioni definite in cplint\_r. Poichè abbiamo 7 elementi 
+fissi sulle ascisse dobbiamo usare \texttt{numlist(1,7,X)}, una lista da 7 
+elementi e \texttt{breaks=seq(0,7,1)} per evidenziare i 7 prunti sul grafico.
+Si è inoltre usato \texttt{breaks=seq(0,max(df\$val),2)} per imitare il 
+comportamento della versione c3js.
 
 
 %%%%
