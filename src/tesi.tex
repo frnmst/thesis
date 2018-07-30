@@ -944,7 +944,14 @@ nei casi in cui non è stato possibile generalizzare.
 
 \subsection{gpr\_R}
 
-\subsection{kalman\_filter\_R} 
+\subsection{kalman\_filter\_R}
+Il predicato \texttt{geom\_densities/7} disegna contemporanemente
+due grafici in una sola figura grazie al pacchetto
+\texttt{gridExtra}\cite{gridExtra}. Nella versione c3js, invece, tutti i dati 
+sono rappresentati sullo stesso grafico.
+Il grafico superiore si riferisce a un insieme di osservazioni e di stati 
+?ricavati da previsioni?, mentre quello inferiore rappresenta 4 distribuzioni 
+di densità degli stati.
 
 \subsection{seven\_scientists\_R}
 Il predicato \texttt{geom\_bar/1}  genera un diagramma a barre 
@@ -953,6 +960,9 @@ fissi sulle ascisse dobbiamo usare \texttt{numlist(1,7,X)}, una lista da 7
 elementi e \texttt{breaks=seq(0,7,1)} per evidenziare i 7 prunti sul grafico.
 Si è inoltre usato \texttt{breaks=seq(0,max(df\$val),2)} per imitare il 
 comportamento della versione c3js.
+
+
+FOTO esempi versione c3js e R.
 
 
 %%%%
