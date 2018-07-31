@@ -937,12 +937,21 @@ versione c3js alla versione R.
 
 \section{Utilizzo di cplint\_r}
 Utilizzando solo cplint\_r
+TODO
 
 \section{Casi particolari} \label{sec:case-particolari}
 Come detto precedentemente, sono state create alcune funzioni ad-hoc
 nei casi in cui non è stato possibile generalizzare.
 
 \subsection{gpr\_R}
+In questo esempio vengono disegnate 3 funzioni che rappresentano 
+l'interpolazione dei valori della media in 10 punti, utilizzando un polinomio 
+di nono grado: \texttt{formula = "y ~ poly(x,degree=9)"}. Viene anche 
+rappresentato l'intervallo di confidenza dato dal percentile per la radice 
+quadrata della varianza, ad esempio: \texttt{ymin=c(df1\$y-(1.96*sqrt(df4\$y)))}
+Le error bar, invece, sono rappresentate in un intervallo di sigma:
+\texttt{Sigma is 0.3} \texttt{sigma <- Sigma} \texttt{ymin=c(df1\$y-sigma)}
+
 
 \subsection{kalman\_filter\_R}
 Il predicato \texttt{geom\_densities/7} disegna contemporanemente
@@ -955,11 +964,11 @@ di densità degli stati.
 
 \subsection{seven\_scientists\_R}
 Il predicato \texttt{geom\_bar/1}  genera un diagramma a barre 
-utilizzando alcune funzioni definite in cplint\_r. Poichè abbiamo 7 elementi 
-fissi sulle ascisse dobbiamo usare \texttt{numlist(1,7,X)}, una lista da 7 
-elementi e \texttt{breaks=seq(0,7,1)} per evidenziare i 7 prunti sul grafico.
-Si è inoltre usato \texttt{breaks=seq(0,max(df\$val),2)} per imitare il 
-comportamento della versione c3js.
+della media del valore dei campioni per ogni misurazione. Poichè 
+abbiamo 7 elementi fissi sulle ascisse dobbiamo usare \texttt{numlist(1,7,X)}, 
+una lista da 7 elementi e \texttt{breaks=seq(0,7,1)} per evidenziare i 7 
+prunti sul grafico. Si è inoltre usato \texttt{breaks=seq(0,max(df\$val),2)} 
+per imitare il comportamento della versione c3js.
 
 
 FOTO esempi versione c3js e R.
