@@ -28,6 +28,9 @@ RSERVE_SANDBOX_MAKEFILE=$(RSERVE_SANDBOX)/Makefile
 CPLINT_R=$(GITHUB_FRNMST_ROOT)/cplint_r/master
 CPLINT_R_PL=$(CPLINT_R)/prolog/cplint_r.pl
 
+SWISH=$(GITHUB_FRNMST_ROOT)/swish/master
+GPR_R_PL=$(SWISH)/examples/inference/gpr_R.pl
+
 default: compile
 
 all: default
@@ -51,6 +54,7 @@ getsourcefiles:
 	@curl -o cplint_r.pl $(CPLINT_R_PL)
 	@curl -o Dockerfile.in $(RSERVE_SANDBOX_DOCKERFILE_IN)
 	@curl -o Makefile.rserve $(RSERVE_SANDBOX_MAKEFILE)
+	@curl -o gpr_R.pl $(GPR_R_PL)
 
 # -shell-escape is necessary for minted
 compile: clean

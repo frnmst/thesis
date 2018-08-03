@@ -109,7 +109,7 @@ logica\cite{swiprolog}, come suggersice il nome\cite{prolog}.
 
     \section{Obbiettivi}
 L'obbiettivo di questa tesi è quello di illustrare come 
-includere l'accesso ad R da parte di Cplint on SWISH, 
+includere l'accesso ad R della libreria Cplint on SWISH, 
 oltre che di descrivere i predicati Prolog che disegnano 
 grafici standard per Cplint. Si spiegherà infine come si è 
 semplificata l'installazione di questo ambiente software.
@@ -168,9 +168,40 @@ L'installazione manuale consiste in vari passaggi:
     \item come si installano
     \item e quali altre azioni sono necessarie
 \end{itemize}
-    Vedere https://frnmst.github.io/swish-installer/swish-installer.html\#Rserve-sandbox-1
-        \subsection{Installazione automatica}
+Vedere https://frnmst.github.io/swish-installer/swish-installer.html\#Rserve-sandbox-1
 
+[...]
+
+Per prima cosa bisogna installare SWI Prolog e poi SWISH. SWI Prolog è di 
+solito è già pacchettizato dalle distribuzioni GNU/Linux, mentre SWISH
+no. [...]
+
+[...]
+
+Per l'utilizzo dell'ambiente R in rserve-sandbox è necessario l'interprete
+R, Docker.
+
+È necessario installare i pacchetti prolog \texttt{real}, \texttt{aleph} e
+\texttt{cplint\_r}.
+
+L'utente \texttt{rsd} (acronimo di rserve sandbox docker) è stato creato
+esclusivamente per l'interazione tra il daemon d Docker e il sistema, per 
+evitare problemi di sicurezza \cite{DockerPrivilegeEscalation0} 
+\cite{DockerPrivilegeEscalation1}.
+
+        \subsection{Installazione automatica}
+Per automatizzare tutti i precedenti passaggi è stato creato il repository
+\texttt{swish-cplint}. [...] L'installazione automatica avviene per mezzo di pacchetti software [...]
+
+L' installazione dei pacchetti prolog è codificata all'interno di 
+\texttt{install\_web\_iface\_deps.pl}
+
+Al tempo della creazione dei pacchetti è stato necessario creare alcuni
+script di avvio, quali \texttt{run.sh} e \texttt{run.pl} (una versione 
+modificata di run.pl distribuita nel repository originale).
+
+Vengono inoltre creati gli opportuni gruppi e utenti, descritti 
+precedentemente, necessari all'avvio dei daemons.
 
 %%%%
 %%%%
@@ -601,7 +632,7 @@ questo caso le parti in comune comprendono:
 \begin{itemize}
     \item Gli script per avviare e fermare i daemon.
     \item Le istruzioni per installare i pacchetti Prolog.
-    \item Le configurazioni per i sistemi di init (nel caso in questiojne è 
+    \item Le configurazioni per i sistemi di init (nel caso in questione è 
 presente solo \emph{Systemd} ma si potrebbe generalizzare per qualunque 
 sistema).
     \item Le azioni da fare prima, durante e dopo l'intallazione e la rimozione 
@@ -936,8 +967,8 @@ Di seguito vengono riportati i principali esempi di programmi trasformati dalla
 versione c3js alla versione R.
 
 \section{Utilizzo di cplint\_r}
-Utilizzando solo cplint\_r
-TODO
+TODO: Riportare un paio di brevi esempi, codice
+
 
 \section{Casi particolari} \label{sec:case-particolari}
 Come detto precedentemente, sono state create alcune funzioni ad-hoc
@@ -970,6 +1001,11 @@ una lista da 7 elementi e \texttt{breaks=seq(0,7,1)} per evidenziare i 7
 prunti sul grafico. Si è inoltre usato \texttt{breaks=seq(0,max(df\$val),2)} 
 per imitare il comportamento della versione c3js.
 
+
+\begin{code}
+    \caption{L'esempio gpr\_R.pl}
+    \prologcodefile{gpr_R.pl}
+\end{code}
 
 FOTO esempi versione c3js e R.
 
