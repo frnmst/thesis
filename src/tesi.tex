@@ -184,8 +184,8 @@ R, Docker.
 È necessario installare i pacchetti prolog \texttt{real}, \texttt{aleph} e
 \texttt{cplint\_r}.
 
-L'utente \texttt{rsd} (acronimo di rserve sandbox docker) è stato creato
-esclusivamente per l'interazione tra il daemon d Docker e il sistema, per 
+L'utente \texttt{rsd}, acronimo di \emph{rserve sandbox docker} è stato creato
+esclusivamente per l'interazione tra il daemon di Docker e il sistema, per 
 evitare problemi di sicurezza \cite{DockerPrivilegeEscalation0} 
 \cite{DockerPrivilegeEscalation1}.
 
@@ -963,11 +963,20 @@ specifici per risolvere il problema. Si vedano gli esempi.
 
 
 \chapter{Esempi}
-Di seguito vengono riportati i principali esempi di programmi trasformati dalla 
-versione c3js alla versione R.
 
-\section{Utilizzo di cplint\_r}
-TODO: Riportare un paio di brevi esempi, codice
+\section{Utilizzo esclusivo di cplint\_r}
+Di seguito è riportato un confronto tra un esempio scritto
+con cplint e lo stesso scritto con cplint\_r.
+
+\begin{code}
+    \caption{coinmsw.pl}
+    \prologcodefile{coinmsw.pl}
+\end{code}
+\begin{code}
+    \caption{coinmsw\_R.pl}
+    \prologcodefile{coinmsw_R.pl}
+\end{code}
+
 
 
 \section{Casi particolari} \label{sec:case-particolari}
