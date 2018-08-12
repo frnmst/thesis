@@ -156,8 +156,7 @@ precedenti.
 
 
 \chapter{Architettura}
-TODO
-Detailed description of
+Di seguito, descrizione dettagliata di:
     \section{SWISH}
     \section{Cplint on SWISH con supporto R}
     \section{Installazione}
@@ -165,29 +164,34 @@ Detailed description of
 L'installazione manuale consiste in vari passaggi:
 \begin{itemize}
     \item nel cercare tutte le dipendenze software
-    \item come si installano
-    \item e quali altre azioni sono necessarie
+    \item come queste si installano
+    \item e infine quali altre azioni sono necessarie
 \end{itemize}
 Vedere https://frnmst.github.io/swish-installer/swish-installer.html\#Rserve-sandbox-1
 
-[...]
+Per prima cosa bisogna installare SWI Prolog. SWI Prolog è di 
+solito è già pacchettizato per le distribuzioni GNU/Linux.
 
-Per prima cosa bisogna installare SWI Prolog e poi SWISH. SWI Prolog è di 
-solito è già pacchettizato dalle distribuzioni GNU/Linux, mentre SWISH
-no. [...]
+Successivamente bisogna installare SWISH. In questo caso però non ne 
+esistono versioni pacchettizate. Vedere anche
+https://github.com/SWI-Prolog/swish\#local-installation
+Pe fare questo il programma Bower \cite{bower}, servirà ad installare
+tutte le dipendenze necessarie per l'interfaccia web.
 
-[...]
+~
 
 Per l'utilizzo dell'ambiente R in rserve-sandbox è necessario l'interprete
-R, Docker.
-
-È necessario installare i pacchetti prolog \texttt{real}, \texttt{aleph} e
-\texttt{cplint\_r}.
-
+R e un ambiente Docker configurato opportunamente.
 L'utente \texttt{rsd}, acronimo di \emph{rserve sandbox docker} è stato creato
 esclusivamente per l'interazione tra il daemon di Docker e il sistema, per 
 evitare problemi di sicurezza \cite{DockerPrivilegeEscalation0} 
-\cite{DockerPrivilegeEscalation1}.
+\cite{DockerPrivilegeEscalation1}. L'utente \texttt{rserve} invece è 
+direttamente legato ad rserve. TODO [...]
+
+~
+
+È necessario installare i pacchetti SWI Prolog chiamati: \texttt{real}, 
+\texttt{aleph} e \texttt{cplint\_r}.
 
         \subsection{Installazione automatica}
 Per automatizzare tutti i precedenti passaggi è stato creato il repository
