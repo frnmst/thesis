@@ -95,11 +95,11 @@ sono utilizzati.
 
 La piattaforma \emph{SWISH}\cite{SWISH} viene usata per la programmazione 
 logica attraverso un qualunque web browser dotato di \emph{Javascript}. Questa 
-è collegata direttamente all'interprete SWI Prolog.
+è collegata direttamente all'interprete SWI.
 
 \emph{Cplint on SWISH} è una versione modificata di SWISH che include la 
-libreria \emph{cplint}, la quale permette di formulare inferenze e 
-compiere processi di apprendimento\cite{cplint}.
+libreria \emph{cplint}, la quale permette di formulare inferenze 
+probabilistiche e compiere processi di apprendimento\cite{cplint}.
 
 \emph{R} è un ambiente software dedicato alla statistica e 
 alla rappresentazione grafica di dati\cite{r}.
@@ -109,10 +109,9 @@ logica\cite{swiprolog}, come suggersice il nome\cite{prolog}.
 
     \section{Obbiettivi}
 L'obbiettivo di questa tesi è quello di illustrare come 
-includere l'accesso ad R della libreria Cplint on SWISH, 
-oltre che di descrivere i predicati Prolog che disegnano 
-grafici standard per Cplint. Si spiegherà infine come si è 
-semplificata l'installazione di questo ambiente software.
+permettere ella libreria Cplint on SWISH di usare R.
+Si spiegherà infine come si è semplificata l'installazione di questo ambiente 
+software.
 
         \subsection{Accesso ad R da Cplint on SWISH}
 Nativamente Prolog non è in grado di accedere all'interprete R. Esistono 
@@ -120,19 +119,20 @@ tuttavia delle librerie che permettono di collegarsi all'interprete R
 attraverso un \emph{socket} fornito da R stesso. Poiché stiamo utilizzando  
 un \emph{server web}, per avere meno problemi di sicurezza, quali ad esempio 
 \emph{privilege escalation}, il collegamento tra R e Prolog non può essere 
-diretto ma deve passare per un ambiente virtuale isolato chiamato Docker. 
+diretto ma avviene tramite un ambiente virtuale isolato chiamato Docker. 
 Tutto questo però complica notevolmente l'installazione.
 
         \subsection{Funzioni grafiche standardizzate}
-Esitino funzioni grafiche che sono alternative a quelle fornite dalla libreria 
-c3js ed utilizzano invece un pacchetto R chiamato \emph{ggplot2}. Questo 
-permette di disegnare gafici standard permettendo all'utente di 
-stabilire soltanto quali sono i dati, ed occupandosi della parte grafica. 
-I plot sono definiti usando la cosiddetta \emph{grammatica dei 
-grafici}, cioè la divisione per contesti dei vari aspetti di un grafico come 
-per esempio la geometria, la scala, la rappresentazione estetica, ecc... 
-\cite{grammarOfGraphics} 
-\cite{ggplot2}
+SISH offre funzioni grafiche che sono alternative a quelle fornite dalla 
+libreria c3js ed utilizzano invece R. Ad esemio, il package R \emph{ggplot2} 
+permette di disegnare gafici standard. I plot sono definiti usando la 
+cosiddetta \emph{grammatica dei grafici}, cioè la divisione per contesti dei 
+vari aspetti di un grafico come per esempio la geometria, la scala, la 
+rappresentazione estetica, ecc..., come riportato su \cite{grammarOfGraphics} e 
+\cite{ggplot2} e 
+https://books.google.it/books?id=XSekDgAAQBAJ\&pg=PT172\&lpg=PT172\&dq=%22ggplot2+is+a+plotting+system+for+R,+based+on+the+grammar+of+graphics,+which+tries+to+take+the+good+parts+of+base+and+lattice+graphics+and+none+of+the+bad+parts.%22\&source=bl\&ots=wSPaYoMAIO\&sig=Fx\_gTNTn1Zu5DQc1bElRctmtwBc\&hl=en\&sa=X\&ved=2ahUKEwjMpobchJLdAhUKFXwKHdB-BzQQ6AEwB3oECAMQAQ#v=onepage\&q=%22ggplot2%20is%20a%20plotting%20system%20for%20R%2C%20based%20on%20the%20grammar%20of%20graphics%2C%20which%20tries%20to%20take%20the%20good%20parts%20of%20base%20and%20lattice%20graphics%20and%20none%20of%20the%20bad%20parts.%22\&f=false
+[Sembra che la citazione originale sia stata rimossa dal sito ufficiale
+di ggplot2.]
 
 \begin{displayquote}
 ggplot2 is a plotting system for R, based on the grammar of graphics, which 
@@ -141,6 +141,17 @@ parts. It takes care of many of the fiddly details that make plotting a hassle
 (like drawing legends) as well as providing a powerful model of graphics that 
 makes it easy to produce complex multi-layered graphics.
 \end{displayquote}
+
+che tradotto:
+\begin{displayquote}
+ggplot2 è un sistema di plotting per R, basato sulla grammatica dei grafici,
+che cerca di utilizzare le parti migliori dei grafici di base e lattice, e di 
+escludere le parti peggiori. Questo sistema si occupa della maggior parte dei
+dettagli poco pratici che rendono il plotting problematico (come per esempio 
+il disegno di legende), oltre che fornire un potente modello di grafica che
+rende semplice produrre complessi plot con molteplici strati.
+\end{displayquote}
+
 
         \subsection{Semplificazione dell'installazione}
 Per semplificare l'installazione e per renderla uniforme a quella di qualunque 
@@ -170,22 +181,24 @@ L'installazione manuale consiste in vari passaggi:
 Vedere https://frnmst.github.io/swish-installer/swish-installer.html\#Rserve-sandbox-1
 
 Per prima cosa bisogna installare SWI Prolog. SWI Prolog è di 
-solito è già pacchettizato per le distribuzioni GNU/Linux.
+solito è già disponibile come pacchetto per le principali distribuzioni 
+GNU/Linux.
 
-Successivamente bisogna installare SWISH. In questo caso però non ne 
-esistono versioni pacchettizate. Vedere anche
+Successivamente bisogna installare SWISH [che non è disponibile come
+pacchetto invece]. Vedere 
+anche
 https://github.com/SWI-Prolog/swish\#local-installation
-Pe fare questo il programma Bower \cite{bower}, servirà ad installare
+Il programma Bower \cite{bower}, servirà ad installare
 tutte le dipendenze necessarie per l'interfaccia web.
 
 ~
 
-Per l'utilizzo dell'ambiente R in rserve-sandbox è necessario l'interprete
-R e un ambiente Docker configurato opportunamente.
+Per l'utilizzo dell'ambiente R in rserve-sandbox [DESCRIBE] è necessario 
+l'interprete R e un ambiente Docker configurato opportunamente.
 L'utente \texttt{rsd}, acronimo di \emph{rserve sandbox docker} è stato creato
 esclusivamente per l'interazione tra il daemon di Docker e il sistema, per 
 evitare problemi di sicurezza \cite{DockerPrivilegeEscalation0} 
-\cite{DockerPrivilegeEscalation1}. L'utente \texttt{rserve} invece è 
+\cite{DockerPrivilegeEscalation1}. L'utente \texttt{rserve} [DESCRIBE] invece è 
 direttamente legato ad rserve. TODO [...]
 
 ~
@@ -221,7 +234,7 @@ precedentemente, necessari all'avvio dei daemons.
     \section{Docker}
 \emph{Docker} è un implementazione di una virtualizzazione a livello di sistema 
 operativo, cioé permette l'esistenza di molteplici istanze 
-di ambienti isolati basate su utenti separati. Con Docker in particolare, 
+di ambienti isolati basate su utenti separati. Con Docker, in particolare, 
 questi ambienti possono essere eseguiti su qualunque macchina in modo 
 indipendente dalla configurazione del sistema operativo, a patto che i 
 kernel virtualizzato sia dello stesso tipo di quello ospite.. check this.... In 
@@ -231,7 +244,7 @@ in modo affidabile e come lo sviluppatore aveva inteso che funzionasse.
 
         \subsection{Immagini}
 Attraverso un documento di testo chiamato \emph{Dockerfile}, Docker viene 
-istruito nel costruire un'\emph{immagine} che comprende un'insieme di 
+usato per costruire un'\emph{immagine} che comprende un'insieme di 
 programmi, file, utenti e tutto ciò che è necessario allo svolgimento di
 un specifico compito. Le istruzoni nel documento di testo sono nella forma
 \mintinline{bash}{ISTRUZIONE_DOCKER argomento}. Per aggiungere utenti, 
@@ -311,12 +324,12 @@ I data frame si rivelano anche efficienti per R stesso.... cite ...
 
     \section{rserve\_client}
 La libreria rserve\_client permette di utilizzare i comandi 
-disponibili dell'interprete R direttamente da SWISH poiché il supporto per R 
+disponibili dell'interprete R direttamente da SWISH [poiché il supporto per R 
 all'interno di SWISH è ancora di recente implementazione. 
 Di solito quindi la parte computazionale viene affidata all'interprete Prolog, 
 mentre la parte grafica viene gestita dalla libreria c3js. Con questa libreria
 invece sia la parte grafica sia quella computazionale sono eseguite
-da R e visualizzate con SWISH.
+da R e visualizzate con SWISH.][DELETE THIS]
 
         \subsection{Funzionamento interno}
 L'utilizzo di R rispetto a Javascript comporta due 
