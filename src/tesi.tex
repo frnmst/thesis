@@ -166,73 +166,226 @@ precedenti.
 %%%%
 
 
-\chapter{Architettura}
-Di seguito, descrizione dettagliata di:
-    \section{SWISH}
-    \section{Cplint on SWISH con supporto R}
-    \section{Installazione}
-        \subsection{Installazione manuale}
-L'installazione manuale consiste in vari passaggi:
+\chapter{Strumenti e Architettura}
+
+    \section{R}
+R è un ambiente software per il calcolo statistico e la 
+visuallizzazione grafica. Con il termine R si definisce l'interprete
+dei comandi mentre con S il linguaggio di programmazione. R comprende anche un 
+gestore di pacchetti attraverso il quale si possono installare facilmente
+funzioni utili non comprese in R stesso.
+
+        \subsection{Comandi}
+L'assegnazione di un valore di una variabile avviene con il 
+comando \mint{r}|<- c(<qualcosa>)|, dove "c" serve a concatenare un 
+insieme di valori. \cite{rAssignmentOperator}
+
+        \subsection{Oggetti}
+Come molti altri linguaggi di programmazione, anche R mette a disposizione 
+strutture dati chiamate oggetti. Questi possono essere variabili, array di 
+numeri, stringhe, funzioni e qualunque cosa derivata da queste.
+\cite{rObject}
+
+        \subsection{Le liste}
+In R le liste sono una collezione ordinata di oggetti, qui chiamati anche 
+componenti, che possono essere di tipo diverso tra di loro. Con queste liste si 
+ha la possibilità di accedere direttamente alle componenti sia attraverso il 
+principio dell'indicizzazione, sia attraverso l'uso della notazione 
+\mintinline{r}{lista$componente}.
+\cite{rList}
+
+        \subsection{Dalle liste ai data frame}
+Alcune funzioni disponibili nella libreria \emph{r\_swish} permettono il 
+passaggio di valori tra Prolog ed R attraverso i \emph{data frame}. Questi 
+sono un tipo particolare di \emph{oggetti} che permettono 
+di organizzare i dati sotto forma matriciale. ...
+I data frame in R sono definiti come specializzazione della classe lista.
+Rispetto ad una lista, infatti, esistono delle restrizioni...
+
+I data frame si rivelano anche efficienti per R stesso.... cite ...
+\cite{rDataFrame}
+
+%%%%
+%%%%
+
+    \section{rserve\_client}
+La libreria rserve\_client\cite{rserveclient} permette di utilizzare i comandi 
+disponibili dell'interprete R direttamente da SWISH.
+%%% poiché il supporto per R 
+%%% all'interno di SWISH è ancora di recente implementazione. 
+%%% Di solito quindi la parte computazionale viene affidata all'interprete 
+%%% Prolog, mentre la parte grafica viene gestita dalla libreria c3js. Con 
+%%% questa libreria invece sia la parte grafica sia quella computazionale sono 
+%%% eseguite da R e visualizzate con SWISH.][DELETE THIS]
+
+        \subsection{Motivazione}
+L'utilizzo di R rispetto a Javascript comporta due 
+differenze: in alcuni casi si può ottenere una maggiore 
+velocità\cite{rFaster}:
+\begin{displayquote}
+[..] It turns out R does the job faster on a large number of integers
+than Prolog.  Why?  Once in R, the array is a simple C array of integers,
+causing a blindly fast addition.  The Prolog counterpart adds the numbers
+one-by-one and does rigid overflow checking and handling.
+\end{displayquote}
+ 
+Inoltre, la computazione per il disegno dei grafici è fatta sul server e non 
+sul computer locale attraverso il browser.
+ 
+e la possibilità di usare i sistemi di plot di R, come per esempio ggplot2 
+che si rivelano più precisi ... cite ... ...
+
+Grazie ad questa libreria, inoltre, è possibile usare direttamente comandi di R 
+facendo minime modifiche rispetto allo stesso codice usato nell'interprete R.
+
+        \subsection{Funzionamento interno}
+Nel caso presente tutte le chiamate fatte da Prolog a R vengono passtate 
+attraverso un socket UNIX creato dal programma \emph{Rserve}. 
+
+\subsection{Scambiare i dati fra R e Prolog}
+SWI Prolog è accessibile da shell con il comando \texttt{swipl}.
+
+Esistono due modalità per usare i comandi di R all'interno di SWI Prolog:
 \begin{itemize}
-    \item nel cercare tutte le dipendenze software
-    \item come queste si installano
-    \item e infine quali altre azioni sono necessarie
+    \item come \emph{Prolog term}, usando l'operatore \texttt{<-} seguito dal 
+comando R,
+    \item oppure con una notazione chiamata \emph{quasi-quotation}
 \end{itemize}
-Vedere https://frnmst.github.io/swish-installer/swish-installer.html\#Rserve-sandbox-1
+La documentazione di SWISH contiene un esempio per entrambi i 
+casi\cite{rprolognotations}:
+\begin{displayquote}
+[..] We first give the example using an R quasi quotation, followed by 
+using a Prolog term.  Note that
 
-Per prima cosa bisogna installare SWI Prolog. SWI Prolog è di 
-solito è già disponibile come pacchetto per le principali distribuzioni 
-GNU/Linux.
+  - Quasi quotations can be used to copy/paste R code into your Prolog
+    program without changing it (except when it contains \texttt{|{\textbraceright}}).
 
-Successivamente bisogna installare SWISH [che non è disponibile come
-pacchetto invece]. Vedere 
-anche
-https://github.com/SWI-Prolog/swish\#local-installation
-Il programma Bower \cite{bower}, servirà ad installare
-tutte le dipendenze necessarie per l'interfaccia web.
+  - Prolog code may need minor modifications.  In the example, \texttt{I(.5)}
+    must be changed to \texttt{'I'(0.5)} because Prolog floats cannot start with
+    a \texttt{.} and functors (used as function symbols) cannot start with a
+    capital.  The Prolog approach however
 
-~
+    - Is better portable.
+
+    - Profits from Prolog syntax checking.
+
+    - Makes it easier to compose R expressions from smaller elements.
+\end{displayquote}
+
+\begin{code}
+    \caption{Esempi notazioni R in SWI Prolog}
+    \begin{prologcode*}{}
+<- qplot(mpg, data=mtcars, geom="density", fill=gear, alpha='I'(0.5), main="Distribution of Gas Milage", xlab="Miles Per Gallon", ylab="Density").
+
+<- {|r||qplot(mpg, data=mtcars, geom="density", fill=gear, alpha=I(.5), main="Distribution of Gas Milage", xlab="Miles Per Gallon", ylab="Density")|}.
+    \end{prologcode*}
+\end{code}
+
+Come si vede nel primo caso è necessario fare qualche piccola modifica 
+rispetto all'originale R. Nel secondo caso invece è possibile gestire alcuni 
+casi particolari che genererebbero errori oppure che non sarebbe possibile 
+possibile trasformare nel primo caso.
+
+[Nella scrittura di cplint\_r si è anche trovato un caso non segnalato nella 
+documentazione in cui non è possibile trasformare un comando con la 
+notazione abbreviata, probabilmente per l'uso di istruzioni condizionali:
+
+\begin{code}
+    \caption{Esempio di quasi quotation tratto da cplint\_r}
+    \begin{rcode*}{}
+{|r||xbreakS <- if(max(df$probabilities) > scalingthresholD) element_blank() else scale_y_continuous(breaks=seq(0,max(df$probabilities),1))|},
+    \end{rcode*}
+\end{code}
+] [MOVE ME?]
+Un'altro fattore importante è che ogni comando R inviato attraverso questo 
+sistema viene eseguito in un ambiente proprio. Le variabili devono essere 
+salvate in Prolog se sono usate successivamente.
+
+%%%%
+%%%%
+
+\section{Rserve ed rserve-sandbox}
+
+Rserve è un server TCP/IP che permette ad altri programmi di 
+utilizzare gli strumenti messi a disposizione da R attraverso diversi
+linguaggi di programmazione, senza dover inizializzare R o 
+\emph{linkarne}[FIXME] la libreria \cite{rserve}.
+
+rserve-sandbox è una versiona di Rserve che gira in un contenitore Docker 
+[TODO].
 
 Per l'utilizzo dell'ambiente R in rserve-sandbox [DESCRIBE] è necessario 
-l'interprete R e un ambiente Docker configurato opportunamente.
+l'interprete R ed un ambiente Docker configurato opportunamente.
+
 L'utente \texttt{rsd}, acronimo di \emph{rserve sandbox docker} è stato creato
 esclusivamente per l'interazione tra il daemon di Docker e il sistema, per 
 evitare problemi di sicurezza \cite{DockerPrivilegeEscalation0} 
 \cite{DockerPrivilegeEscalation1}. L'utente \texttt{rserve} [DESCRIBE] invece è 
-direttamente legato ad rserve. TODO [...]
+direttamente legato ad rserve. [TODO AND/OR MOVEME?] [...]
 
-~
-
-È necessario installare i pacchetti SWI Prolog chiamati: \texttt{real}, 
-\texttt{aleph} e \texttt{cplint\_r}.
-
-        \subsection{Installazione automatica}
-Per automatizzare tutti i precedenti passaggi è stato creato il repository
-\texttt{swish-cplint}. [...] L'installazione automatica avviene per mezzo di pacchetti software [...]
-
-L' installazione dei pacchetti prolog è codificata all'interno di 
-\texttt{install\_web\_iface\_deps.pl}
-
-Al tempo della creazione dei pacchetti è stato necessario creare alcuni
-script di avvio, quali \texttt{run.sh} e \texttt{run.pl} (una versione 
-modificata di run.pl distribuita nel repository originale).
-
-Vengono inoltre creati gli opportuni gruppi e utenti, descritti 
-precedentemente, necessari all'avvio dei daemons.
-
-%%%%
-%%%%
-%%%%
-%%%%
+Non viene mai esposto un socket \emph{TCP/IP} ma solo un socket di tipo 
+\emph{UNIX} [EXPLAIN DIFFERENCE TO SHOW THE ADDED 
+SECURITY][FIXME] \cite{unixSocket}.  Questo è possibile attraverso il
+file di configurazione [TODO]:
+\texttt{https://github.com/frnmst/rserve-sandbox/blob/distro-package/Rserv.conf}
+che viene letto da
+\texttt{https://github.com/frnmst/rserve-sandbox/blob/distro-package/Rserv.sh}
 
 
-\chapter{Strumenti}
+Tutto lo schema viene spiegato nella figura~\ref{fig:rserveSandboxScheme}, 
+mentre il suo file di configurazione si trova nel 
+listato~\label{lst:rservconf}.
+
+\begin{figure}[H]
+\centering
+\caption{Schema funzionamento di rserve sandbox}
+\begin{tikzpicture}
+    \draw[thick] 
+(-5,5) -- node[align=left, below]{Sistema}
+(5,5) -- 
+(5,-5) -- 
+(-5,-5) --
+cycle;
+    \draw[thick]
+(-4,3) -- node[align=left, below]{Istanza Docker}
+(1,3) --
+(1,-4) --
+(-4, -4) --
+cycle;
+    \draw[thick]
+(-2,-1) -- node[align=left, below]{Socket \\ UNIX \\ Rserve}
+(0,-1) --
+(0,-3) --
+(-2, -3) --
+cycle;
+    \draw[thick]
+(2,-1) -- node[align=left, below]{Processo \\ SWISH}
+(4,-1) --
+(4,-3) --
+(2, -3) --
+cycle;
+    \draw[thick, red, ->]
+(0,-1.5) --
+(2,-1.5);
+    \draw[thick, red, ->]
+(2,-2.5) --
+(0,-2.5);
+\end{tikzpicture}
+\label{fig:rserveSandboxScheme}
+\end{figure}
+
+\begin{code}
+    \caption{File di configurazione di rserve sandbox}
+    \bashcodefile{Rserv.conf}
+    \label{lst:rservconf}
+\end{code}
 
 %%%%
 %%%%
 
     \section{Docker}
-\emph{Docker} è un implementazione di una virtualizzazione a livello di sistema 
+\emph{Docker} è un implementazione di una virtualizzazione [O PSEUDO][FIXME] a 
+livello di sistema 
 operativo, cioé permette l'esistenza di molteplici istanze 
 di ambienti isolati basate su utenti separati. Con Docker, in particolare, 
 questi ambienti possono essere eseguiti su qualunque macchina in modo 
@@ -278,187 +431,6 @@ subito l'immagine, senza che possano sorgere problemi nella fase di build. Lo
 svantaggio tuttavia è che l'immagine può  essere anche molto grande 
 (nell'ordine del Gigabyte) e quindi difficile da distribuire con i mezzi di 
 rete più noti.
-
-%%%%
-%%%%
-
-    \section{R}
-R è un ambiente software per il calcolo statistico e la 
-visuallizzazione grafica. Con il termine R si definisce l'interprete
-dei comandi mentre con S il linguaggio di programmazione. R comprende anche un 
-gestore di pacchetti attraverso il quale si possono installare facilmente
-funzioni utili non comprese in R stesso.
-
-        \subsection{Comandi}
-L'assegnazione di un valore di una variabile avviene con il 
-comando \mint{r}|<- c(<qualcosa>)|, dove "c" serve a concatenare valori.
-\cite{rAssignmentOperator}
-
-        \subsection{Oggetti}
-Come molti altri linguaggi di programmazione, anche R mette a disposizione 
-strutture dati chiamate oggetti. Questi possono essere variabili, array di 
-numeri, stringhe, funzioni e qualunque cosa derivata da queste.
-\cite{rObject}
-
-        \subsection{Le liste}
-In R le liste sono una collezione ordinata di oggetti, qui chiamati anche 
-componenti, che possono essere di tipo diverso tra di loro. Con queste liste si 
-ha la possibilità di accedere direttamente alle componenti sia attraverso il 
-principio dell'indicizzazione, sia attraverso l'uso della notazione 
-\mintinline{r}{lista$componente}.
-\cite{rList}
-
-        \subsection{Dalle liste ai data frame}
-Alcune funzioni disponibili nella libreria \emph{r\_swish} permettono il 
-passaggio di valori tra Prolog ed R attraverso i \emph{data frame}. Questi 
-sono un tipo particolare di \emph{oggetti} che permettono 
-di organizzare i dati sotto forma matriciale. ...
-I data frame in R sono definiti come specializzazione della classe lista.
-Rispetto ad una lista, infatti, esistono delle restrizioni...
-
-I data frame si rivelano anche efficienti per R stesso.... cite ...
-\cite{rDataFrame}
-
-%%%%
-%%%%
-
-    \section{rserve\_client}
-La libreria rserve\_client permette di utilizzare i comandi 
-disponibili dell'interprete R direttamente da SWISH [poiché il supporto per R 
-all'interno di SWISH è ancora di recente implementazione. 
-Di solito quindi la parte computazionale viene affidata all'interprete Prolog, 
-mentre la parte grafica viene gestita dalla libreria c3js. Con questa libreria
-invece sia la parte grafica sia quella computazionale sono eseguite
-da R e visualizzate con SWISH.][DELETE THIS]
-
-        \subsection{Funzionamento interno}
-L'utilizzo di R rispetto a Javascript comporta due 
-differenze: in alcuni casi si può ottenere una maggiore 
-velocità\cite{rFaster}:
-\begin{displayquote}
-[..] It turns out R does the job faster on a large number of integers
-than Prolog.  Why?  Once in R, the array is a simple C array of integers,
-causing a blindly fast addition.  The Prolog counterpart adds the numbers
-one-by-one and does rigid overflow checking and handling.
-\end{displayquote}
- 
-Inoltre, la computazione per il disegno dei grafici è fatta sul server e non 
-sul computer locale attraverso il browser.
- 
-e la possibilità di usare i sistemi di plot di R, come per esempio ggplot2 
-che si rivelano più precisi ... cite ... ...
-
-Nel caso presente tutte le chiamate fatte da Prolog a R vengono passtate 
-attraverso un socket UNIX creato dal programma \emph{Rserve}\cite{rserve}. 
-Questo è stato configurato opportunamente per quanto riguarda la sicurezza 
-in quanto viene eseguito all'interno di Docker e senza che venga esposta una 
-connessione di rete.
-
-\begin{figure}[H]
-\centering
-\caption{Schema funzionamento}
-\begin{tikzpicture}
-    \draw[thick] 
-(-5,5) -- node[align=left, below]{Sistema}
-(5,5) -- 
-(5,-5) -- 
-(-5,-5) --
-cycle;
-    \draw[thick]
-(-4,3) -- node[align=left, below]{Istanza Docker}
-(1,3) --
-(1,-4) --
-(-4, -4) --
-cycle;
-    \draw[thick]
-(-2,-1) -- node[align=left, below]{Socket \\ UNIX \\ Rserve}
-(0,-1) --
-(0,-3) --
-(-2, -3) --
-cycle;
-    \draw[thick]
-(2,-1) -- node[align=left, below]{Processo \\ SWISH}
-(4,-1) --
-(4,-3) --
-(2, -3) --
-cycle;
-    \draw[thick, red, ->]
-(0,-1.5) --
-(2,-1.5);
-    \draw[thick, red, ->]
-(2,-2.5) --
-(0,-2.5);
-\end{tikzpicture}
-\end{figure}
-
-\begin{code}
-    \caption{File di configurazione di Rserve}
-    \bashcodefile{Rserv.conf}
-\end{code}
-
-\subsection{Scambiare i dati fra R e Prolog}
-SWI Prolog è accessibile da shell con il comando \texttt{swipl}.
-
-Grazie ad una libreria di SWI Prolog chiamata 
-\emph{rserve\_client}\cite{rserveclient} 
-è possibile usare direttamente comandi di R facendo minime modifiche 
-rispetto allo stesso codice usato nell'interprete R.
-
-Esistono due modalità per usare i comandi di R all'interno di SWI Prolog:
-\begin{itemize}
-    \item come \emph{Prolog term}, usando l'operatore \texttt{<-} seguito dal 
-comando R,
-    \item oppure con una notazione chiamata \emph{quasi-quotation}
-\end{itemize}
-La documentazione di SWISH contiene un esempio per entrambi i 
-casi\cite{rprolognotations}:
-\begin{displayquote}
-[..] We first give the example using an R quasi quotation, followed by 
-using a Prolog term.  Note that
-
-  - Quasi quotations can be used to copy/paste R code into your Prolog
-    program without changing it (except when it contains \texttt{|{\textbraceright}}).
-
-  - Prolog code may need minor modifications.  In the example, \texttt{I(.5)}
-    must be changed to \texttt{'I'(0.5)} because Prolog floats cannot start with
-    a \texttt{.} and functors (used as function symbols) cannot start with a
-    capital.  The Prolog approach however
-
-    - Is better portable.
-
-    - Profits from Prolog syntax checking.
-
-    - Makes it easier to compose R expressions from smaller elements.
-\end{displayquote}
-
-\begin{code}
-    \caption{Esempi notazioni R in SWI Prolog}
-    \begin{prologcode*}{}
-<- qplot(mpg, data=mtcars, geom="density", fill=gear, alpha='I'(0.5), main="Distribution of Gas Milage", xlab="Miles Per Gallon", ylab="Density").
-
-<- {|r||qplot(mpg, data=mtcars, geom="density", fill=gear, alpha=I(.5), main="Distribution of Gas Milage", xlab="Miles Per Gallon", ylab="Density")|}.
-    \end{prologcode*}
-\end{code}
-
-Come si vede nel primo caso è necessario fare qualche piccola modifica 
-rispetto all'originale R. Nel secondo caso invece è possibile gestire alcuni 
-casi particolari che genererebbero errori oppure che non sarebbe possibile 
-possibile trasformare nel primo caso.
-
-Nella scrittura di cplint\_r si è anche trovato un caso non segnalato nella 
-documentazione in cui non è possibile trasformare un comando con la 
-notazione abbreviata, probabilmente per l'uso di istruzioni condizionali:
-
-\begin{code}
-    \caption{Esempio di quasi quotation tratto da cplint\_r}
-    \begin{rcode*}{}
-{|r||xbreakS <- if(max(df$probabilities) > scalingthresholD) element_blank() else scale_y_continuous(breaks=seq(0,max(df$probabilities),1))|},
-    \end{rcode*}
-\end{code}
-
-Un'altro fattore importante è che ogni comando R inviato attraverso questo 
-sistema viene eseguito in un ambiente proprio. Le variabili devono essere 
-salvate in Prolog se sono usate successivamente.
 
 %%%%
 %%%%
@@ -598,11 +570,62 @@ cycle;
 \end{code}
 
 
-%%%%
-%%%%
-%%%%
-%%%%
+%%
+%%
 
+\section{SWISH}
+
+%%
+%%
+
+\section{Cplint on SWISH con supporto R}
+
+%%
+%%
+
+\section{Installazione degli strumenti}
+
+        \subsection{Installazione manuale}
+L'installazione manuale consiste in vari passaggi:
+\begin{itemize}
+    \item nel cercare tutte le dipendenze software
+    \item come queste si installano
+    \item e infine quali altre azioni sono necessarie
+\end{itemize}
+Vedere https://frnmst.github.io/swish-installer/swish-installer.html\#Rserve-sandbox-1
+
+Per prima cosa bisogna installare SWI Prolog. SWI Prolog è di 
+solito è già disponibile come pacchetto per le principali distribuzioni 
+GNU/Linux.
+
+Successivamente bisogna installare SWISH [che non è disponibile come
+pacchetto invece]. Vedere 
+anche
+https://github.com/SWI-Prolog/swish\#local-installation
+Il programma Bower \cite{bower}, servirà ad installare
+tutte le dipendenze necessarie per l'interfaccia web.
+
+È necessario installare i pacchetti SWI Prolog chiamati: \texttt{real}, 
+\texttt{aleph} e \texttt{cplint\_r}.
+
+        \subsection{Installazione automatica}
+Per automatizzare tutti i precedenti passaggi è stato creato il repository
+\texttt{swish-cplint}. [...] L'installazione automatica avviene per mezzo di pacchetti software [...]
+
+L' installazione dei pacchetti prolog è codificata all'interno di 
+\texttt{install\_web\_iface\_deps.pl}
+
+Al tempo della creazione dei pacchetti è stato necessario creare alcuni
+script di avvio, quali \texttt{run.sh} e \texttt{run.pl} (una versione 
+modificata di run.pl distribuita nel repository originale).
+
+Vengono inoltre creati gli opportuni gruppi e utenti, descritti 
+precedentemente, necessari all'avvio dei daemons.
+
+%%%%
+%%%%
+%%%%
+%%%%
 
 \chapter{Pacchetti per le varie distribuzioni} 
 \label{ch:pacchetti-per-le-varie-distribuzioni}
