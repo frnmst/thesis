@@ -296,45 +296,33 @@ notazione abbreviata, probabilmente per l'uso di istruzioni condizionali:
 {|r||xbreakS <- if(max(df$probabilities) > scalingthresholD) element_blank() else scale_y_continuous(breaks=seq(0,max(df$probabilities),1))|},
     \end{rcode*}
 \end{code}
-] [MOVE ME?]
-Un'altro fattore importante è che ogni comando R inviato attraverso questo 
-sistema viene eseguito in un ambiente proprio. Le variabili devono essere 
-salvate in Prolog se sono usate successivamente.
+
+Un altro fattore importante è che ogni comando R inviato attraverso questo 
+sistema viene eseguito in un ambiente proprio. Le variabili devono quindi 
+essere salvate in Prolog se sono usate successivamente altrimenti vengono
+distrutte.
 
 %%%%
 %%%%
 
 \section{Rserve ed rserve-sandbox}
 
+Per poter utilizzare rserve\_client è anche necessario un server.
 Rserve è un server TCP/IP che permette ad altri programmi di 
 utilizzare gli strumenti messi a disposizione da R attraverso diversi
 linguaggi di programmazione, senza dover inizializzare R o 
 \emph{linkarne}[FIXME] la libreria \cite{rserve}.
 
-rserve-sandbox è una versiona di Rserve che gira in un contenitore Docker 
+rserve-sandbox è una versione di Rserve che gira all'interno di un sistema di 
+virtualizzazione creato appositamente per lo scopo.
 [TODO].
+Per migliorare la sicurezza non viene mai esposto un socket \emph{TCP/IP} ma 
+solo un socket di tipo \emph{UNIX} [EXPLAIN DIFFERENCE TO SHOW THE ADDED 
+SECURITY][FIXME] \cite{unixSocket}.  
+Questo è possibile attraverso il file di configurazione nel listato~\ref{lst:rservconf}.
 
-Per l'utilizzo dell'ambiente R in rserve-sandbox [DESCRIBE] è necessario 
-l'interprete R ed un ambiente Docker configurato opportunamente.
-
-L'utente \texttt{rsd}, acronimo di \emph{rserve sandbox docker} è stato creato
-esclusivamente per l'interazione tra il daemon di Docker e il sistema, per 
-evitare problemi di sicurezza \cite{DockerPrivilegeEscalation0} 
-\cite{DockerPrivilegeEscalation1}. L'utente \texttt{rserve} [DESCRIBE] invece è 
-direttamente legato ad rserve. [TODO AND/OR MOVEME?] [...]
-
-Non viene mai esposto un socket \emph{TCP/IP} ma solo un socket di tipo 
-\emph{UNIX} [EXPLAIN DIFFERENCE TO SHOW THE ADDED 
-SECURITY][FIXME] \cite{unixSocket}.  Questo è possibile attraverso il
-file di configurazione [TODO]:
-\texttt{https://github.com/frnmst/rserve-sandbox/blob/distro-package/Rserv.conf}
-che viene letto da
-\texttt{https://github.com/frnmst/rserve-sandbox/blob/distro-package/Rserv.sh}
-
-
-Tutto lo schema viene spiegato nella figura~\ref{fig:rserveSandboxScheme}, 
-mentre il suo file di configurazione si trova nel 
-listato~\label{lst:rservconf}.
+Le modalità di funzionamento di reserve-sandbox sono spiegate nello schema in 
+figura~\ref{fig:rserveSandboxScheme}, 
 
 \begin{figure}[H]
 \centering
@@ -375,7 +363,7 @@ cycle;
 \end{figure}
 
 \begin{code}
-    \caption{File di configurazione di rserve sandbox}
+    \caption{File di configurazione di Rserve}
     \bashcodefile{Rserv.conf}
     \label{lst:rservconf}
 \end{code}
@@ -431,6 +419,23 @@ subito l'immagine, senza che possano sorgere problemi nella fase di build. Lo
 svantaggio tuttavia è che l'immagine può  essere anche molto grande 
 (nell'ordine del Gigabyte) e quindi difficile da distribuire con i mezzi di 
 rete più noti.
+
+    \subsection{Configurazione di Docker per rserve-sandbox}
+
+Per l'utilizzo dell'ambiente R in rserve-sandbox [DESCRIBE] è necessario 
+l'interprete R ed un ambiente Docker configurato opportunamente.
+
+L'utente \texttt{rsd}, acronimo di \emph{rserve sandbox docker} è stato creato
+esclusivamente per l'interazione tra il daemon di Docker e il sistema, per 
+evitare problemi di sicurezza \cite{DockerPrivilegeEscalation0} 
+\cite{DockerPrivilegeEscalation1}. L'utente \texttt{rserve} [DESCRIBE] invece è 
+direttamente legato ad rserve. [TODO AND/OR MOVEME?] [...]
+
+Con il comando \texttt{CMD /bin/bash Rserv.sh}, presente nel Dockerfile,
+Docker chiama 
+\texttt{https://github.com/frnmst/rserve-sandbox/blob/distro-package/Rserv.sh}
+che legge il file di configurazione di Rserve (vedere il listato 
+~\ref{lst:rservconf}).
 
 %%%%
 %%%%
@@ -592,7 +597,7 @@ L'installazione manuale consiste in vari passaggi:
     \item come queste si installano
     \item e infine quali altre azioni sono necessarie
 \end{itemize}
-Vedere https://frnmst.github.io/swish-installer/swish-installer.html\#Rserve-sandbox-1
+%%%Vedere https://frnmst.github.io/swish-installer/swish-installer.html\#Rserve-sandbox-1
 
 Per prima cosa bisogna installare SWI Prolog. SWI Prolog è di 
 solito è già disponibile come pacchetto per le principali distribuzioni 
