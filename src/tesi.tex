@@ -86,7 +86,7 @@
 
 \chapter{Introduzione} \label{introduzione}
 
-TODO
+[TODO]
 
 \chapter{Specifiche del problema} \label{ch:specifiche-del-problema}
     \section{Componenti software}
@@ -105,13 +105,44 @@ probabilistiche e compiere processi di apprendimento\cite{cplint}.
 alla rappresentazione grafica di dati\cite{r}.
 
 \emph{SWI Prolog} è un interprete per la programmazione 
-logica\cite{swiprolog}, come suggersice il nome\cite{prolog}.
+logica\cite{swiprolog}, come suggerisce il nome\cite{prolog}.
 
     \section{Obbiettivi}
 L'obbiettivo di questa tesi è quello di illustrare come 
-permettere ella libreria Cplint on SWISH di usare R.
+permettere alla libreria Cplint on SWISH di usare R.
 Si spiegherà infine come si è semplificata l'installazione di questo ambiente 
 software.
+
+        \subsection{Funzioni grafiche}
+SWISH offre due tipi di funzionalità grafiche, una attraverso C3.js e l'altra
+attraverso R. C3.js è una libreria Javascript che a sua volta deriva da
+D3.js, acnhe chiamata \emph{Data-Driven Documents}. Anche in questo caso si 
+tratta di una libreria grafica Javascript che permette di visualizzare
+dei dati utilizzando la Scalable Vector Graphics (\emph{SVG}), l'elemento 
+\emph{Canvas}, un'area all'interno di un pagina web nella quale è possibile 
+disegnare in due dimensioni\cite{canvasHtml}, e il linuguaggio 
+HTML\cite{d3js}. Questi grafici, inoltre, sono interattivi a differenza di 
+quelli di quelli generabili da R.
+
+Il package R \emph{ggplot2} 
+permette di disegnare gafici usando la 
+cosiddetta \emph{grammatica dei grafici}, cioè la divisione per contesti dei 
+vari aspetti di un grafico come per esempio la geometria, la scala, la 
+rappresentazione estetica, ed altri aspetti \cite{ggplot2OriginalDefinition}:
+%% \cite{grammarOfGraphics} e 
+%%\cite{ggplot2} e \cite{ggplot2OriginalDefinition}
+%%[Sembra che la citazione originale sia stata rimossa dal sito ufficiale
+%%di ggplot2.]
+
+\begin{displayquote}
+ggplot2 è un sistema di plotting per R, basato sulla grammatica dei grafici,
+che cerca di utilizzare le parti migliori dei grafici di base e lattice, e di 
+escludere le parti peggiori. Questo sistema si occupa della maggior parte dei
+dettagli poco pratici che rendono il plotting problematico (come per esempio 
+il disegno di legende), oltre che fornire un potente modello di grafica che
+rende semplice produrre complessi plot con molteplici strati.
+\end{displayquote}
+
 
         \subsection{Accesso ad R da Cplint on SWISH}
 Nativamente Prolog non è in grado di accedere all'interprete R. Esistono 
@@ -121,36 +152,6 @@ un \emph{server web}, per avere meno problemi di sicurezza, quali ad esempio
 \emph{privilege escalation}, il collegamento tra R e Prolog non può essere 
 diretto ma avviene tramite un ambiente virtuale isolato chiamato Docker. 
 Tutto questo però complica notevolmente l'installazione.
-
-        \subsection{Funzioni grafiche standardizzate}
-SISH offre funzioni grafiche che sono alternative a quelle fornite dalla 
-libreria c3js ed utilizzano invece R. Ad esemio, il package R \emph{ggplot2} 
-permette di disegnare gafici standard. I plot sono definiti usando la 
-cosiddetta \emph{grammatica dei grafici}, cioè la divisione per contesti dei 
-vari aspetti di un grafico come per esempio la geometria, la scala, la 
-rappresentazione estetica, ecc..., come riportato su \cite{grammarOfGraphics} e 
-\cite{ggplot2} e 
-https://books.google.it/books?id=XSekDgAAQBAJ\&pg=PT172\&lpg=PT172\&dq=%22ggplot2+is+a+plotting+system+for+R,+based+on+the+grammar+of+graphics,+which+tries+to+take+the+good+parts+of+base+and+lattice+graphics+and+none+of+the+bad+parts.%22\&source=bl\&ots=wSPaYoMAIO\&sig=Fx\_gTNTn1Zu5DQc1bElRctmtwBc\&hl=en\&sa=X\&ved=2ahUKEwjMpobchJLdAhUKFXwKHdB-BzQQ6AEwB3oECAMQAQ#v=onepage\&q=%22ggplot2%20is%20a%20plotting%20system%20for%20R%2C%20based%20on%20the%20grammar%20of%20graphics%2C%20which%20tries%20to%20take%20the%20good%20parts%20of%20base%20and%20lattice%20graphics%20and%20none%20of%20the%20bad%20parts.%22\&f=false
-[Sembra che la citazione originale sia stata rimossa dal sito ufficiale
-di ggplot2.]
-
-\begin{displayquote}
-ggplot2 is a plotting system for R, based on the grammar of graphics, which 
-tries to take the good parts of base and lattice graphics and none of the bad 
-parts. It takes care of many of the fiddly details that make plotting a hassle 
-(like drawing legends) as well as providing a powerful model of graphics that 
-makes it easy to produce complex multi-layered graphics.
-\end{displayquote}
-
-che tradotto:
-\begin{displayquote}
-ggplot2 è un sistema di plotting per R, basato sulla grammatica dei grafici,
-che cerca di utilizzare le parti migliori dei grafici di base e lattice, e di 
-escludere le parti peggiori. Questo sistema si occupa della maggior parte dei
-dettagli poco pratici che rendono il plotting problematico (come per esempio 
-il disegno di legende), oltre che fornire un potente modello di grafica che
-rende semplice produrre complessi plot con molteplici strati.
-\end{displayquote}
 
 
         \subsection{Semplificazione dell'installazione}
@@ -180,6 +181,8 @@ L'assegnazione di un valore di una variabile avviene con il
 comando \mint{r}|<- c(<qualcosa>)|, dove "c" serve a concatenare un 
 insieme di valori. \cite{rAssignmentOperator}
 
+[TODO]
+
         \subsection{Oggetti}
 Come molti altri linguaggi di programmazione, anche R mette a disposizione 
 strutture dati chiamate oggetti. Questi possono essere variabili, array di 
@@ -198,19 +201,20 @@ principio dell'indicizzazione, sia attraverso l'uso della notazione
 Alcune funzioni disponibili nella libreria \emph{r\_swish} permettono il 
 passaggio di valori tra Prolog ed R attraverso i \emph{data frame}. Questi 
 sono un tipo particolare di \emph{oggetti} che permettono 
-di organizzare i dati sotto forma matriciale. ...
+di organizzare i dati sotto forma matriciale. ... [TODO]
 I data frame in R sono definiti come specializzazione della classe lista.
-Rispetto ad una lista, infatti, esistono delle restrizioni...
+Rispetto ad una lista, infatti, esistono delle restrizioni... [TODO]
 
-I data frame si rivelano anche efficienti per R stesso.... cite ...
+I data frame si rivelano anche efficienti per R stesso.... cite ... [TODO]
 \cite{rDataFrame}
 
 %%%%
 %%%%
 
     \section{rserve\_client}
-La libreria rserve\_client\cite{rserveclient} permette di utilizzare i comandi 
-disponibili dell'interprete R direttamente da SWISH.
+rserve\_client è una libreria Prolog che ha lo scopo di rendere possibile 
+l'accesso ad un ambiente R da parte di SWISH \cite{rserveClientDefinition} 
+\cite{rserveclient}.
 %%% poiché il supporto per R 
 %%% all'interno di SWISH è ancora di recente implementazione. 
 %%% Di solito quindi la parte computazionale viene affidata all'interprete 
@@ -286,7 +290,7 @@ rispetto all'originale R. Nel secondo caso invece è possibile gestire alcuni
 casi particolari che genererebbero errori oppure che non sarebbe possibile 
 possibile trasformare nel primo caso.
 
-[Nella scrittura di cplint\_r si è anche trovato un caso non segnalato nella 
+Nella scrittura di cplint\_r si è anche trovato un caso non segnalato nella 
 documentazione in cui non è possibile trasformare un comando con la 
 notazione abbreviata, probabilmente per l'uso di istruzioni condizionali:
 
@@ -307,19 +311,19 @@ distrutte.
 
 \section{Rserve ed rserve-sandbox}
 
-Per poter utilizzare rserve\_client è anche necessario un server.
-Rserve è un server TCP/IP che permette ad altri programmi di 
+\emph{Rserve} è un server che permette ad altri programmi di
 utilizzare gli strumenti messi a disposizione da R attraverso diversi
-linguaggi di programmazione, senza dover inizializzare R o 
-\emph{linkarne}[FIXME] la libreria \cite{rserve}.
+linguaggi di programmazione, senza dover inizializzare R o
+linkarne la libreria \cite{rserve}. Rserve è il software attraverso il quale 
+rserve\_client può interfacciarsi con R.
 
-rserve-sandbox è una versione di Rserve che gira all'interno di un sistema di 
-virtualizzazione creato appositamente per lo scopo.
-[TODO].
-Per migliorare la sicurezza non viene mai esposto un socket \emph{TCP/IP} ma 
+Per migliorare la sicurezza Rserve non 
+viene mai eseguito direttamente, ma all'interno di un sistema di 
+virtualizzazione chiamato Docker. Inoltre non viene mai esposto un socket \emph{TCP/IP} ma 
 solo un socket di tipo \emph{UNIX} [EXPLAIN DIFFERENCE TO SHOW THE ADDED 
-SECURITY][FIXME] \cite{unixSocket}.  
-Questo è possibile attraverso il file di configurazione nel listato~\ref{lst:rservconf}.
+SECURITY][FIXME] \cite{unixSocket}. A differenza di socket TCP/IP, 
+un socket UNIX. Quest'ultimo aspetto si può vedere 
+nel listato~\ref{lst:rservconf} che contiene la configurazione di Rserve.
 
 Le modalità di funzionamento di reserve-sandbox sono spiegate nello schema in 
 figura~\ref{fig:rserveSandboxScheme}, 
