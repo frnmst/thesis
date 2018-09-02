@@ -46,6 +46,8 @@
 \newminted{text}{fontsize=\footnotesize,frame=single,framesep=10pt,breaklines,bgcolor=bg,linenos=true}
 \newminted{prolog}{fontsize=\footnotesize,frame=single,framesep=10pt,breaklines,bgcolor=bg,linenos=true}
 \newminted{r}{fontsize=\footnotesize,frame=single,framesep=10pt,breaklines,bgcolor=bg,linenos=true}
+\newminted{shell}{fontsize=\footnotesize,frame=single,framesep=10pt,breaklines,bgcolor=bg,linenos=true}
+
 % Inputfiles
 \newmintedfile[bashcodefile]{bash}{fontsize=\footnotesize,frame=single,framesep=10pt,breaklines,bgcolor=bg,linenos=true}
 \newmintedfile[prologcodefile]{prolog}{fontsize=\footnotesize,frame=single,framesep=10pt,breaklines,bgcolor=bg,linenos=true}
@@ -167,7 +169,21 @@ precedenti.
 %%%%
 
 
-\chapter{Strumenti e Architettura}
+\chapter{Strumenti e architettura}
+
+\section{SWISH}
+
+[TODO]
+
+%%
+%%
+
+\section{Cplint on SWISH con supporto R}
+
+[TODO]
+
+%%
+%%
 
     \section{R}
 R è un ambiente software per il calcolo statistico e la 
@@ -319,11 +335,12 @@ rserve\_client può interfacciarsi con R.
 
 Per migliorare la sicurezza Rserve non 
 viene mai eseguito direttamente, ma all'interno di un sistema di 
-virtualizzazione chiamato Docker. Inoltre non viene mai esposto un socket \emph{TCP/IP} ma 
-solo un socket di tipo \emph{UNIX} [EXPLAIN DIFFERENCE TO SHOW THE ADDED 
-SECURITY][FIXME] \cite{unixSocket}. A differenza di socket TCP/IP, 
-un socket UNIX. Quest'ultimo aspetto si può vedere 
-nel listato~\ref{lst:rservconf} che contiene la configurazione di Rserve.
+virtualizzazione chiamato Docker. Inoltre non viene mai esposto un socket 
+\emph{TCP/IP} ma solo un socket di tipo \emph{UNIX}. A differenza di socket 
+TCP/IP, in un socket UNIX tutto lo scambio di dati avviene all'interno del 
+\emph{kernel} del sistema operativo \cite{unixSocket}. 
+L'applicazione di quest'ultimo aspetto si può vedere nel 
+listato~\ref{lst:rservconf} che contiene la configurazione di Rserve.
 
 Le modalità di funzionamento di reserve-sandbox sono spiegate nello schema in 
 figura~\ref{fig:rserveSandboxScheme}, 
@@ -376,9 +393,8 @@ cycle;
 %%%%
 
     \section{Docker}
-\emph{Docker} è un implementazione di una virtualizzazione [O PSEUDO][FIXME] a 
-livello di sistema 
-operativo, cioé permette l'esistenza di molteplici istanze 
+\emph{Docker} è un implementazione di una virtualizzazione a 
+livello di sistema operativo, cioé permette l'esistenza di molteplici istanze 
 di ambienti isolati basate su utenti separati. Con Docker, in particolare, 
 questi ambienti possono essere eseguiti su qualunque macchina in modo 
 indipendente dalla configurazione del sistema operativo, a patto che i 
@@ -424,22 +440,46 @@ svantaggio tuttavia è che l'immagine può  essere anche molto grande
 (nell'ordine del Gigabyte) e quindi difficile da distribuire con i mezzi di 
 rete più noti.
 
-    \subsection{Configurazione di Docker per rserve-sandbox}
+    \subsection{Configurazioni di Docker per utilizzare rserve-sandbox}
+Per l'utilizzo dell'ambiente R all'interno di rserve-sandbox è necessario che 
+Rserve sia integrato opportunamente con Docker. Il \emph{Dockerfile} che si 
+è utilizzato contiene infatti le instruzioni per installare e avviare Rserve.
+La seguente istruzione consente di installare il pacchetto R ggplot2.
 
-Per l'utilizzo dell'ambiente R in rserve-sandbox [DESCRIBE] è necessario 
-l'interprete R ed un ambiente Docker configurato opportunamente.
-
-L'utente \texttt{rsd}, acronimo di \emph{rserve sandbox docker} è stato creato
-esclusivamente per l'interazione tra il daemon di Docker e il sistema, per 
-evitare problemi di sicurezza \cite{DockerPrivilegeEscalation0} 
-\cite{DockerPrivilegeEscalation1}. L'utente \texttt{rserve} [DESCRIBE] invece è 
-direttamente legato ad rserve. [TODO AND/OR MOVEME?] [...]
+\begin{code}
+    \caption{Istruzione installazione pacchetto R}
+    \begin{shellcode*}{}
+RUN echo 'install.packages(c("ggplot2"), repos="http://cloud.r-project.org/", dependencies=TRUE)' > /tmp/packages.R \
+    && Rscript /tmp/packages.R
+    \end{shellcode*}
+\end{code}
 
 Con il comando \texttt{CMD /bin/bash Rserv.sh}, presente nel Dockerfile,
-Docker chiama 
-\texttt{https://github.com/frnmst/rserve-sandbox/blob/distro-package/Rserv.sh}
-che legge il file di configurazione di Rserve (vedere il listato 
-~\ref{lst:rservconf}).
+Docker chiama Rserve con la configurazione presente nel 
+listato~\ref{lst:rservconf} presente a pagina~\pageref{lst:rservconf}.
+
+Dopo aver generato l'immagine si può avviare il container.
+Le opzioni che serve passare al comando \texttt{docker} sono:
+\begin{itemize}
+    \item  \texttt{--net=none}, in quanto non ci serve uno stack di rete
+    \item  \texttt{--rm}, perchè non ci interessa salvare il container per
+           un futuro utilizzo. Infatti ogni volta ne verrà creato uno nuovo.
+           Senza questa opzione la memoria di massa si riempirebbe dopo
+           vari avvii.
+    \item  \texttt{-v /home/rserve:/home/rserve}, che serve a montare 
+           la directory /home/rserve del sistema host in quello guest.
+           In questa directory sarà infatti presente il socket di Rserve,
+           in modo da essere accessibile al daemon di SWISH.
+\end{itemize}
+Nel listato~\ref{lst:dockerruncommand} si trova il comando completo.
+
+\begin{code}
+    \caption{Comando per avviare il container}
+    \begin{shellcode*}{}
+docker run --net=none --rm -v /home/rserve:/home/rserve rserve
+    \end{shellcode*}
+    \label{lst:dockerruncommand}
+\end{code}
 
 %%%%
 %%%%
@@ -578,16 +618,6 @@ cycle;
     \bashcodefile{configvmrc}
 \end{code}
 
-
-%%
-%%
-
-\section{SWISH}
-
-%%
-%%
-
-\section{Cplint on SWISH con supporto R}
 
 %%
 %%
@@ -806,7 +836,13 @@ contiene modifiche
 cplint e cplint\_r
     \item \texttt{rserve-sandbox-docker}: installa l'ambiente R che permette di 
 creare il socket gestito da Rserve. Questa è una dipendenza fondamentale di 
-\texttt{swish-cplint}
+\texttt{swish-cplint}.
+
+L'utente \texttt{rsd}, acronimo di \emph{rserve sandbox docker} è stato creato
+esclusivamente per l'interazione tra il daemon di Docker e il sistema, per 
+evitare problemi di sicurezza \cite{DockerPrivilegeEscalation0} 
+\cite{DockerPrivilegeEscalation1}. L'utente \texttt{rserve} [DESCRIBE] invece è 
+direttamente legato ad rserve. [TODO AND/OR MOVEME?] [...]
     \item \texttt{swish-cplint-bin} e \texttt{rserve-sandbox-docker-bin}: 
 questi sono analoghi alle versioni non \emph{bin} per quanto riguarda le 
 funzionalità. Quello che cambia è che i componenti più importanti sono 
