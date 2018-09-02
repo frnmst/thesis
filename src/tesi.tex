@@ -627,7 +627,7 @@ cycle;
         \subsection{Installazione manuale}
 L'installazione manuale consiste in vari passaggi:
 \begin{itemize}
-    \item nel cercare tutte le dipendenze software
+    \item cercare tutte le dipendenze software
     \item come queste si installano
     \item e infine quali altre azioni sono necessarie
 \end{itemize}
@@ -637,19 +637,20 @@ Per prima cosa bisogna installare SWI Prolog. SWI Prolog è di
 solito è già disponibile come pacchetto per le principali distribuzioni 
 GNU/Linux.
 
-Successivamente bisogna installare SWISH [che non è disponibile come
-pacchetto invece]. Vedere 
-anche
-https://github.com/SWI-Prolog/swish\#local-installation
-Il programma Bower \cite{bower}, servirà ad installare
-tutte le dipendenze necessarie per l'interfaccia web.
+Successivamente bisogna installare SWISH manualmente. Questa operazione può 
+essere fatta sia compilando le dipendenze, sia scaricando un file zip presente 
+nel sito ufficiale di SWI Prolog. Nel primo caso bisogna installare Bower 
+\cite{bower} ed eseguire un comando \texttt{make}, mentre nel secondo è 
+sufficiente l'estrazione del file all'interno della root directory 
+dell'installazione di SWISH \cite{swishManualInstallation}.
 
 È necessario installare i pacchetti SWI Prolog chiamati: \texttt{real}, 
-\texttt{aleph} e \texttt{cplint\_r}.
+\texttt{aleph} e \texttt{cplint\_r}. [TODO]
 
         \subsection{Installazione automatica}
 Per automatizzare tutti i precedenti passaggi è stato creato il repository
-\texttt{swish-cplint}. [...] L'installazione automatica avviene per mezzo di pacchetti software [...]
+\texttt{swish-cplint}. [TODO] L'installazione automatica avviene per mezzo di 
+pacchetti software [TODO]
 
 L' installazione dei pacchetti prolog è codificata all'interno di 
 \texttt{install\_web\_iface\_deps.pl}
@@ -659,7 +660,7 @@ script di avvio, quali \texttt{run.sh} e \texttt{run.pl} (una versione
 modificata di run.pl distribuita nel repository originale).
 
 Vengono inoltre creati gli opportuni gruppi e utenti, descritti 
-precedentemente, necessari all'avvio dei daemons.
+precedentemente, necessari all'avvio dei daemons. [TODO]
 
 %%%%
 %%%%
@@ -732,6 +733,7 @@ release}. Questo significa che i pacchetti sono sempre all'ultima versione
 stabile e che la distribuzione non viene rilasciata come versione stabile, 
 cosa che accade per la maggior parte delle distribuzioni. Tutto questo è 
 speigato nella wiki ufficiale\cite{archLinux}:
+[TODO: citation is old]
 \begin{displayquote}
 Arch Linux è una distribuzione indipendente sviluppata per i686/x86-64, 
 abbastanza versatile ed adatta ad ogni ruolo. Il suo sviluppo si concentra 
@@ -842,7 +844,10 @@ L'utente \texttt{rsd}, acronimo di \emph{rserve sandbox docker} è stato creato
 esclusivamente per l'interazione tra il daemon di Docker e il sistema, per 
 evitare problemi di sicurezza \cite{DockerPrivilegeEscalation0} 
 \cite{DockerPrivilegeEscalation1}. L'utente \texttt{rserve} [DESCRIBE] invece è 
-direttamente legato ad rserve. [TODO AND/OR MOVEME?] [...]
+direttamente legato ad rserve.
+
+[TODO]
+
     \item \texttt{swish-cplint-bin} e \texttt{rserve-sandbox-docker-bin}: 
 questi sono analoghi alle versioni non \emph{bin} per quanto riguarda le 
 funzionalità. Quello che cambia è che i componenti più importanti sono 
@@ -926,11 +931,13 @@ difficoltà. Tuttavia è presente qualche problema che inibisce l'accesso ad
 Rserve da SWISH.
 
 \subsection{Alternative}
-... Tutto il sistema spiegato fino ad ora comporta il dover tener traccia di 
+Tutto il sistema spiegato fino ad ora comporta il dover tener traccia di 
 molti fattori all'aumentare del numero di distribuzioni supportate. Nell'ultimo 
 periodo stanno emergendo gestori di pacchetti che sono indipendenti dalla 
 distribuzione in uso e che dovrebbero semplificare anche la gestione delle 
-dipendenze (OBS, Flatpack, Snap) ...
+dipendenze (OBS, Flatpack, Snap).
+
+[TODO]
 
 
 %%%%
@@ -998,7 +1005,7 @@ geom_<something>(<Lists and/or other input>) :-
 
 ?Per ogni insieme di valori si è deciso di usare un data frame diverso. In 
 questo modo è stato possibile aggregare più insiemi di valori quando 
-necessario. ... example + cite ...?
+necessario. ... example + cite ...? [TODO]
 
 %%%%
 %%%%
@@ -1076,7 +1083,7 @@ rappresentato l'intervallo di confidenza dato dal percentile per la radice
 quadrata della varianza, ad esempio: \texttt{ymin=c(df1\$y-(1.96*sqrt(df4\$y)))}
 Le error bar, invece, sono rappresentate in un intervallo di sigma:
 \texttt{Sigma is 0.3} \texttt{sigma <- Sigma} \texttt{ymin=c(df1\$y-sigma)}
-
+[TODO: expand]
 
 \subsection{kalman\_filter\_R}
 Il predicato \texttt{geom\_densities/7} disegna contemporanemente
@@ -1096,12 +1103,13 @@ prunti sul grafico. Si è inoltre usato \texttt{breaks=seq(0,max(df\$val),2)}
 per imitare il comportamento della versione c3js.
 
 
+[TODO: commented code snippets, not whole code]
 \begin{code}
     \caption{L'esempio gpr\_R.pl}
     \prologcodefile{gpr_R.pl}
 \end{code}
 
-FOTO esempi versione c3js e R.
+FOTO esempi versione c3js e R. [TODO]
 
 
 %%%%
@@ -1112,7 +1120,7 @@ FOTO esempi versione c3js e R.
 
 \chapter{Conclusioni}
 
-TODO
+[TODO]
 
 %%%%
 %%%%
