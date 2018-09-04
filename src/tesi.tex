@@ -1056,17 +1056,38 @@ specifici per risolvere il problema. Si vedano gli esempi.
 
 \chapter{Esempi}
 
-\section{Utilizzo esclusivo di cplint\_r}
+\section{Uso diretto di cplint\_r}
 Di seguito è riportato un confronto tra un esempio scritto
-con cplint e lo stesso scritto con cplint\_r.
+con cplint e lo stesso scritto con cplint\_r. Nei casi di utilizzo diretto di 
+cplint\_r il  codice prolog rimane fondamentalmente invariato rispetto alla 
+versione C3.js. Per prima cosa è neccsario includere la libreria.
+Bisogna poi chiamare la corrispondente funzione di cplint\_r con gli stessi 
+parameteri ad esclusione dell'\emph{oggetto grafico} poichè non necessario. Il 
+listato~\ref{lst:diffcoinmsw} è il risultato del comando
+\texttt{\$ diff coinmsw.pl coinmsw\_R.pl}
+nel quale vengono evidenziate le differenze fra la versione C3.js 
+\cite{coinmswpl} ed R \cite{coinmswrpl} dell'esempio \texttt{coinmsw.pl}.
 
 \begin{code}
-    \caption{coinmsw.pl}
-    \prologcodefile{coinmsw.pl}
-\end{code}
-\begin{code}
-    \caption{coinmsw\_R.pl}
-    \prologcodefile{coinmsw_R.pl}
+\caption{Differenze fra coinmsw.pl e coinmsw\_R.pl}
+\label{lst:diffcoinmsw}
+\begin{prologcode*}{}
+9,12c9
+< 
+< :- if(current_predicate(use_rendering/1)).
+< :- use_rendering(c3).
+< :- endif.
+---
+> :- use_module(library(cplint_r)).
+35c32
+< ?- prob_bar(res(coin,heads),Prob).  % what is the probability that coin lands heads?
+---
+> ?- prob_bar_r(res(coin,heads)).  % what is the probability that coin lands heads?
+37c34
+< ?- prob_bar(res(coin,tails),Prob).  % what is the probability that coin lands tails?
+---
+> ?- prob_bar_r(res(coin,tails)).  % what is the probability that coin lands tails?
+\end{prologcode*}
 \end{code}
 
 
@@ -1085,14 +1106,20 @@ Le error bar, invece, sono rappresentate in un intervallo di sigma:
 \texttt{Sigma is 0.3} \texttt{sigma <- Sigma} \texttt{ymin=c(df1\$y-sigma)}
 [TODO: expand]
 
+[TODO: commented code snippets, not whole code]
+\begin{code}
+    \caption{L'esempio gpr\_R.pl}
+    \prologcodefile{gpr_R.pl}
+\end{code}
+
 \subsection{kalman\_filter\_R}
 Il predicato \texttt{geom\_densities/7} disegna contemporanemente
 due grafici in una sola figura grazie al pacchetto
 \texttt{gridExtra}\cite{gridExtra}. Nella versione c3js, invece, tutti i dati 
 sono rappresentati sullo stesso grafico.
 Il grafico superiore si riferisce a un insieme di osservazioni e di stati 
-?ricavati da previsioni?, mentre quello inferiore rappresenta 4 distribuzioni 
-di densità degli stati.
+?ricavati da previsioni? [TODO], mentre quello inferiore rappresenta 4 
+distribuzioni di densità degli stati.
 
 \subsection{seven\_scientists\_R}
 Il predicato \texttt{geom\_bar/1}  genera un diagramma a barre 
@@ -1102,12 +1129,6 @@ una lista da 7 elementi e \texttt{breaks=seq(0,7,1)} per evidenziare i 7
 prunti sul grafico. Si è inoltre usato \texttt{breaks=seq(0,max(df\$val),2)} 
 per imitare il comportamento della versione c3js.
 
-
-[TODO: commented code snippets, not whole code]
-\begin{code}
-    \caption{L'esempio gpr\_R.pl}
-    \prologcodefile{gpr_R.pl}
-\end{code}
 
 FOTO esempi versione c3js e R. [TODO]
 

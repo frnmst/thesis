@@ -30,8 +30,6 @@ CPLINT_R_PL=$(CPLINT_R)/prolog/cplint_r.pl
 
 SWISH=$(GITHUB_FRNMST_ROOT)/swish/master
 GPR_R_PL=$(SWISH)/examples/inference/gpr_R.pl
-COINMSW_PL=$(SWISH)/examples/inference/coinmsw.pl
-COINMSW_R_PL=$(SWISH)/examples/inference/coinmsw_R.pl
 
 default: compile
 
@@ -46,7 +44,7 @@ clean:
 	@echo "Object files removed."
 
 fullclean: clean
-	@rm -rf qvm configvmrc Rserv.conf cplint_r.pl Makefile.rserve Dockerfile.in coinmsw.pl coinmsw_R.pl
+	@rm -rf qvm configvmrc Rserv.conf cplint_r.pl Makefile.rserve Dockerfile.in
 	@rm -rf _minted-$(TEX_SRC)
 
 getsourcefiles:
@@ -57,8 +55,6 @@ getsourcefiles:
 	@curl -o Dockerfile.in $(RSERVE_SANDBOX_DOCKERFILE_IN)
 	@curl -o Makefile.rserve $(RSERVE_SANDBOX_MAKEFILE)
 	@curl -o gpr_R.pl $(GPR_R_PL)
-	@curl -o coinmsw.pl $(COINMSW_PL)
-	@curl -o coinmsw_R.pl $(COINMSW_R_PL)
 
 
 # -shell-escape is necessary for minted
