@@ -32,7 +32,7 @@ Minted
 
 ## Arch Linux package dependencies
 
-    # pacman -S make texlive-most minted curl
+    # pacman -S make texlive-most minted curl biber
 
 ## Compile
 

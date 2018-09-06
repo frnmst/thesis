@@ -10,6 +10,10 @@
 %
 
 \documentclass[10pt,titlepage,twoside,a4paper]{report}
+
+\usepackage[backend=biber]{biblatex}
+\addbibresource{ref.bib}
+
 \usepackage[margin=1in,a4paper]{geometry}
 \usepackage[italian]{babel}
 \usepackage{lmodern}
@@ -95,7 +99,7 @@
 Per spiegare il problema è necessario introdurre i software principali che si 
 sono utilizzati.
 
-La piattaforma \emph{SWISH}\cite{SWISH} viene usata per la programmazione 
+La piattaforma \emph{SWISH}\cite{swish} viene usata per la programmazione 
 logica attraverso un qualunque web browser dotato di \emph{Javascript}. Questa 
 è collegata direttamente all'interprete SWI.
 
@@ -842,8 +846,8 @@ creare il socket gestito da Rserve. Questa è una dipendenza fondamentale di
 
 L'utente \texttt{rsd}, acronimo di \emph{rserve sandbox docker} è stato creato
 esclusivamente per l'interazione tra il daemon di Docker e il sistema, per 
-evitare problemi di sicurezza \cite{DockerPrivilegeEscalation0} 
-\cite{DockerPrivilegeEscalation1}. L'utente \texttt{rserve} [DESCRIBE] invece è 
+evitare problemi di sicurezza \cite{dockerPrivilegeEscalation0} 
+\cite{dockerPrivilegeEscalation1}. L'utente \texttt{rserve} [DESCRIBE] invece è 
 direttamente legato ad rserve.
 
 [TODO]
@@ -860,7 +864,7 @@ fa riferimento ad un immagine Docker precompilata e poi resa disponibile
 attraverso un repository git. \texttt{swish-cplint-bin} invece contiene tante 
 dipendenze Javascript\cite{javascriptDepsSWISH} Queste sono sparse su molti 
 repository diversi. Come alternativa, gli sviluppatori 
-di SWISH hanno messo a disposizione un file \emph{zip}\cite{SWISHwebDepsZip} 
+di SWISH hanno messo a disposizione un file \emph{zip}\cite{swishWebDepsZip} 
 con tutti gli strumenti precompilati. è sufficiente quindi usare questi ed 
 è proprio quello che fa \texttt{swish-cplint-bin}:
 \begin{displayquote}
@@ -1096,20 +1100,99 @@ Come detto precedentemente, sono state create alcune funzioni ad-hoc
 nei casi in cui non è stato possibile generalizzare.
 
 \subsection{gpr\_R}
-In questo esempio vengono disegnate 3 funzioni che rappresentano 
-l'interpolazione dei valori della media in 10 punti, utilizzando un polinomio 
-di nono grado: \texttt{formula = "y ~ poly(x,degree=9)"}. Viene anche 
-rappresentato l'intervallo di confidenza dato dal percentile per la radice 
-quadrata della varianza, ad esempio: \texttt{ymin=c(df1\$y-(1.96*sqrt(df4\$y)))}
-Le error bar, invece, sono rappresentate in un intervallo di sigma:
-\texttt{Sigma is 0.3} \texttt{sigma <- Sigma} \texttt{ymin=c(df1\$y-sigma)}
-[TODO: expand]
+Lo scopo di questo esempio è quello di prevedere il valore di alcuni punti 
+conoscendone altri. Questo è possibile grazie al \emph{Gaussian Process} che 
+definisce una serie di funzioni, anche chiamate \emph{kernel}, per fare questo 
+tipo di analisi.
+
+\begin{code}
+\caption{Chiamata di esempio di gpr\_R.pl}
+\label{lst:gprRExample}
+\begin{prologcode*}{}
+?- draw_fun_pred_r(sq_exp_p).
+% Given the three points
+% XT=[2.5,6.5,8.5]
+% YT=[1,-0.8,0.6]
+% draws 5 functions predicting points with X=[0,...,10] with a
+% squared exponential kernel. The graphs shows as dots the given points.
+\end{prologcode*}
+\end{code}
+
+A differenza della versione scritta in C3.js, nel quale è presente il 
+calcolo della media, nella versione R è stato aggiunto 
+anche il calcolo della varianza ottenuta seguendo i procedimenti spiegati 
+nell'articolo \citetitle{gpr} \cite{gpr}. In breve, sono necessari i seguenti 
+passaggi:
+
+\begin{enumerate}
+    \item Calcolo della matrice covarianza \texttt{K} dei punti noti.
+    \item Inversa di \texttt{K}, \texttt{K\^-1}
+    \item Calcolo di \texttt{K*}, che rappresenta la covarianza tra
+          il punto x* (con y* incognita) e gli altri punti (x,y) noti.
+    \item Trasposta di \texttt{K*} \texttt{K*T}
+    \item \texttt{K**}, una matrice da un elemento che corrisponde alla 
+          covarianza (x*,x*).
+    \item  varianza = K** - (K* x K\^-1 x K*T)
+    \item Esegui punto 2 -> 6  per tutti gli altri x* (punti (x*,y*) con y* 
+          incognita,, i restanti 9 punti). Questo viene fatto ricorsivamente 
+          usando sottoinsiemi delle liste inizali passate come argomento.
+\end{enumerate}
+Queste operazioni sono riportate nel listato~\ref{lst:grpRVarianceComputation}.
+
+\begin{code}
+\caption{Calcolo della varianza in gpr\_R.pl}
+\label{lst:gprRVarianceComputation}
+\begin{prologcode*}{}
+compute_k([],_,_,[]).
+
+compute_k([XH|XT],X,Ker,[HK|TK]):-
+  call(Ker,XH,X,HK),
+  compute_k(XT,X,Ker,TK).
+
+compute_KStar(XP,XT,Kernel,[KStar]) :-
+    compute_k(XT,XP,Kernel,KStar).
+
+compute_KStarStar(XP,Kernel,KStarStar) :-
+    call(Kernel,XP,XP,KStarStar).
+
+strip_variance_list([[V]],V).
+
+gp_predict_variance_handler(_,[],_,_,_,[]).
+
+gp_predict_variance_handler(XT,[XPH|XPT],K_1,Kernel,Sigma,[VarianceH|VarianceT]):-
+    compute_KStar(XPH,XT,Kernel,KStar),
+    transpose(KStar,KStar_T),
+    compute_KStarStar(XPH,Kernel,KStarStar),
+    matrix_multiply(KStar,K_1,M),
+    matrix_multiply(M,KStar_T,N),
+    matrix_diff([[KStarStar]],N,VarianceHTmp),
+    strip_variance_list(VarianceHTmp,VarianceH),
+    gp_predict_variance_handler(XT,XPT,K_1,Kernel,Sigma,VarianceT).
+
+gp_predict_variance(XP,XT,Kernel,Sigma,Variance) :-
+    compute_cov(XT,Kernel,Sigma,K),
+    matrix_inversion(K,K_1),
+    gp_predict_variance_handler(XT,XP,K_1,Kernel,Sigma,Variance).
+\end{prologcode*}
+\end{code}
+
+
+Anche le error bar sono una cosa che non c'era nella versione C3.js ma c'e' 
+nell'articolo ... [TODO]
+
+
+
+%In questo esempio vengono disegnate 3 funzioni che rappresentano 
+%l'interpolazione dei valori della media in 10 punti, utilizzando un polinomio 
+%di nono grado: \texttt{formula = "y ~ poly(x,degree=9)"}. Viene anche 
+%rappresentato l'intervallo di confidenza dato dal percentile per la radice 
+%quadrata della varianza, ad esempio: 
+%\texttt{ymin=c(df1\$y-(1.96*sqrt(df4\$y)))}
+%Le error bar, invece, sono rappresentate in un intervallo di sigma:
+%\texttt{Sigma is 0.3} \texttt{sigma <- Sigma} \texttt{ymin=c(df1\$y-sigma)}
+%[TODO: expand]
 
 [TODO: commented code snippets, not whole code]
-\begin{code}
-    \caption{L'esempio gpr\_R.pl}
-    \prologcodefile{gpr_R.pl}
-\end{code}
 
 \subsection{kalman\_filter\_R}
 Il predicato \texttt{geom\_densities/7} disegna contemporanemente
@@ -1148,9 +1231,11 @@ FOTO esempi versione c3js e R. [TODO]
 %%%%
 
 
-\bibliographystyle{unsrt}
+%\bibliographystyle{unsrt}
 %\bibliographystyle{plain}
 % file names without the extension, comma separated.
-\bibliography{ref}
+%\bibliography{ref}
+
+\printbibliography
 
 \end{document}
