@@ -10,10 +10,9 @@
 %
 
 \documentclass[10pt,titlepage,twoside,a4paper]{report}
-
 \usepackage[backend=biber]{biblatex}
 \addbibresource{ref.bib}
-
+\usepackage{mathtools}
 \usepackage[margin=1in,a4paper]{geometry}
 \usepackage[italian]{babel}
 \usepackage{lmodern}
@@ -807,7 +806,7 @@ free.
 Ubuntu è invece meno stabile, tuttavia ha a
 disposizione pacchetti più recenti.
 
-... Ubuntu description...
+... Ubuntu description... [TODO]
 
 \subsection{Struttura}
 Il procedimento descritto nella sezione~\ref{pacchetto-e-gestore-di-pacchetti}
@@ -824,7 +823,7 @@ di incudere i file per Systemd poiché non viene fatto di default. Il file
 \texttt{control} invece contiene informazioni sulle dipendenze, maintainer, 
 descrizioni, etc... 
 
-.. Brief APT + PPA descriptiion ...
+.. Brief APT + PPA descriptiion ... [TODO]
 
 %%%%
 %%%%
@@ -1093,9 +1092,7 @@ nel quale vengono evidenziate le differenze fra la versione C3.js
 \end{prologcode*}
 \end{code}
 
-
-
-\section{Casi particolari} \label{sec:case-particolari}
+\section{Casi particolari} \label{sec:casiParticolari}
 Come detto precedentemente, sono state create alcune funzioni ad-hoc
 nei casi in cui non è stato possibile generalizzare.
 
@@ -1125,19 +1122,31 @@ nell'articolo \citetitle{gpr} \cite{gpr}. In breve, sono necessari i seguenti
 passaggi:
 
 \begin{enumerate}
-    \item Calcolo della matrice covarianza \texttt{K} dei punti noti.
-    \item Inversa di \texttt{K}, \texttt{K\^-1}
-    \item Calcolo di \texttt{K*}, che rappresenta la covarianza tra
-          il punto x* (con y* incognita) e gli altri punti (x,y) noti.
-    \item Trasposta di \texttt{K*} \texttt{K*T}
-    \item \texttt{K**}, una matrice da un elemento che corrisponde alla 
-          covarianza (x*,x*).
-    \item  varianza = K** - (K* x K\^-1 x K*T)
-    \item Esegui punto 2 -> 6  per tutti gli altri x* (punti (x*,y*) con y* 
-          incognita,, i restanti 9 punti). Questo viene fatto ricorsivamente 
-          usando sottoinsiemi delle liste inizali passate come argomento.
+\item Calcolo della matrice covarianza $K$ dei punti noti.
+
+\item Calcolo dell'inversa di $K$, cioè $K^{-1}$
+
+\item Calcolo di $K_{\ast}$, che rappresenta la covarianza tra
+le ascisse del punto $(x_{\ast},y_{\ast})$ (con $y_{\ast}$ incognita) e le 
+ascisse degli altri punti $(x_{i},y_{i})$ noti.
+
+\item Trasposta di $K_{\ast}$, cioè $K_{\ast}^T$
+
+\item La matrice $K_{\ast\ast}$, di un solo elemento che 
+corrisponde alla covarianza tra $x_{\ast}$ e $x_{\ast}$.
+
+\item Il valore della varianza nel punto $x_{\ast}$ è quindi ottenuto 
+con una serie di operazioni sulle matrici ricavate nei punti precedenti. 
+
+Quindi: $var(y_{\ast}) = K_{\ast\ast} - (K_{\ast} K^{-1} K_{\ast}^T)$
 \end{enumerate}
-Queste operazioni sono riportate nel listato~\ref{lst:grpRVarianceComputation}.
+
+Con queste istruzioni si è in grado di trovare la varianza per uno 
+solo dei punti. Bisogna qundi eseguire le operazioni [TODO: language] dalla 3 
+alla 6 con i restanti punti.
+
+Lo pseudocodice appena visto è stato trasformato in prolog ed è riportato nel 
+listato~\ref{lst:grpRVarianceComputation}.
 
 \begin{code}
 \caption{Calcolo della varianza in gpr\_R.pl}
