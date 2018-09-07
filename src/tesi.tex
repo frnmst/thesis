@@ -1097,6 +1097,7 @@ Come detto precedentemente, sono state create alcune funzioni ad-hoc
 nei casi in cui non è stato possibile generalizzare.
 
 \subsection{gpr\_R}
+\subsubsection{Introduzione}
 Lo scopo di questo esempio è quello di prevedere il valore di alcuni punti 
 conoscendone altri. Questo è possibile grazie al \emph{Gaussian Process} che 
 definisce una serie di funzioni, anche chiamate \emph{kernel}, per fare questo 
@@ -1115,6 +1116,7 @@ tipo di analisi.
 \end{prologcode*}
 \end{code}
 
+\subsubsection{Varianza}
 A differenza della versione scritta in C3.js, nel quale è presente il 
 calcolo della media, nella versione R è stato aggiunto 
 anche il calcolo della varianza ottenuta seguendo i procedimenti spiegati 
@@ -1142,11 +1144,11 @@ Quindi: $var(y_{\ast}) = K_{\ast\ast} - (K_{\ast} K^{-1} K_{\ast}^T)$
 \end{enumerate}
 
 Con queste istruzioni si è in grado di trovare la varianza per uno 
-solo dei punti. Bisogna qundi eseguire le operazioni [TODO: language] dalla 3 
+solo dei punti, quindi bisogna eseguire le operazioni dalla 3 
 alla 6 con i restanti punti.
 
 Lo pseudocodice appena visto è stato trasformato in prolog ed è riportato nel 
-listato~\ref{lst:grpRVarianceComputation}.
+listato~\ref{lst:gprRVarianceComputation}.
 
 \begin{code}
 \caption{Calcolo della varianza in gpr\_R.pl}
@@ -1185,23 +1187,97 @@ gp_predict_variance(XP,XT,Kernel,Sigma,Variance) :-
 \end{prologcode*}
 \end{code}
 
+\subsubsection{Disegno del grafico}
 
-Anche le error bar sono una cosa che non c'era nella versione C3.js ma c'e' 
-nell'articolo ... [TODO]
+Nell'esempio vengono disegnate tre funzioni, ognuna rappresentate una 
+delle possibili interpolazioni dei valori della media dei punti previsti.
+
+Queste interpolazioni sono ottenute grazie ad un polinomio di nono grado
+[TODO: explain instructions]
+\begin{code}
+\caption{Disegno delle funzioni di interpolazione}
+\begin{rcode*}{}
+formula = "y ~ poly(x,degree=9)",
+method = "glm",
+se = 'FALSE'
+\end{rcode*}
+\end{code}
+
+Per rappresentare l'intervallo di confidenza si è utilizzata un'istruzione
+di ggplot2 che permette di colorare l'area del grafico interessata. 
+L'intervallo di confidenza del 95\% è dato da $\bar{y}_{\ast} \pm 
+1.96\sqrt{var(y_{\ast})}$ 
+
+\begin{code}
+\begin{rcode*}{}
+aes(
+    ymin=c(
+        df1$y-(1.96*sqrt(df4$y)),
+        df2$y-(1.96*sqrt(df5$y)),
+        df3$y-(1.96*sqrt(df6$y))
+    ),
+    ymax=c(
+        df1$y+(1.96*sqrt(df4$y)),
+        df2$y+(1.96*sqrt(df5$y)),
+        df3$y+(1.96*sqrt(df6$y))
+    ),
+    color=group,
+    fill=group
+),
+alpha=0.2
+\end{rcode*}
+\end{code}
+
+Per evidenziare l'errore sui dati si sono usate delle error bar definite in un 
+intervallo di $\pm \sigma$. Questo è possibile grazie alla funzione 
+\texttt{geom\_errorbar}.
+
+\begin{code}
+\caption{Disegno dell error bar}
+\begin{rcode*}{}
+Sigma is 0.3,
+sigma <- Sigma,
+geom_errorbar(
+    aes(
+        ymin=c(
+            df1$y-sigma,
+            df2$y-sigma,
+            df3$y-sigma
+        ),
+        ymax=c(
+            df1$y+sigma,
+            df2$y+sigma,
+            df3$y+sigma
+        ),
+        color=group
+    ),
+    width=0.2
+)
+\end{rcode*}
+\end{code}
+
+Come ultima nota sono stati anche disegnati i tre punti di training.
+\begin{code}
+\caption{Disegno punti di training}
+\begin{rcode*}{}
+geom_point(
+    aes(
+        x=xN,
+        y=yN,
+        color="y",
+        fill="y"
+    )
+)
+\end{rcode*}
+\end{code}
 
 
+\begin{figure}[H]
+\caption{Risultato dell'esecuzione di [TODO]}
+\includegraphics[width=.5\linewidth]{gpr_R_plot.png}
+\end{figure}
 
-%In questo esempio vengono disegnate 3 funzioni che rappresentano 
-%l'interpolazione dei valori della media in 10 punti, utilizzando un polinomio 
-%di nono grado: \texttt{formula = "y ~ poly(x,degree=9)"}. Viene anche 
-%rappresentato l'intervallo di confidenza dato dal percentile per la radice 
-%quadrata della varianza, ad esempio: 
-%\texttt{ymin=c(df1\$y-(1.96*sqrt(df4\$y)))}
-%Le error bar, invece, sono rappresentate in un intervallo di sigma:
-%\texttt{Sigma is 0.3} \texttt{sigma <- Sigma} \texttt{ymin=c(df1\$y-sigma)}
-%[TODO: expand]
-
-[TODO: commented code snippets, not whole code]
+Il codice sorgente completo di gpr\_R.pl si trova \ref{gprRpl}
 
 \subsection{kalman\_filter\_R}
 Il predicato \texttt{geom\_densities/7} disegna contemporanemente
@@ -1210,7 +1286,8 @@ due grafici in una sola figura grazie al pacchetto
 sono rappresentati sullo stesso grafico.
 Il grafico superiore si riferisce a un insieme di osservazioni e di stati 
 ?ricavati da previsioni? [TODO], mentre quello inferiore rappresenta 4 
-distribuzioni di densità degli stati.
+distribuzioni di densità degli stati. Il codice sorgente di questo esempio si 
+trova [TODO].
 
 \subsection{seven\_scientists\_R}
 Il predicato \texttt{geom\_bar/1}  genera un diagramma a barre 
@@ -1220,8 +1297,6 @@ una lista da 7 elementi e \texttt{breaks=seq(0,7,1)} per evidenziare i 7
 prunti sul grafico. Si è inoltre usato \texttt{breaks=seq(0,max(df\$val),2)} 
 per imitare il comportamento della versione c3js.
 
-
-FOTO esempi versione c3js e R. [TODO]
 
 
 %%%%
