@@ -1191,9 +1191,10 @@ gp_predict_variance(XP,XT,Kernel,Sigma,Variance) :-
 
 Nell'esempio vengono disegnate tre funzioni, ognuna rappresentate una 
 delle possibili interpolazioni dei valori della media dei punti previsti.
+Queste interpolazioni sono ottenute grazie ad un polinomio di nono grado.
+Con l'opzione \texttt{se} viene inoltre disabilitato l'intervallo di 
+confidenza calcolato automaticamente da ggplot2 ma non pertinente al problema.
 
-Queste interpolazioni sono ottenute grazie ad un polinomio di nono grado
-[TODO: explain instructions]
 \begin{code}
 \caption{Disegno delle funzioni di interpolazione}
 \begin{rcode*}{}
@@ -1203,28 +1204,31 @@ se = 'FALSE'
 \end{rcode*}
 \end{code}
 
-Per rappresentare l'intervallo di confidenza si è utilizzata un'istruzione
-di ggplot2 che permette di colorare l'area del grafico interessata. 
-L'intervallo di confidenza del 95\% è dato da $\bar{y}_{\ast} \pm 
+Per rappresentare l'intervallo di confidenza si è utilizzata l'istruzione
+\texttt{geom\_ribbon} di ggplot2 che permette di colorare l'area del grafico 
+interessata. L'intervallo di confidenza del 95\% è dato da $\bar{y}_{\ast} \pm 
 1.96\sqrt{var(y_{\ast})}$ 
 
 \begin{code}
+\caption{Disegno dell'intervallo di confidenza}
 \begin{rcode*}{}
-aes(
-    ymin=c(
-        df1$y-(1.96*sqrt(df4$y)),
-        df2$y-(1.96*sqrt(df5$y)),
-        df3$y-(1.96*sqrt(df6$y))
+geom_ribbon(
+    aes(
+        ymin=c(
+            df1$y-(1.96*sqrt(df4$y)),
+            df2$y-(1.96*sqrt(df5$y)),
+            df3$y-(1.96*sqrt(df6$y))
+        ),
+        ymax=c(
+            df1$y+(1.96*sqrt(df4$y)),
+            df2$y+(1.96*sqrt(df5$y)),
+            df3$y+(1.96*sqrt(df6$y))
+        ),
+        color=group,
+        fill=group
     ),
-    ymax=c(
-        df1$y+(1.96*sqrt(df4$y)),
-        df2$y+(1.96*sqrt(df5$y)),
-        df3$y+(1.96*sqrt(df6$y))
-    ),
-    color=group,
-    fill=group
-),
-alpha=0.2
+    alpha=0.2
+)
 \end{rcode*}
 \end{code}
 
@@ -1233,7 +1237,7 @@ intervallo di $\pm \sigma$. Questo è possibile grazie alla funzione
 \texttt{geom\_errorbar}.
 
 \begin{code}
-\caption{Disegno dell error bar}
+\caption{Disegno delle error bar}
 \begin{rcode*}{}
 Sigma is 0.3,
 sigma <- Sigma,
@@ -1271,13 +1275,13 @@ geom_point(
 \end{rcode*}
 \end{code}
 
-
 \begin{figure}[H]
-\caption{Risultato dell'esecuzione di [TODO]}
+\caption{Risultato dell'esecuzione}
 \includegraphics[width=.5\linewidth]{gpr_R_plot.png}
 \end{figure}
 
-Il codice sorgente completo di gpr\_R.pl si trova \ref{gprRpl}
+Il codice sorgente completo di gpr\_R.pl si trova nel repository di 
+Cplint on SWISH~\cite{gprRpl}.
 
 \subsection{kalman\_filter\_R}
 Il predicato \texttt{geom\_densities/7} disegna contemporanemente
