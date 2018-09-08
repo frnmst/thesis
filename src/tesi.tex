@@ -17,7 +17,10 @@
 \usepackage[italian]{babel}
 \usepackage{lmodern}
 \usepackage[utf8]{inputenc}
-\usepackage{graphics,url,amsfonts,epsfig,hyperref,float,listings}
+\usepackage{graphicx,url,amsfonts,epsfig,hyperref,float,listings}
+%\usepackage{float}
+%\floatstyle{boxed} 
+%\restylefloat{figure}
 \usepackage{caption}
 \usepackage{minted}
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
@@ -609,10 +612,10 @@ cycle;
 \end{tikzpicture}
 \end{figure}
 
-\begin{code}
-    \caption{Codice sorgente di qvm}
-    \bashcodefile{qvm}
-\end{code}
+%\begin{code}
+%    \caption{Codice sorgente di qvm}
+%    \bashcodefile{qvm}
+%\end{code}
 
 \newpage
 
@@ -949,16 +952,14 @@ dipendenze (OBS, Flatpack, Snap).
 %%%%
 
 
-\chapter{Predicati per disegnare grafici in Cplint on SWISH} 
-\label{predicati-per-disegnare-grafici-in-cplint-on-swish}
+\chapter{Disegnare grafici R con Cplint on SWISH} 
+\label{disegnare-grafici-r-con-cplint-on-swish}
 \emph{cplint\_r} è una libreria per SWI Prolog che fornisce un'interfaccia 
 fra l'interprete Prolog ed R, in modo da poter graficare i risultati generati 
 dalla libreria cplint. Questo significa che cplint\_r si occupa esclusivamente 
-del disegno dei grafici. cplint\_r usa estensivamente la libreria ggplot2 per 
-graficare. Questa fornisce risultati esteticamente migliori rispetto a quella 
-fornita di default.
+del disegno dei grafici grazie ad una libreria R chiamata ggplot2.
 
-\section{Descrizione dei tipi di predicati}
+\section{Tipi di grafici}
 cplint\_r è in grado di disegnare:
 \begin{itemize}
     \item istogrammi,
@@ -967,24 +968,56 @@ cplint\_r è in grado di disegnare:
 \end{itemize}
 
 \section{Struttura}
-cplint\_r è composta da tre diversi tipi di predicati:
-\begin{enumerate}
-    \item I predicati che espongono un'interfaccia. Questi chiamano alcuni 
-          predicati di cplint per quanto riguarda il calcolo dei risultati. 
-          Hanno gli stessi nomi di cplint con, in aggiunta, il suffisso 
-          \texttt{\_r}.
+cplint\_r è composta da tre diversi tipi di funzioni che in prolog vengono 
+chiamate \emph{predicati}.
 
-        \begin{code}
-            \caption{Struttura dei predicati dell'interfaccia di cplint\_r}
-            \begin{prologcode*}{}
+\subsection{Interfaccia}
+L'interfaccia comprende una serie di funzioni accessibili allo sviluppatore che 
+vuole scrivere programmi usando cplint\_r. Questi predicati chiamano al loro 
+interno, se necessario, le funzioni di cplint a cui si riferiscono. Una volta 
+ottenuti i dati dalle funzioni di cplint vengono chiamati dei predicati 
+all'interno di cplint\_r per gestire la parte grafica.
+
+Per mantenere coerenza tra cplint e cplint\_r, i nomi delle funzioni che fanno 
+parte dell'interfaccia sono gli stessi, con la differenza che in cplint\_r
+hanno il suffisso \texttt{\_r}.
+
+Uno schema della struttura è presente nel 
+listato~\ref{lst:strutturaInterfacciaCplintR}.
+
+\begin{code}
+    \caption{Struttura dei predicati dell'interfaccia di cplint\_r}
+    \label{lst:strutturaInterfacciaCplintR}
+    \begin{prologcode*}{}
 <predicato_interfaccia_r>(input):-
     load_r_libraries,
-    <operations on the input>,
-    geom_<something>(<new input, possibly lists>),
+    <operazioni sull'input>,
+    geom_<qualcosa>(<nuovo input di solito liste>),
     finalize_r_graph.
-            \end{prologcode*}
-        \end{code}
-    \item Le funzioni grafiche invece per prima cosa trasformano i dati in 
+    \end{prologcode*}
+\end{code}
+
+Nel listato~\ref{lst:esempioInterfacciaCplintR} è riportato un predicato
+tratto da cplint\_r.
+
+\begin{code}
+    \caption{Esempio di un predicato dell'interfaccia di cplint\_r}
+    \label{lst:esempioInterfacciaCplintR}
+    \begin{prologcode*}{}
+mc_mh_sample_arg_bar_r(M:Goal,M:Ev,S,Mix,L,Arg):-
+    load_r_libraries,
+    mc_mh_sample_arg(M:Goal,M:Ev,S,Mix,L,Arg,ValList0),
+    maplist(to_atom,ValList0,ValList),
+    geom_mc_mh_sample_arg_bar(ValList),
+    finalize_r_graph.
+    \end{prologcode*}
+\end{code}
+
+Le funzioni di interfaccia sono [...]
+
+\subsection{Funzioni grafiche}
+%% transform pseudocode to IT lang.
+Le funzioni grafiche invece per prima cosa trasformano i dati in 
           input in data frame leggibili da R, poi viene effettuato il disegno 
           dei grafici. Tutti questi hanno il prefisso \texttt{geom}. Qui viene 
 fatto un uso estensivo dei data frame.
@@ -999,16 +1032,14 @@ geom_<something>(<Lists and/or other input>) :-
     <- ggplot <something>
         \end{prologcode*}
     \end{code}
-    \item Infine, sono stati scritti alcuni predicati che aiutano a gestire le 
+
+\subsection{Funzioni di supporto}
+
+Infine, sono stati scritti alcuni predicati che aiutano a gestire le 
           liste di valori generate dalle funzioni di cplint. Queste liste 
           vengono poi trasformate in data frame in modo che possano 
           essere utilizzati da R. Da notare che questi predicati si trovano 
           all'interno delle funzioni grafiche.
-\end{enumerate}
-
-?Per ogni insieme di valori si è deciso di usare un data frame diverso. In 
-questo modo è stato possibile aggregare più insiemi di valori quando 
-necessario. ... example + cite ...? [TODO]
 
 %%%%
 %%%%
@@ -1044,11 +1075,6 @@ dovuto cambiare una minima parte del codici, tranne in casi particolari, che
 non hanno permesso di sfruttare completamente la 
 libreria cplint\_r. Per queste occasioni si sono dovuti creare predicati 
 specifici per risolvere il problema. Si vedano gli esempi.
-
-\begin{code}
-    \caption{La libreria cplint\_r}
-    \prologcodefile{cplint_r.pl}
-\end{code}
 
 
 %%%%
@@ -1276,6 +1302,7 @@ geom_point(
 \end{code}
 
 \begin{figure}[H]
+\centering
 \caption{Risultato dell'esecuzione}
 \includegraphics[width=.5\linewidth]{gpr_R_plot.png}
 \end{figure}

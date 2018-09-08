@@ -25,11 +25,6 @@ RSERVE_SANDBOX_RSERV_CONF=$(RSERVE_SANDBOX)/Rserv.conf
 RSERVE_SANDBOX_DOCKERFILE_IN=$(RSERVE_SANDBOX)/Dockerfile.in
 RSERVE_SANDBOX_MAKEFILE=$(RSERVE_SANDBOX)/Makefile
 
-CPLINT_R=$(GITHUB_FRNMST_ROOT)/cplint_r/master
-CPLINT_R_PL=$(CPLINT_R)/prolog/cplint_r.pl
-
-SWISH=$(GITHUB_FRNMST_ROOT)/swish/master
-
 default: compile
 
 all: default
@@ -43,14 +38,13 @@ clean:
 	@echo "Object files removed."
 
 fullclean: clean
-	@rm -rf qvm configvmrc Rserv.conf cplint_r.pl Makefile.rserve Dockerfile.in
+	@rm -rf qvm configvmrc Rserv.conf Makefile.rserve Dockerfile.in
 	@rm -rf _minted-$(TEX_SRC)
 
 getsourcefiles:
 	@curl -o qvm $(QVM_SRC)
 	@curl -o configvmrc $(QVM_CONFIG)
 	@curl -o Rserv.conf $(RSERVE_SANDBOX_RSERV_CONF)
-	@curl -o cplint_r.pl $(CPLINT_R_PL)
 	@curl -o Dockerfile.in $(RSERVE_SANDBOX_DOCKERFILE_IN)
 	@curl -o Makefile.rserve $(RSERVE_SANDBOX_MAKEFILE)
 
