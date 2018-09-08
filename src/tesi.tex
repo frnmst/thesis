@@ -1013,33 +1013,66 @@ mc_mh_sample_arg_bar_r(M:Goal,M:Ev,S,Mix,L,Arg):-
     \end{prologcode*}
 \end{code}
 
-Le funzioni di interfaccia sono [...]
+Le funzioni di interfaccia sono specificate all'inizio della libreria e la 
+descrizione completa è disponibile nella documentazione online di 
+cplint\_r~\cite{cplintRInterface}
 
 \subsection{Funzioni grafiche}
-%% transform pseudocode to IT lang.
-Le funzioni grafiche invece per prima cosa trasformano i dati in 
-          input in data frame leggibili da R, poi viene effettuato il disegno 
-          dei grafici. Tutti questi hanno il prefisso \texttt{geom}. Qui viene 
-fatto un uso estensivo dei data frame.
+Le funzioni grafiche trasformano i dati in input in data frame leggibili da R 
+e, successivamente, utilizzano ggplot2 per fare il disegno dei grafici. Tutti
+questi predicati hanno il prefisso \texttt{geom\_} come si vede nei 
+listati~\ref{lst:strutturaPredicatiGeomCplintR}
+e~\ref{lst:esempioPredicatoGeomCplintR}.
 
-    \begin{code}
-        \caption{Predicati per il disegno dei grafici di cplint\_r}
-        \begin{prologcode*}{}
-geom_<something>(<Lists and/or other input>) :-
-    <handle lists>,
-    <create one or more R data frame with the lists data>,
-    <rename data frame colnames to avoid using default ones>,
-    <- ggplot <something>
-        \end{prologcode*}
-    \end{code}
+\begin{code}
+    \caption{Struttura dei predicati per il disegno dei grafici di cplint\_r}
+    \label{lst:strutturaPredicatiGeomCplintR}
+    \begin{prologcode*}{}
+geom_<qualcosa>(<Liste e/o altro input>) :-
+    <gestisci le liste>,
+    <crea uno o più data frame con i dati ricavati dalle liste>,
+    <rinomina le colonne dei data frame per evitare di usare i nomi di default>,
+    <- ggplot <qualcosa>
+    \end{prologcode*}
+\end{code}
+
+\begin{code}
+    \caption{Struttura dei predicati per il disegno dei grafici di cplint\_r}
+    \label{lst:esempioPredicatoGeomCplintR}
+    \begin{prologcode*}{}
+geom_mc_sample_arg_first_bar(L) :-
+    get_set_from_xy_list(L,R),
+    r_data_frame_from_rows(df1, R),
+    colnames(df1) <- c("names", "prob"),
+    df <- data.frame(
+        ids=as.character(df1$names),
+        probabilities=c(df1$prob)
+    ),
+    <- ggplot(
+        data=df,
+        aes(
+            x=reorder(
+                ids,
+                probabilities
+            ),
+            y=probabilities
+        )
+    ) + geom_bar(
+        stat="identity",
+        width=0.5
+    )
+    + coord_flip() + theme(
+        axis.title.y=element_blank()
+    ).
+\end{prologcode*}
+\end{code}
 
 \subsection{Funzioni di supporto}
+Le funzioni di supporto, chiamate anche \emph{helpers} in cplint\_r, servono 
+sia per inizializzare le librerie R necessarie, sia per trasformare i dati in 
+un formato accessibile a ggplot2, cioè in data frames.
 
-Infine, sono stati scritti alcuni predicati che aiutano a gestire le 
-          liste di valori generate dalle funzioni di cplint. Queste liste 
-          vengono poi trasformate in data frame in modo che possano 
-          essere utilizzati da R. Da notare che questi predicati si trovano 
-          all'interno delle funzioni grafiche.
+[TODO: get 1 simple example and verbatim it here]
 
 %%%%
 %%%%
@@ -1344,12 +1377,6 @@ per imitare il comportamento della versione c3js.
 %%%%
 %%%%
 %%%%
-
-
-%\bibliographystyle{unsrt}
-%\bibliographystyle{plain}
-% file names without the extension, comma separated.
-%\bibliography{ref}
 
 \printbibliography
 
