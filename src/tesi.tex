@@ -193,17 +193,27 @@ precedenti.
 
     \section{R}
 R è un ambiente software per il calcolo statistico e la 
-visuallizzazione grafica. Con il termine R si definisce l'interprete
+visualizzazione grafica. Con il termine R si definisce l'interprete
 dei comandi mentre con S il linguaggio di programmazione. R comprende anche un 
 gestore di pacchetti attraverso il quale si possono installare facilmente
-funzioni utili non comprese in R stesso.
+funzioni utili non comprese in R stesso~\footnote{Da questo momento in poi, 
+per semplicità, si userà il termine R per indicare anche il linguaggio.}
+[TODO: cite this].
 
-        \subsection{Comandi}
-L'assegnazione di un valore di una variabile avviene con il 
-comando \mint{r}|<- c(<qualcosa>)|, dove "c" serve a concatenare un 
-insieme di valori. \cite{rAssignmentOperator}
+        \subsection{Comandi e operatori fondamentali}
+Come la maggior parte dei linguaggi di programmazione, R mette a disposizione 
+vari tipi di operatori tra cui quelli aritmetici, logici e di assegnazione.
 
-[TODO]
+Esistono varie possibilità per assegnare un valore ad una variabile. Di solito 
+però viene preferita la notazione \mint{r}|<-| piuttosto che il classico 
+\mint{r}|=| Nel primo caso infatti non bisogna preoccuparsi di alcuni dettagli 
+funzionali \cite{assignmentOperatorInR} \cite{rAssignmentOperator}
+
+Una delle funzioni fondamentali di R è la funzione \mint{r}|c()|
+Questa serve per concatenare un insieme arbitrario di valori, in modo che 
+questi possano essere salvati all'interno di un'unica variabile. [TODO: cite 
+concatenating lists; cite Vectors and assignments; from 
+https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf]
 
         \subsection{Oggetti}
 Come molti altri linguaggi di programmazione, anche R mette a disposizione 
@@ -1393,6 +1403,8 @@ per imitare il comportamento della versione c3js.
 %%%%
 %%%%
 %%%%
+
+[TODO: Check all bibliography: page number, authors, references, etc...]
 
 \printbibliography
 
