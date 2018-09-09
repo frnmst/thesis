@@ -404,7 +404,8 @@ livello di sistema operativo, cioé permette l'esistenza di molteplici istanze
 di ambienti isolati basate su utenti separati. Con Docker, in particolare, 
 questi ambienti possono essere eseguiti su qualunque macchina in modo 
 indipendente dalla configurazione del sistema operativo, a patto che i 
-kernel virtualizzato sia dello stesso tipo di quello ospite.. check this.... In 
+kernel virtualizzato sia dello stesso tipo di quello ospite.. [TODO: check 
+this]. In 
 questo modo il software che è eseguito al loro interno è garantito funzionare 
 in modo affidabile e come lo sviluppatore aveva inteso che funzionasse.
 \cite{operatingSystemLevelVirtualization} \cite{docker}
@@ -418,8 +419,8 @@ un specifico compito. Le istruzoni nel documento di testo sono nella forma
 gruppi ed altre operazioni viene usata l'istruzione \textbf{RUN} seguita dal 
 percorso di una shell disponibile e infine dal comando che deve essere eseguito. Per 
 semplicità si può anche omettere la shell ne verrà usata una di default. Per 
-esempio \\
-\mintinline{shell}{RUN /bin/bash -c groupadd -g newgroupid groupname}
+esempio
+\mint{bash}|RUN /bin/bash -c groupadd -g newgroupid groupname|
 
 Altri comandi importanti sono:
 \begin{itemize}
@@ -431,9 +432,9 @@ eseguita ad ogni avvio dell'immagine
     \item \textbf{ADD}: copia file nell'immagine
 \end{itemize}
 
-Dopo aver costruito l'immagine con \mintinline{bash}{$ docker build <nome 
-immagine> .},
-la si può eseguire con \mintinline{bash}{$ docker run <nome immagine>}.
+Dopo aver costruito l'immagine con \mint{bash}|docker build <nome 
+immagine> .|
+la si può eseguire con \mint{bash}|docker run <nome immagine>|
 L'istanza di un immagine è chiamata \emph{container} 
 \cite{DockerfileReference}.
 
@@ -612,12 +613,9 @@ cycle;
 \end{tikzpicture}
 \end{figure}
 
-%\begin{code}
-%    \caption{Codice sorgente di qvm}
-%    \bashcodefile{qvm}
-%\end{code}
+% Report and comment some of QVM's content.
 
-\newpage
+%\newpage
 
 \begin{code}
     \caption{File di configurazione di qvm}
@@ -1376,7 +1374,7 @@ Il predicato \texttt{geom\_bar/1}  genera un diagramma a barre
 della media del valore dei campioni per ogni misurazione. Poichè 
 abbiamo 7 elementi fissi sulle ascisse dobbiamo usare \texttt{numlist(1,7,X)}, 
 una lista da 7 elementi e \texttt{breaks=seq(0,7,1)} per evidenziare i 7 
-prunti sul grafico. Si è inoltre usato \texttt{breaks=seq(0,max(df\$val),2)} 
+punti sul grafico. Si è inoltre usato \texttt{breaks=seq(0,max(df\$val),2)} 
 per imitare il comportamento della versione c3js.
 
 
