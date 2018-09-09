@@ -1070,9 +1070,25 @@ geom_mc_sample_arg_first_bar(L) :-
 \subsection{Funzioni di supporto}
 Le funzioni di supporto, chiamate anche \emph{helpers} in cplint\_r, servono 
 sia per inizializzare le librerie R necessarie, sia per trasformare i dati in 
-un formato accessibile a ggplot2, cioè in data frames.
+un formato accessibile a ggplot2, cioè in data frames. Una delle funzioni di
+supporto di trova nel listato~\ref{lst:esempioFunzioneDiSupportoCplintR}.
 
-[TODO: get 1 simple example and verbatim it here]
+\begin{code}
+    \caption{Una delle funzioni helper di cplint\_r}
+    \label{lst:esempioFunzioneDiSupportoCplintR}
+    \begin{prologcode*}{}
+/**
+ * build_xy_list(+X:list,+Y:list,-Out:list) is det
+ *
+ * Given to lists X and Y build an output list Out
+ * in the form [X1-Y1,X2-Y2,...,XN-YN].
+ */
+build_xy_list([], [], []).
+
+build_xy_list([XH|XT], [YH|YT], [XH-YH|Out]) :-
+        build_xy_list(XT, YT, Out).
+    \end{prologcode*}
+\end{code}
 
 %%%%
 %%%%
@@ -1106,8 +1122,9 @@ Dopo aver definito le basi della libreria cplint\_r si è provveduto a
 trasformare qualche esempio più semplice da c3js ad R. Infatti si è 
 dovuto cambiare una minima parte del codici, tranne in casi particolari, che 
 non hanno permesso di sfruttare completamente la 
-libreria cplint\_r. Per queste occasioni si sono dovuti creare predicati 
-specifici per risolvere il problema. Si vedano gli esempi.
+libreria cplint\_r. Per queste occasioni si sono dovute creare funzioni 
+specifiche per risolvere il problema. Si veda il capitolo~\ref{ch:esempi} per 
+gli esempi.
 
 
 %%%%
@@ -1117,6 +1134,7 @@ specifici per risolvere il problema. Si vedano gli esempi.
 
 
 \chapter{Esempi}
+\label{ch:esempi}
 
 \section{Uso diretto di cplint\_r}
 Nei casi di utilizzo diretto di cplint\_r il codice prolog rimane 
