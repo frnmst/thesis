@@ -177,40 +177,36 @@ precedenti.
 
 \chapter{Strumenti e architettura}
 
-\section{SWISH}
-
-[TODO]
-
 %%
 %%
 
     \section{R}
 R è un ambiente software per il calcolo statistico e la 
-visualizzazione grafica \cite{r}. Con il termine R si definisce l'interprete
-dei comandi mentre con S il linguaggio di programmazione. R comprende anche un 
-gestore di pacchetti attraverso il quale si possono installare facilmente
-funzioni utili non comprese in R stesso~\footnote{Da questo momento in poi, 
-per semplicità, si userà il termine R per indicare anche il linguaggio.}
-[TODO: cite this].
+visualizzazione grafica. Con il termine R si definisce 
+l'interprete dei comandi mentre con S il linguaggio di programmazione. R 
+comprende anche un gestore di pacchetti attraverso il quale si possono 
+installare facilmente funzioni utili non comprese in R 
+stesso \cite{rDefinition} ~\footnote{Da questo momento in poi, per semplicità, 
+si userà il termine R per indicare anche il linguaggio.}
 
         \subsection{Comandi e operatori fondamentali}
 Come la maggior parte dei linguaggi di programmazione, R mette a disposizione 
 vari tipi di operatori tra cui quelli aritmetici, logici e di assegnazione.
 
 Esistono varie possibilità per assegnare un valore ad una variabile. Di solito 
-però viene preferita la notazione \mint{r}|<-| piuttosto che il classico 
-\mint{r}|=| Nel primo caso infatti non bisogna preoccuparsi di alcuni dettagli 
-funzionali \cite{assignmentOperatorInR} \cite{rAssignmentOperator}
+però viene preferita la notazione \mintinline{r}{<-} piuttosto che il classico 
+\mintinline{r}{=}. Nel primo caso infatti non bisogna preoccuparsi di alcuni 
+dettagli funzionali \cite{assignmentOperatorInR} \cite{rAssignmentOperator}
 
-Una delle operazioni fondamentali di R è la funzione \mint{r}|c()|
+Una delle operazioni fondamentali di R è la funzione \mintinline{r}{c()}.
 Questa serve per concatenare un insieme arbitrario di valori, in modo che 
 questi possano essere salvati all'interno di un'unica variabile 
 \cite{rVectorsAndAssignment} \cite{rConcatenatingLists}.
 
         \subsection{Oggetti}
 R mette a disposizione strutture dati chiamate oggetti. Questi possono essere 
-array di numeri, stringhe, funzioni, liste, \emph{data frame}, ed altre entità.
-\cite{rObject}
+array di numeri, stringhe, funzioni, liste, \emph{data frame}, ed altre entità
+\cite{rObject}.
 
 In R le liste sono una collezione ordinata di oggetti, chiamati anche
 componenti, che possono essere di tipo diverso tra di loro. Con le liste si 
@@ -219,35 +215,37 @@ principio dell'indicizzazione, sia attraverso l'uso della notazione per nome,
 del tipo \mintinline{r}{lista$componente}.
 \cite{rList}
 
-I \emph{data frame} sono un tipo particolare di \emph{oggetti} che permettono 
-di organizzare i dati sotto forma matriciale \cite{rDataFrame}. 
+I \emph{data frame} sono un tipo particolare di oggetti che permettono 
+di organizzare i dati sotto forma matriciale e sono definiti come 
+specializzazione della classe lista \cite{rDataFrameDefinition}.  Rispetto ad 
+una lista, infatti, esistono delle restrizioni tra le quali le più importanti
+sono che le componenti devono essere vettori della stessa lunghezza 
+\cite{rDataFrameRestrictions}. Un data frame può essere considerato per molti 
+aspetti una matrice anche perchè si possono usare le stesse convenzioni per 
+visualizzare e manipolare i dati \cite{rDataFrameSimilarToMatrices}. Tuttavia, 
+a differenza delle matrici, i vettori che lo compongono possono avere valori
+di tipo diverso, come avviene nelle tabelle \cite{rMatrices}.
 
-[TODO]
-
-I data frame sono definiti come specializzazione della classe lista.
-
-[TODO]
-
-Rispetto ad una lista, infatti, esistono delle restrizioni.
-
-[TODO]
-
-I data frame si rivelano anche efficienti per R stesso.... cite ...
-
-[TODO]
-
-Sia le liste, sia i data frame verranno usati successivamente per gestire i 
+Sia le liste sia i data frame verranno usati successivamente per gestire i 
 dati.
 
-%Alcune funzioni disponibili nella libreria \emph{r\_swish} permettono il 
-%passaggio di valori tra Prolog ed R attraverso i \emph{data frame}. 
+%%
+%%
+
+\section{SWISH}
+
+[TODO: definition and important stuff]
+
+?Alcune funzioni disponibili nella libreria \emph{r\_swish} permettono il 
+passaggio di valori tra Prolog ed R attraverso i data frame.?
+
 
 %%
 %%
 
 \section{Cplint on SWISH con supporto R}
 
-[TODO]
+[TODO: definition and important stuff]
 
 %%
 %%
@@ -535,7 +533,7 @@ backup e corregere l'errore.
 Lo script dà anche la possibilità di condividere file fra la macchina host 
 e guest attraverso una semplice directory.
 
-poiché l'interfaccia web di SWISH è accessibile attraverso un \emph{port} 
+Poiché l'interfaccia web di SWISH è accessibile attraverso un \emph{port} 
 ben definito (di default \emph{3050}), si è fatto in modo che tale port 
 fosse accessibile dalla macchina host con il port \emph{5555}. Oltre a questo 
 è anche possibile l'accesso attraverso attraverso \emph{Secure 
