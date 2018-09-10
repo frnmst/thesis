@@ -261,7 +261,7 @@ creare e gestire i data frame R direttamente da SWI Prolog
 L'utilizzo di R rispetto a Prolog comporta in molti casi un netto miglioramento 
 della velocità di calcolo \cite{rFaster}:
 \begin{displayquote}
-[...] È risultato che R è più veloce nel lavorare con una grande quantità
+[..] È risultato che R è più veloce nel lavorare con una grande quantità
 di numeri interi rispetto a Prolog. Perchè? Perchè una volta trasformato in R,
 il vettore è un semplice array C di interi, e quindi molto veloce 
 nell'addizione. La versione Prolog invece somma i numeri uno alla volta
@@ -272,34 +272,31 @@ Un altro vantaggio nell'utilizzare R è la possibilità di accedere a tutte le
 funzionalità di computazione che non sono presenti in SWI Prolog, come ad 
 esempio le funzioni per studi statistici.
  
-\subsection{Scambiare i dati fra R e Prolog}
-% SWI Prolog è accessibile da shell con il comando \texttt{swipl}.
-
+\subsection{Scambiare dati fra R e Prolog}
 Esistono due modalità per usare i comandi di R all'interno di SWI Prolog:
 \begin{itemize}
-    \item come \emph{Prolog term}, usando l'operatore \texttt{<-} seguito dal 
-comando R,
+    \item come \emph{Prolog term}, usando l'operatore \mintinline{r}{<-} 
+seguito dal comando R,
     \item oppure con una notazione chiamata \emph{quasi-quotation}
 \end{itemize}
 La documentazione di SWISH contiene un esempio per entrambi i 
 casi\cite{rprolognotations}:
 \begin{displayquote}
-[..] We first give the example using an R quasi quotation, followed by 
-using a Prolog term.  Note that
+- Le quasi quotations possono essere usate per fare copia incolla del codice R 
+nel proprio programma Prolog senza necessità di cambiarlo (tranne quando 
+contiene \mintinline{prolog}{|[BRACERIGHT FIXME TODO }).
 
-  - Quasi quotations can be used to copy/paste R code into your Prolog
-    program without changing it (except when it contains \texttt{|{\textbraceright}}).
+- Il codice Prolog protrebbe aver bisogno di piccole modifiche. Nell'esempio,
+  \mintinline{r}{I(.5)} deve essere cambiato in \mintinline{r}{'I'(0.5)} perchè 
+  i floating point in prolog non possono iniziare con \texttt{.} e gli 
+  argomenti (usati come simboli di funzioni) non possono iniziare con una lettera 
+  maiuscola. L'utilizzo del prolog term tuttavia
 
-  - Prolog code may need minor modifications.  In the example, \texttt{I(.5)}
-    must be changed to \texttt{'I'(0.5)} because Prolog floats cannot start with
-    a \texttt{.} and functors (used as function symbols) cannot start with a
-    capital.  The Prolog approach however
+    - È più compatibile.
 
-    - Is better portable.
+    - Giova del controllo della sintassi Prolog.
 
-    - Profits from Prolog syntax checking.
-
-    - Makes it easier to compose R expressions from smaller elements.
+    - Rende più facile comporre espressioni R da elementi più piccoli.
 \end{displayquote}
 
 \begin{code}
@@ -314,7 +311,7 @@ using a Prolog term.  Note that
 Come si vede nel primo caso è necessario fare qualche piccola modifica 
 rispetto all'originale R. Nel secondo caso invece è possibile gestire alcuni 
 casi particolari che genererebbero errori oppure che non sarebbe possibile 
-possibile trasformare nel primo caso.
+trasformare nel primo caso.
 
 Nella scrittura di cplint\_r si è anche trovato un caso non segnalato nella 
 documentazione in cui non è possibile trasformare un comando con la 
@@ -327,10 +324,10 @@ notazione abbreviata, probabilmente per l'uso di istruzioni condizionali:
     \end{rcode*}
 \end{code}
 
-Un altro fattore importante è che ogni comando R inviato attraverso questo 
+Un fattore importante è che ogni comando R inviato attraverso questo 
 sistema viene eseguito in un ambiente proprio. Le variabili devono quindi 
 essere salvate in Prolog se sono usate successivamente altrimenti vengono
-distrutte.
+distrutte. [TODO: source?].
 
 %%%%
 %%%%
@@ -794,7 +791,7 @@ Il Progetto Debian è una associazione di persone che ha come scopo comune la
 creazione di un sistema operativo libero. Il sistema operativo che abbiamo 
 creato si chiama Debian.
 
-[...]
+[..]
 
 Certo, la cosa che la gente vuole è il software applicativo. Strumenti che 
 permettano loro di ottenere che sia fatto ciò che vogliono, dallo scrivere 
@@ -871,9 +868,9 @@ di SWISH hanno messo a disposizione un file \emph{zip}\cite{swishWebDepsZip}
 con tutti gli strumenti precompilati. è sufficiente quindi usare questi ed 
 è proprio quello che fa \texttt{swish-cplint-bin}:
 \begin{displayquote}
-[...]
+[..]
 As installing node and bower is not a pleasure on all operating systems,
-you can also download the dependencies as a single zip file [...]
+you can also download the dependencies as a single zip file [..]
 Unpack the zip file, maintaining the directory structure, from the swish
 root directory to create the directory web/bower\_components.
 \end{displayquote}
