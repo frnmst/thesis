@@ -255,30 +255,27 @@ passaggio di valori tra Prolog ed R attraverso i data frame.?
 %%%%
 
     \section{rserve\_client}
-rserve\_client è una libreria Prolog che ha lo scopo di rendere possibile 
+rserve\_client è una libreria prolog che rende possibile 
 l'accesso ad un ambiente R da parte di SWISH \cite{rserveClientDefinition} 
-\cite{rserveclient}.
+\cite{rserveclient}. Questa libreria include anche delle funzionalità per 
+creare e gestire i data frame R direttamente da SWI Prolog 
+\cite{swishRDataLibrary}.
     
         \subsection{Motivazione}
-L'utilizzo di R rispetto a Javascript comporta due 
-differenze: in alcuni casi si può ottenere una maggiore 
-velocità\cite{rFaster}:
+L'utilizzo di R rispetto a Prolog comporta in molti casi un netto miglioramento 
+della velocità di calcolo \cite{rFaster}:
 \begin{displayquote}
-[..] It turns out R does the job faster on a large number of integers
-than Prolog.  Why?  Once in R, the array is a simple C array of integers,
-causing a blindly fast addition.  The Prolog counterpart adds the numbers
-one-by-one and does rigid overflow checking and handling.
+[...] È risultato che R è più veloce nel lavorare con una grande quantità
+di numeri interi rispetto a Prolog. Perchè? Perchè una volta trasformato in R,
+il vettore è un semplice array C di interi, e quindi molto veloce 
+nell'addizione. La versione Prolog invece somma i numeri uno alla volta
+oltre che controllare eventuali overflow.
 \end{displayquote}
- 
-Inoltre, la computazione per il disegno dei grafici è fatta sul server e non 
-sul computer locale attraverso il browser.
- 
-e la possibilità di usare i sistemi di plot di R, come per esempio ggplot2 
-che si rivelano più precisi ... cite ... ...
 
-Grazie ad questa libreria, inoltre, è possibile usare direttamente comandi di R 
-facendo minime modifiche rispetto allo stesso codice usato nell'interprete R.
-
+Un altro vantaggio nell'utilizzare R è la possibilità di accedere a tutte le 
+funzionalità di computazione che non sono presenti in SWI Prolog, come ad 
+esempio le funzioni per studi statistici.
+ 
         \subsection{Funzionamento interno}
 Nel caso presente tutte le chiamate fatte da Prolog a R vengono passtate 
 attraverso un socket UNIX creato dal programma \emph{Rserve}. 
