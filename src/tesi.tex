@@ -184,13 +184,6 @@ precedenti.
 %%
 %%
 
-\section{Cplint on SWISH con supporto R}
-
-[TODO]
-
-%%
-%%
-
     \section{R}
 R è un ambiente software per il calcolo statistico e la 
 visualizzazione grafica \cite{r}. Con il termine R si definisce l'interprete
@@ -215,29 +208,50 @@ questi possano essere salvati all'interno di un'unica variabile
 \cite{rVectorsAndAssignment} \cite{rConcatenatingLists}.
 
         \subsection{Oggetti}
-Come molti altri linguaggi di programmazione, anche R mette a disposizione 
-strutture dati chiamate oggetti. Questi possono essere variabili, array di 
-numeri, stringhe, funzioni e qualunque cosa derivata da queste.
+R mette a disposizione strutture dati chiamate oggetti. Questi possono essere 
+array di numeri, stringhe, funzioni, liste, \emph{data frame}, ed altre entità.
 \cite{rObject}
 
-        \subsection{Le liste}
-In R le liste sono una collezione ordinata di oggetti, qui chiamati anche 
-componenti, che possono essere di tipo diverso tra di loro. Con queste liste si 
+In R le liste sono una collezione ordinata di oggetti, chiamati anche
+componenti, che possono essere di tipo diverso tra di loro. Con le liste si 
 ha la possibilità di accedere direttamente alle componenti sia attraverso il 
-principio dell'indicizzazione, sia attraverso l'uso della notazione 
-\mintinline{r}{lista$componente}.
+principio dell'indicizzazione, sia attraverso l'uso della notazione per nome,
+del tipo \mintinline{r}{lista$componente}.
 \cite{rList}
 
-        \subsection{Dalle liste ai data frame}
-Alcune funzioni disponibili nella libreria \emph{r\_swish} permettono il 
-passaggio di valori tra Prolog ed R attraverso i \emph{data frame}. Questi 
-sono un tipo particolare di \emph{oggetti} che permettono 
-di organizzare i dati sotto forma matriciale. ... [TODO]
-I data frame in R sono definiti come specializzazione della classe lista.
-Rispetto ad una lista, infatti, esistono delle restrizioni... [TODO]
+I \emph{data frame} sono un tipo particolare di \emph{oggetti} che permettono 
+di organizzare i dati sotto forma matriciale \cite{rDataFrame}. 
 
-I data frame si rivelano anche efficienti per R stesso.... cite ... [TODO]
-\cite{rDataFrame}
+[TODO]
+
+I data frame sono definiti come specializzazione della classe lista.
+
+[TODO]
+
+Rispetto ad una lista, infatti, esistono delle restrizioni.
+
+[TODO]
+
+I data frame si rivelano anche efficienti per R stesso.... cite ...
+
+[TODO]
+
+Sia le liste, sia i data frame verranno usati successivamente per gestire i 
+dati.
+
+%Alcune funzioni disponibili nella libreria \emph{r\_swish} permettono il 
+%passaggio di valori tra Prolog ed R attraverso i \emph{data frame}. 
+
+%%
+%%
+
+\section{Cplint on SWISH con supporto R}
+
+[TODO]
+
+%%
+%%
+
 
 %%%%
 %%%%
@@ -464,7 +478,8 @@ RUN echo 'install.packages(c("ggplot2"), repos="http://cloud.r-project.org/", de
     \end{shellcode*}
 \end{code}
 
-Con il comando \texttt{CMD /bin/bash Rserv.sh}, presente nel Dockerfile,
+Con il comando \mintinline{bash}{CMD /bin/bash Rserv.sh}, presente nel 
+Dockerfile,
 Docker chiama Rserve con la configurazione presente nel 
 listato~\ref{lst:rservconf} presente a pagina~\pageref{lst:rservconf}.
 
