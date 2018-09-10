@@ -193,7 +193,7 @@ precedenti.
 
     \section{R}
 R è un ambiente software per il calcolo statistico e la 
-visualizzazione grafica. Con il termine R si definisce l'interprete
+visualizzazione grafica \cite{r}. Con il termine R si definisce l'interprete
 dei comandi mentre con S il linguaggio di programmazione. R comprende anche un 
 gestore di pacchetti attraverso il quale si possono installare facilmente
 funzioni utili non comprese in R stesso~\footnote{Da questo momento in poi, 
@@ -209,11 +209,10 @@ però viene preferita la notazione \mint{r}|<-| piuttosto che il classico
 \mint{r}|=| Nel primo caso infatti non bisogna preoccuparsi di alcuni dettagli 
 funzionali \cite{assignmentOperatorInR} \cite{rAssignmentOperator}
 
-Una delle funzioni fondamentali di R è la funzione \mint{r}|c()|
+Una delle operazioni fondamentali di R è la funzione \mint{r}|c()|
 Questa serve per concatenare un insieme arbitrario di valori, in modo che 
-questi possano essere salvati all'interno di un'unica variabile. [TODO: cite 
-concatenating lists; cite Vectors and assignments; from 
-https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf]
+questi possano essere salvati all'interno di un'unica variabile 
+\cite{rVectorsAndAssignment} \cite{rConcatenatingLists}.
 
         \subsection{Oggetti}
 Come molti altri linguaggi di programmazione, anche R mette a disposizione 
@@ -247,13 +246,7 @@ I data frame si rivelano anche efficienti per R stesso.... cite ... [TODO]
 rserve\_client è una libreria Prolog che ha lo scopo di rendere possibile 
 l'accesso ad un ambiente R da parte di SWISH \cite{rserveClientDefinition} 
 \cite{rserveclient}.
-%%% poiché il supporto per R 
-%%% all'interno di SWISH è ancora di recente implementazione. 
-%%% Di solito quindi la parte computazionale viene affidata all'interprete 
-%%% Prolog, mentre la parte grafica viene gestita dalla libreria c3js. Con 
-%%% questa libreria invece sia la parte grafica sia quella computazionale sono 
-%%% eseguite da R e visualizzate con SWISH.][DELETE THIS]
-
+    
         \subsection{Motivazione}
 L'utilizzo di R rispetto a Javascript comporta due 
 differenze: in alcuni casi si può ottenere una maggiore 
@@ -623,9 +616,7 @@ cycle;
 \end{tikzpicture}
 \end{figure}
 
-% Report and comment some of QVM's content.
-
-%\newpage
+[TODO: Report and comment some of QVM's content]
 
 \begin{code}
     \caption{File di configurazione di qvm}
@@ -681,8 +672,8 @@ precedentemente, necessari all'avvio dei daemons. [TODO]
 %%%%
 %%%%
 
-\chapter{Pacchetti per le varie distribuzioni} 
-\label{ch:pacchetti-per-le-varie-distribuzioni}
+\chapter{Pacchetti software per le varie distribuzioni} 
+\label{ch:pacchetti-software-per-le-varie-distribuzioni}
 Per affrontare il problema dell'installazione di tutti i componenti di cui si 
 è parlato fino ad ora, si è resa quindi necessaria la creazione di vari 
 pacchetti software per:
@@ -834,7 +825,7 @@ di incudere i file per Systemd poiché non viene fatto di default. Il file
 \texttt{control} invece contiene informazioni sulle dipendenze, maintainer, 
 descrizioni, etc... 
 
-.. Brief APT + PPA descriptiion ... [TODO]
+[TODO: Brief APT + PPA descriptiion]
 
 %%%%
 %%%%
