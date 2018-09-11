@@ -498,14 +498,13 @@ distribuzioni GNU/Linux diverse quali: Antergos, Parabola GNU/Linux-libre,
 Debian e Trisquel.
 
 \subsubsection{Qemu Virtual Machine}
-Utilizzando il programma \emph{QEMU}\cite{qemu} si è potuto scrivere uno 
-programma per 
-shell, \emph{qvm}, in modo da gestire facilmente tutti i casi d'uso che si 
-sono presentati\cite{qvm}. Questo si è rivelato molto utile per esempio per 
+Utilizzando il programma \emph{QEMU} \cite{qemu} si è potuto scrivere uno
+script shell, \emph{QVM}, in modo da gestire facilmente tutti i casi d'uso che 
+si sono presentati \cite{qvm}. Questo si è rivelato molto utile per esempio per 
 gestire i backup dei dischi rigidi virtuali. Infatti per testare nuovi 
 pacchetti e programmi è consigliabile partire sempre da un sistema pulito
 per evitare che precedenti installazioni possano alterare il funzionamento.
-Con qvm sono infatti sufficienti un paio di comandi per ripristinare il 
+Con QVM sono infatti sufficienti un paio di comandi per ripristinare il 
 backup e corregere l'errore.
 
 Lo script dà anche la possibilità di condividere file fra la macchina host 
@@ -513,78 +512,18 @@ e guest attraverso una semplice directory.
 
 Poiché l'interfaccia web di SWISH è accessibile attraverso un \emph{port} 
 ben definito (di default \emph{3050}), si è fatto in modo che tale port 
-fosse accessibile dalla macchina host con il port \emph{5555}. Oltre a questo 
-è anche possibile l'accesso attraverso attraverso \emph{Secure 
-Shell} (\emph{SSH}). Mettendo insieme queste due caratteristiche non è 
-neccessario avviare l'interfaccia grafica.
+fosse accessibile dalla macchina host con il port \emph{5555}. Infatti, a meno 
+che non venga fatto un \emph{bridge} di rete la macchina virtuale ed il 
+computer che la ospita lavorano su due sottoreti diverse. Bisogna quindi fare
+un \emph{port forwarding} esplicito delle porte interessate.
 
-Di seguito è riportata l'opzione di aiuto, mentre lo script si trova 
-nell'appendice~\ref{app:qvm}.
-
-\begin{code}
-    \caption{Pagina di aiuto di qvm}
-    \begin{textcode*}{}
-Usage: qvm [OPTION]
-Trivial management of 64 bit virtual machines with qemu.
-
-Options:
-    -a, --attach                connect via SSH
-    -b, --backup                backup vhd
-    -c, --create                create new vhd
-    -d, --delete                delete vhd backup
-        --delete-orig           delete original vhd
-    -h, --help                  print this help
-    -i, --install               install img on vhd
-    -n, --run-nox               run vm without opening a graphical window
-                                (useful for background jobs like SSH)
-        --run-nox-orig          run-orig and run-nox combined
-    -s, --mkdir-shared          create shared directory
-    -x, --run                   run vm
-        --run-orig              run from original vhd
-
-
-Only a single option is accepted.
-By default, the backup vhd is run.
-
-CC0
-Written in 2016 by Franco Masotti/frnmst <franco.masotti@student.unife.it>
-    \end{textcode*}
-\end{code}
-
-\subsubsection{Installazione e avvio di una nuova macchina virtuale con qvm}
-La prima cosa da compiere è quella di ottenere l'immagine \emph{ISO} della 
-distribuzione da installare.
-
-Successivamente si deve configurare il file \texttt{configvmrc} inserendo il 
-nome del file ISO.
-
-Poi è necessario eseguire \mint{bash}|$ ./qvm -c| per creare un nuovo 
-disco rigido virtuale, poi \mint{bash}|$ ./qvm -i| per l'installazione.
-
-Una volta terminata l'installazione si può aggiungere SSH sulla macchina 
-guest oltre che aggiungere la seguente riga nel file \texttt{/etc/fstab} della 
-macchina virtuale in modo da aggiungere la directory condivisa:
-
-\begin{code}
-   \caption{Comando fstab}
-    \begin{textcode*}{}
-host_share /home/<shared_directory_path> 9p noauto,x-systemd.automount,trans=virtio,version=9p2000.L 0 0
-    \end{textcode*}
-\end{code}
-
-Ora si può creare un backup dell'hard disk virtuale con \mint{bash}|$ ./qvm 
--b| che nel caso fosse necessario rimuoverlo basterà fare \mint{bash}|$ ./qvm 
--d|
-
-Successivamente si avvia la macchina virtuale con \mint{bash}|$ ./qvm -x| 
-oppure con \mint{bash}|$./qvm -n| rispettivamente a seconda che si utilizzi o 
-non si utilizzi l'interfaccia grafica sulla macchina guest.
-
-Infine, per collegarsi via SSH: \mint{bash}|$ ./qvm -a|
+Uno schema della relazione fra la macchina virtuale e l'host è disponibile 
+nella figura~\ref{fig:schemaPortsQvm}.
 
 \begin{figure}[H]
 \centering
 \caption{Schema della relazione tra i port della macchina host e guest}
+\label{fig:schemaPortsQvm}
 \begin{tikzpicture}
     \draw[thick] 
 (-4,4) --
@@ -607,13 +546,107 @@ cycle;
 \end{tikzpicture}
 \end{figure}
 
-[TODO: Report and comment some of QVM's content]
+Nel listato \ref{lst:paginaAiutoQvm} è riportata la pagina di aiuto.
 
 \begin{code}
-    \caption{File di configurazione di qvm}
-    \bashcodefile{configvmrc}
+    \caption{Pagina di aiuto di qvm}
+    \label{lst:paginaAiutoQvm}
+    \begin{textcode*}{}
+Usage: qvm [OPTION]
+Trivial management of 64 bit virtual machines with qemu.
+
+Options:
+    -a, --attach                connect to SSH locally
+        --attach-remote         connect to SSH remotely
+    -b, --backup                backup vhd
+    -c, --create                create new vhd
+    -d, --delete                delete vhd backup
+        --delete-orig           delete original vhd
+    -h, --help                  print this help
+    -i, --install               install img on vhd
+        --install-vnc           install img on vhd via vnc
+    -n, --run-nox               run vm without opening a graphical window
+                                (useful for background jobs like SSH)
+        --run-nox-orig          run-orig and run-nox combined
+    -s, --mkdir-shared          create shared directory
+    -r, --remote                connect to a vnc instance via ssh
+    -x, --run                   run vm
+        --run-vnc               run vm with vnc
+        --run-orig              run from original vhd
+        --run-orig-vnc          run from original vhd with vnc
+
+
+Only a single option is accepted.
+By default, the backup vhd is run.
+
+CC0
+Written in 2016 by Franco Masotti/frnmst <franco.masotti@student.unife.it>
+    \end{textcode*}
 \end{code}
 
+\subsubsection{Installazione e avvio di una nuova macchina virtuale con qvm}
+La prima cosa da compiere è quella di ottenere l'immagine \emph{ISO} della 
+distribuzione da installare.
+
+Successivamente si deve configurare il file \texttt{configvmrc} inserendo il 
+nome del file ISO.
+
+Poi è necessario eseguire \mint{bash}|$ ./qvm -c| per creare un nuovo 
+disco rigido virtuale, poi \mint{bash}|$ ./qvm -i| per l'installazione.
+
+Una volta terminata l'installazione si può aggiungere SSH sulla macchina 
+guest oltre che aggiungere la seguente riga nel file \texttt{/etc/fstab} della 
+macchina virtuale in modo da aggiungere la directory condivisa, come si può 
+vedere nel listato~\ref{lst:comandoFstabQvm}.
+
+\begin{code}
+    \caption{Comando fstab}
+    \label{lst:comandoFstabQvm}
+    \begin{textcode*}{}
+host_share /home/<shared_directory_path> 9p noauto,x-systemd.automount,trans=virtio,version=9p2000.L 0 0
+    \end{textcode*}
+\end{code}
+
+Ora si può creare un backup dell'hard disk virtuale con \mint{bash}|$ ./qvm 
+-b| che nel caso fosse necessario rimuoverlo basterà fare \mint{bash}|$ ./qvm 
+-d|
+
+Successivamente si avvia la macchina virtuale con \mint{bash}|$ ./qvm -x| 
+oppure con \mint{bash}|$./qvm -n| rispettivamente a seconda che si utilizzi o 
+non si utilizzi l'interfaccia grafica sulla macchina guest.
+
+Infine, per collegarsi via SSH: \mint{bash}|$ ./qvm -a|
+
+Nel listato~\ref{lst:funzioneInstallazioneQvm} è riportata la funzione che 
+viene chiamata nel momento di installazione della macchina virtuale.
+
+Il codice sorgente e la documentazione di QVM si trovano su Github \cite{qvm}.
+
+\begin{code}
+    \caption{}
+    \label{lst:funzioneInstallazioneQvm}
+    \begin{shellcode*}{}
+installs()
+{
+    local argc1="$1"
+    local enable_vnc=""
+
+    if [ "$argc1" = "vnc" ]; then
+        enable_vnc="-monitor pty -vnc 127.0.0.1:0"
+    fi
+
+    qemu-system-x86_64 -m "$vm_memory" \
+-device e1000,netdev=user.0 \
+-netdev user,\
+id=user.0,hostfwd=tcp::"$ssh_host_port"-:"$ssh_guest_port" \
+-enable-kvm \
+$enable_vnc \
+-cdrom "$img_name" \
+-boot order=d \
+"$vhd_name" &
+}
+    \end{shellcode*}
+\end{code}
 
 %%
 %%

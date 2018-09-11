@@ -16,10 +16,6 @@ TEX_SRC=tesi
 
 GITHUB_FRNMST_ROOT=https://raw.githubusercontent.com/frnmst
 
-QVM=$(GITHUB_FRNMST_ROOT)/qvm/master
-QVM_SRC=$(QVM)/qvm
-QVM_CONFIG=$(QVM)/configvmrc
-
 RSERVE_SANDBOX=$(GITHUB_FRNMST_ROOT)/rserve-sandbox/distro-package
 RSERVE_SANDBOX_RSERV_CONF=$(RSERVE_SANDBOX)/Rserv.conf
 RSERVE_SANDBOX_DOCKERFILE_IN=$(RSERVE_SANDBOX)/Dockerfile.in
@@ -38,11 +34,10 @@ clean:
 	@echo "Object files removed."
 
 fullclean: clean
-	@rm -rf qvm configvmrc Rserv.conf Makefile.rserve Dockerfile.in
+	@rm -rf Rserv.conf Makefile.rserve Dockerfile.in
 	@rm -rf _minted-$(TEX_SRC)
 
 getsourcefiles:
-	@curl -o qvm $(QVM_SRC)
 	@curl -o configvmrc $(QVM_CONFIG)
 	@curl -o Rserv.conf $(RSERVE_SANDBOX_RSERV_CONF)
 	@curl -o Dockerfile.in $(RSERVE_SANDBOX_DOCKERFILE_IN)
