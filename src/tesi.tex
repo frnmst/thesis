@@ -298,36 +298,29 @@ contiene \mintinline{prolog}{|[BRACERIGHT FIXME TODO }).
 
     - Rende più facile comporre espressioni R da elementi più piccoli.
 \end{displayquote}
-
-\begin{code}
-    \caption{Esempi notazioni R in SWI Prolog}
-    \begin{prologcode*}{}
-<- qplot(mpg, data=mtcars, geom="density", fill=gear, alpha='I'(0.5), main="Distribution of Gas Milage", xlab="Miles Per Gallon", ylab="Density").
-
-<- {|r||qplot(mpg, data=mtcars, geom="density", fill=gear, alpha=I(.5), main="Distribution of Gas Milage", xlab="Miles Per Gallon", ylab="Density")|}.
-    \end{prologcode*}
-\end{code}
-
+Per l'esempio in Prolog term si veda il listato \ref{lst:esempioPrologTerm}
+mentre per l'esempio quasi quotation si veda il 
+listato \ref{lst:esempioquasiQuotation}.
 Come si vede nel primo caso è necessario fare qualche piccola modifica 
 rispetto all'originale R. Nel secondo caso invece è possibile gestire alcuni 
 casi particolari che genererebbero errori oppure che non sarebbe possibile 
 trasformare nel primo caso.
 
-Nella scrittura di cplint\_r si è anche trovato un caso non segnalato nella 
-documentazione in cui non è possibile trasformare un comando con la 
-notazione abbreviata, probabilmente per l'uso di istruzioni condizionali:
-
 \begin{code}
-    \caption{Esempio di quasi quotation tratto da cplint\_r}
-    \begin{rcode*}{}
-{|r||xbreakS <- if(max(df$probabilities) > scalingthresholD) element_blank() else scale_y_continuous(breaks=seq(0,max(df$probabilities),1))|},
-    \end{rcode*}
+    \caption{Esempio notazione Prolog term}
+    \label{lst:esempioPrologTerm}
+    \begin{prologcode*}{}
+<- qplot(mpg, data=mtcars, geom="density", fill=gear, alpha='I'(0.5), main="Distribution of Gas Milage", xlab="Miles Per Gallon", ylab="Density").
+    \end{prologcode*}
 \end{code}
 
-Un fattore importante è che ogni comando R inviato attraverso questo 
-sistema viene eseguito in un ambiente proprio. Le variabili devono quindi 
-essere salvate in Prolog se sono usate successivamente altrimenti vengono
-distrutte. [TODO: source?].
+\begin{code}
+    \caption{Esempio notazione quasi quotation}
+    \label{lst:esempioquasiQuotation}
+    \begin{prologcode*}{}
+<- {|r||qplot(mpg, data=mtcars, geom="density", fill=gear, alpha=I(.5), main="Distribution of Gas Milage", xlab="Miles Per Gallon", ylab="Density")|}.
+    \end{prologcode*}
+\end{code}
 
 %%%%
 %%%%
