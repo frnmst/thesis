@@ -705,7 +705,7 @@ pacchetti software per:
 \end{itemize}
 
 Tutto questo materiale e documentazione è disponibile nel repository 
-swish-installer \cite{swishInstaller}
+swish-installer \cite{swishInstaller}.
  
 Verrà ora spiegata la terminologia ed il procedimento.
 
@@ -716,34 +716,32 @@ Verrà ora spiegata la terminologia ed il procedimento.
 Un pacchetto software è una raccolta di istruzioni che permettono di 
 installare un programma in modo uniforme rispetto a tutti gli altri programmi 
 di un sistema. Questo è possibile grazie ad un \emph{gestore di 
-pacchetti}.
-
-Questi gestori hanno contribuito al successo delle distribuzioni GNU/Linux (ed 
-altre, per esempio BSD) perché consentono a chiunque di installare un 
-programma senza aver conoscenza di metodi di compilazione oltre a rendere 
-l'installazione più veloce e meno prona a generare errori.
+pacchetti}. Questi gestori hanno contribuito al successo delle distribuzioni 
+GNU/Linux (ed altre) perché consentono a chiunque di installare un 
+programma senza aver conoscenza di metodi di compilazione. In questo modo  
+l'installazione risulta più veloce ed essendo automatica anche meno prona a 
+generare errori.
 
 In generale, per costruire un pacchetto software è necessario delineare prima 
 alcune caratteristiche:
 \begin{itemize}
     \item Quali sono le dipendenze e come si relazionano tra di loro.
     \item in che modo è necessario adattare il pacchetto in modo che funzioni 
-          con la specifica distribuzione; cioè quali \emph{helper} devono 
-essere creati e come.
-    \item Il software funziona così com'è oppure bisogna creare utenti, 
+          con la specifica distribuzione.
+    \item Il software funziona così com'è oppure bisogna creare nuovi utenti, 
 file, etc...
 \end{itemize}
 
-poiché l'obbiettivo è stato quello di creare pacchetti per varie 
+Poiché l'obbiettivo è stato quello di creare pacchetti per varie 
 distribuzioni è stato necessario un'ulteriore passaggio: separare le parti in 
-comune che esistono tra le distribuzioni con le loro parti specifiche. In 
-questo caso le parti in comune comprendono:
+comune che esistono tra le distribuzioni con le loro parti specifiche. Nel 
+caso in questione le parti in comune comprendono:
 \begin{itemize}
     \item Gli script per avviare e fermare i daemon.
     \item Le istruzioni per installare i pacchetti Prolog.
-    \item Le configurazioni per i sistemi di init (nel caso in questione è 
+    \item Le configurazioni per i sistemi di init. In questo caso in è 
 presente solo \emph{Systemd} ma si potrebbe generalizzare per qualunque 
-sistema).
+sistema.
     \item Le azioni da fare prima, durante e dopo l'intallazione e la rimozione 
 del pacchetto. Queste vengono date in forma generica e quindi vanno adattate 
 con qualche modifica al caso in uso.
@@ -759,10 +757,9 @@ distribuzione \emph{Arch Linux} per poi passare a \emph{Debian}.
 \section{Arch Linux}
 \emph{Arch Linux} è una distribuzione \emph{bleeding edge} e \emph{rolling 
 release}. Questo significa che i pacchetti sono sempre all'ultima versione 
-stabile e che la distribuzione non viene rilasciata come versione stabile, 
+stabile e che la distribuzione non viene rilasciata come versione fissata, 
 cosa che accade per la maggior parte delle distribuzioni. Tutto questo è 
 speigato nella wiki ufficiale\cite{archLinux}:
-[TODO: citation is old]
 \begin{displayquote}
 Arch Linux è una distribuzione indipendente sviluppata per i686/x86-64, 
 abbastanza versatile ed adatta ad ogni ruolo. Il suo sviluppo si concentra 
@@ -775,8 +772,9 @@ eseguita dalla Shell e da un editor di testo. Basata sul modello
 rolling-release, Arch si sforza di rimanere all'avanguardia, e di solito offre 
 le ultime versioni stabili della maggior parte dei software.
 \end{displayquote}
+
 Lo svantaggio principale di questo sistema è che il software distribuito 
-può non esssere sempre stabile in quanto non testato pienamente.
+può avere \emph{bug} in quanto è stato testato pienamente.
 
 \subsection{Struttura}
 Arch Linux adotta un sistema di pacchettizzazione relativamente semplice 
@@ -795,12 +793,11 @@ rende possibile la generazione del pacchetto con un semplice \texttt{make} o
 
 Nei casi più semplici è sufficiente definire un file chiamato 
 \texttt{PKGBUILD}. Questo contiene le istruzioni solo per fare il build del 
-pacchetto, di come copiare il contenuto nel \emph{filesystem} e di come 
-recuperare il software. Nel nostro caso è stato però necessario aggiungere
-il file \texttt{.install}. Questo si occupa degli \emph{hook}, cioè delle 
-azioni, per l'installazione e la rimozione. Infine sono stati aggiunti i file 
-per \emph{Systemd} e gli script per avviare i daemon. Tutto questo è stato 
-ripetuto per ogni pacchetto.
+pacchetto, delle modalità di copia del contenuto nel \emph{filesystem} e di 
+come recuperare il software. Nel caso in questione è stato anche necessario 
+aggiungere il file \texttt{.install}. Questo si occupa degli \emph{hook}, cioè 
+delle azioni, per l'installazione e la rimozione. Infine sono stati aggiunti i 
+file per \emph{Systemd} e gli script per avviare i daemon.
 
 %%%%
 %%%%
@@ -846,15 +843,14 @@ di incudere i file per Systemd poiché non viene fatto di default. Il file
 \texttt{control} invece contiene informazioni sulle dipendenze, maintainer, 
 descrizioni, etc... 
 
-[TODO: Brief APT + PPA descriptiion]
+[TODO: Brief APT + PPA descriptiion. Do we really need this???]
 
 %%%%
 %%%%
 
 \section{Descrizione dei pacchetti e delle funzionalità}
-Come accennato all'inizio del capitolo~\ref{ch:pacchetti-per-le-varie-distribuzioni}
-i pacchetti software creati comprendono SWISH, l'ambiente R, e tutto il 
-necessario.
+Come accennato all'inizio di questo capitolo i pacchetti software creati 
+comprendono SWISH, l'ambiente R, e tutto il necessario.
 
 Per Arch Linux sono stati scritti il maggior numero di pacchetti:
 \begin{itemize}
