@@ -823,27 +823,20 @@ stessa semplicità con cui si installa un'applicazione. Tutto completamente
 free. 
 \end{displayquote}
 
-Ubuntu è invece meno stabile, tuttavia ha a
-disposizione pacchetti più recenti.
-
-... Ubuntu description... [TODO]
+Ubuntu è un'altra distribuzione GNU/Linux derivata da Debian, e basata sul ramo 
+\emph{unstable} di quest'ultima. Per questo motivo i pacchetti che ha 
+disponibili sono più recenti ma meno testati \cite{ubuntu}.
 
 \subsection{Struttura}
 Il procedimento descritto nella sezione~\ref{pacchetto-e-gestore-di-pacchetti}
-si è ripetuto anche per \emph{Debian} e \emph{Ubuntu}. Una delle più 
-importanti differenze rispetto ad Arch è che in questo caso è necessario 
-avere già scaricato il software prima di fare il build del pacchetto.
-
-Deve essere creata una la directory \texttt{debian} nella directory principale 
-del codice sorgente. All'interno di questa verranno posti tutti file 
-necessari come \texttt{rules}, \texttt{control} e molti altri obbligatori e 
-facoltativi. Il file \texttt{rules} è un makefile che contiene istruzioni per 
-quanto riguarda la compilazione del pacchetto. Si può per esempio specificare 
-di incudere i file per Systemd poiché non viene fatto di default. Il file 
-\texttt{control} invece contiene informazioni sulle dipendenze, maintainer, 
-descrizioni, etc... 
-
-[TODO: Brief APT + PPA descriptiion. Do we really need this???]
+è stato adattato anche per Debian e Ubuntu. Questo consiste nel creare la 
+directory \texttt{debian} nella directory principale del codice sorgente 
+all'interno della quale verranno posti tutti file necessari come 
+\texttt{rules}, \texttt{control}.  Il file \texttt{rules} è un makefile che 
+contiene istruzioni per quanto riguarda la compilazione del pacchetto. Si può 
+per esempio specificare di incudere i file per Systemd poiché non viene fatto 
+di default. Il file \texttt{control} invece contiene informazioni sulle 
+dipendenze, maintainer, descrizioni, etc... \cite{debianPackaging}.
 
 %%%%
 %%%%
@@ -935,13 +928,15 @@ documento spiega come accedere ed installare i pacchetti presenti in AUR.
 %%%%
 %%%%
 
-\section{Problemi} \label{sec:problemi}
-\subsection{Debian}
-Un'altro problema è che Debian ha a disposizione software che non è
-abbastanza recente per il caso in questione. Questo è vero sia che si 
-utilizzi la versione \emph{stable} sia \emph{unstable}. Per quanto riguarda 
-SWISH è infatti necessario avere sempre l'ultima versione di SWI Prolog,
-come è descritto nella documentazione ufficiale \cite{lastestSWIProlog}:
+\section{Problemi riscontrati}
+\label{sec:problemi}
+Uno dei problemi riscontrati è che Debian ha a disposizione software che non è
+abbastanza recente per l'installazione dei pacchetti in questione. Questo è 
+vero sia che si utilizzi la versione \emph{stable} sia \emph{unstable}.
+
+Per quanto riguarda SWISH è infatti necessario avere sempre l'ultima versione 
+di SWI Prolog, come è descritto nella documentazione ufficiale 
+\cite{lastestSWIProlog}:
 \begin{displayquote}
 Install the latest  SWI Prolog development version. As SWISH is very much in 
 flux and depends on the recent SWI-Prolog pengines and sandboxing libraries, 
@@ -949,7 +944,7 @@ it is quite common that you need the nightly build (Windows) or build the
 system from the current git development repository swipl-devel.git.
 \end{displayquote}
 
-Questo sarebbe possibile  soltanto ricompilando il software. Ma anche questo 
+Questo sarebbe possibile soltanto ricompilando il software. Ma anche questo 
 non è fattibile poiché mancano ancora alcune librerie fondamentali. L'unico 
 software che sembra funzionare correttamente è Rserve sandbox.
 
@@ -958,15 +953,6 @@ da Ubuntu, chiamata \emph{Trisquel}. In questo caso, abilitando i PPA di SWI
 Prolog\cite{SWIPrologPPA}, si è riuscito ad installare tutto con minime 
 difficoltà. Tuttavia è presente qualche problema che inibisce l'accesso ad 
 Rserve da SWISH.
-
-\subsection{Alternative}
-Tutto il sistema spiegato fino ad ora comporta il dover tener traccia di 
-molti fattori all'aumentare del numero di distribuzioni supportate. Nell'ultimo 
-periodo stanno emergendo gestori di pacchetti che sono indipendenti dalla 
-distribuzione in uso e che dovrebbero semplificare anche la gestione delle 
-dipendenze (OBS, Flatpack, Snap).
-
-[TODO]
 
 
 %%%%
