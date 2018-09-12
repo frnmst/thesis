@@ -648,21 +648,28 @@ $enable_vnc \
     \end{shellcode*}
 \end{code}
 
-%%
-%%
+%%%%
+%%%%
+%%%%
+%%%%
 
-\section{Installazione degli strumenti}
+\chapter{Installazione e gestione degli strumenti} 
+\label{ch:installazione-e-gestione-degli-strumenti}
 
-        \subsection{Installazione manuale}
-L'installazione manuale consiste in vari passaggi:
+\section{Introduzione}
+Avendo a che fare con un insieme di programmi diversi esiste il problema della 
+loro gestione e installazione. Per risolvere questi fattori alcuni di questi 
+software hanno disponibili un insieme di istruzioni chiamate \emph{pacchetti 
+software}.
+Quando non si hanno a disposizione i pacchetti è necessario:
 \begin{itemize}
     \item cercare tutte le dipendenze software
     \item come queste si installano
     \item e infine quali altre azioni sono necessarie
 \end{itemize}
-%%%Vedere https://frnmst.github.io/swish-installer/swish-installer.html\#Rserve-sandbox-1
 
-Per prima cosa bisogna installare SWI Prolog. SWI Prolog è di 
+\section{Installazione manuale}
+Per prima cosa bisogna installare SWI Prolog che di
 solito è già disponibile come pacchetto per le principali distribuzioni 
 GNU/Linux.
 
@@ -673,41 +680,34 @@ nel sito ufficiale di SWI Prolog. Nel primo caso bisogna installare Bower
 sufficiente l'estrazione del file all'interno della root directory 
 dell'installazione di SWISH \cite{swishManualInstallation}.
 
-È necessario installare i pacchetti SWI Prolog chiamati: \texttt{real}, 
-\texttt{aleph} e \texttt{cplint\_r}. [TODO]
+A questo punto è necessario installare Docker e costruire l'immagine nella 
+quale verrà eseguito il daemon Rserve.
 
-        \subsection{Installazione automatica}
-Per automatizzare tutti i precedenti passaggi è stato creato il repository
-\texttt{swish-cplint}. [TODO] L'installazione automatica avviene per mezzo di 
-pacchetti software [TODO]
+Bisogna installare i pacchetti SWI Prolog 
+chiamati \texttt{real}, \texttt{aleph} e \texttt{cplint\_r}. Questo viene 
+fatto con l'interfaccia testuale di SWI.
 
-L' installazione dei pacchetti prolog è codificata all'interno di 
-\texttt{install\_web\_iface\_deps.pl}
-
-Al tempo della creazione dei pacchetti è stato necessario creare alcuni
-script di avvio, quali \texttt{run.sh} e \texttt{run.pl} (una versione 
-modificata di run.pl distribuita nel repository originale).
-
-Vengono inoltre creati gli opportuni gruppi e utenti, descritti 
-precedentemente, necessari all'avvio dei daemons. [TODO]
+A complicare ulteriormente le cose, tutti questi passaggi necessitano della 
+creazione degli opportuni utenti e gruppi di sistema.
 
 %%%%
 %%%%
-%%%%
-%%%%
 
-\chapter{Pacchetti software per le varie distribuzioni} 
-\label{ch:pacchetti-software-per-le-varie-distribuzioni}
+\section{Andare oltre l'installazione manuale}
+
 Per affrontare il problema dell'installazione di tutti i componenti di cui si 
 è parlato fino ad ora, si è resa quindi necessaria la creazione di vari 
 pacchetti software per:
 \begin{itemize}
     \item l'interfaccia web SWISH,
     \item il daemon Rserve,
-    \item ed infine tutte le dipendenze necessarie di Prolog ed R.
+    \item tutte le dipendenze necessarie di Prolog ed R.
 \end{itemize}
 
-Ora verrà spiegata la terminologia ed il procedimento.
+Tutto questo materiale e documentazione è disponibile nel repository 
+swish-installer \cite{swishInstaller}
+ 
+Verrà ora spiegata la terminologia ed il procedimento.
 
 %%%%
 %%%%
@@ -807,10 +807,7 @@ ripetuto per ogni pacchetto.
 
 \section{Debian e Ubuntu}
 Debian GNU/Linux è tra le prime distribuzioni mai 
-create\cite{debianFirstDistro} ed 
-è tra le più stabili considerate oggi... cite ...
- 
-\cite{debian}
+create\cite{debianFirstDistro} \cite{debian}.
 \begin{displayquote}
 Il Progetto Debian è una associazione di persone che ha come scopo comune la 
 creazione di un sistema operativo libero. Il sistema operativo che abbiamo 
@@ -874,6 +871,13 @@ esclusivamente per l'interazione tra il daemon di Docker e il sistema, per
 evitare problemi di sicurezza \cite{dockerPrivilegeEscalation0} 
 \cite{dockerPrivilegeEscalation1}. L'utente \texttt{rserve} [DESCRIBE] invece è 
 direttamente legato ad rserve.
+
+L' installazione dei pacchetti prolog è codificata all'interno di 
+\texttt{install\_web\_iface\_deps.pl}
+
+Al tempo della creazione dei pacchetti è stato necessario creare alcuni
+script di avvio, quali \texttt{run.sh} e \texttt{run.pl} (una versione 
+modificata di run.pl distribuita nel repository originale).
 
 [TODO]
 
