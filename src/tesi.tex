@@ -17,7 +17,7 @@
 \usepackage[italian]{babel}
 \usepackage{lmodern}
 \usepackage[utf8]{inputenc}
-\usepackage{graphicx,url,amsfonts,epsfig,hyperref,float,listings}
+\usepackage{graphicx,url,amsfonts,epsfig,hyperref,float,listings,subcaption}
 %\usepackage{float}
 %\floatstyle{boxed} 
 %\restylefloat{figure}
@@ -899,6 +899,7 @@ Per Debian/Ubuntu, viste alcune difficoltà spiegate nella
 sezione~\ref{sec:problemi}, si è provveduto soltanto a scrivere 
 \texttt{rserve-sandbox-docker} e \texttt{swish-cplint}.
 
+
 %%%%
 %%%%
 
@@ -928,9 +929,10 @@ abbastanza recente per l'installazione dei pacchetti in questione. Questo è
 vero sia che si utilizzi la versione \emph{stable} sia \emph{unstable}.
 
 Per quanto riguarda SWISH è infatti necessario avere sempre l'ultima versione 
-di SWI Prolog, come è descritto nella documentazione ufficiale 
-\cite{lastestSWIProlog}:
+di SWI Prolog, come è descritto nella documentazione 
+ufficiale~\cite{lastestSWIProlog}:
 \begin{displayquote}
+[TODO: Translate]
 Install the latest  SWI Prolog development version. As SWISH is very much in 
 flux and depends on the recent SWI-Prolog pengines and sandboxing libraries, 
 it is quite common that you need the nightly build (Windows) or build the 
@@ -1355,9 +1357,15 @@ geom_point(
 \end{code}
 
 \begin{figure}[H]
+\caption{Risultato}
 \centering
-\caption{Risultato dell'esecuzione}
-\includegraphics[width=.5\linewidth]{gpr_R_plot.png}
+    \begin{subfigure}[b]{0.5\textwidth}
+        \includegraphics[width=.5\linewidth]{gpr_R_plot.png}
+        \subcaption{Versione R}
+    \end{subfigure}~\begin{subfigure}[b]{0.5\textwidth}
+        \includegraphics[width=.5\linewidth]{gpr_plot.png}
+        \subcaption{Versione C3.js}
+    \end{subfigure}
 \end{figure}
 
 Il codice sorgente completo di gpr\_R.pl si trova nel repository di 
@@ -1374,6 +1382,12 @@ mentre quello inferiore rappresenta 4  distribuzioni di densità degli stati.
 
 Il codice sorgente di questo esempio si trova nel repository~\cite{kalmanFilterRpl}.
 
+\begin{figure}[H]
+\centering
+\caption{Risultato dell'esecuzione}
+\includegraphics[width=.5\linewidth]{kalman_filter_R_plot.png}
+\end{figure}
+
 \subsection{seven\_scientists\_R}
 Il predicato \texttt{geom\_bar/1}  genera un diagramma a barre 
 della media del valore dei campioni per ogni misurazione. poiché 
@@ -1385,7 +1399,6 @@ per imitare il comportamento della versione c3js.
 Il codice sorgente si trova nel repository di Cplint On 
 SWISH~\cite{sevenScientistsRpl}.
 
-[TODO: Pictures for the remaining examples + 1 picture for the C3.js version]
 
 %%%%
 %%%%
@@ -1405,6 +1418,7 @@ SWISH~\cite{sevenScientistsRpl}.
 [TODO: Check all bibliography: page number, authors, references, etc...]
 [TODO: Fix all captions: some of them have an unclear name when referenced from 
        the index]
+[TODO: Check accents: http://www.treccani.it/enciclopedia/acuto-o-grave-accento\_\%28La-grammatica-italiana\%29/]
 
 \printbibliography
 
