@@ -166,7 +166,7 @@ specializzazione della classe lista \cite{rDataFrameDefinition}.  Rispetto ad
 una lista, infatti, esistono delle restrizioni tra le quali le più importanti
 sono che le componenti devono essere vettori della stessa lunghezza 
 \cite{rDataFrameRestrictions}. Un data frame può essere considerato per molti 
-aspetti una matrice anche perchè si possono usare le stesse convenzioni per 
+aspetti una matrice anche perché si possono usare le stesse convenzioni per 
 visualizzare e manipolare i dati \cite{rDataFrameSimilarToMatrices}. Tuttavia, 
 a differenza delle matrici, i vettori che lo compongono possono avere valori
 di tipo diverso, come avviene nelle tabelle \cite{rMatrices}.
@@ -246,7 +246,7 @@ L'utilizzo di R rispetto a Prolog comporta in molti casi un netto miglioramento
 della velocità di calcolo \cite{rFaster}:
 \begin{displayquote}
 [..] È risultato che R è più veloce nel lavorare con una grande quantità
-di numeri interi rispetto a Prolog. Perchè? Perchè una volta trasformato in R,
+di numeri interi rispetto a Prolog. perché? perché una volta trasformato in R,
 il vettore è un semplice array C di interi, e quindi molto veloce 
 nell'addizione. La versione Prolog invece somma i numeri uno alla volta
 oltre che controllare eventuali overflow.
@@ -271,7 +271,7 @@ nel proprio programma Prolog senza necessità di cambiarlo (tranne quando
 contiene \texttt{|\}}).
 
 - Il codice Prolog protrebbe aver bisogno di piccole modifiche. Nell'esempio,
-  \mintinline{r}{I(.5)} deve essere cambiato in \mintinline{r}{'I'(0.5)} perchè 
+  \mintinline{r}{I(.5)} deve essere cambiato in \mintinline{r}{'I'(0.5)} perché 
   i floating point in prolog non possono iniziare con \texttt{.} e gli 
   argomenti (usati come simboli di funzioni) non possono iniziare con una lettera 
   maiuscola. L'utilizzo del prolog term tuttavia
@@ -447,7 +447,7 @@ Dopo aver generato l'immagine si può avviare il container.
 Le opzioni che serve passare al comando \texttt{docker} sono:
 \begin{itemize}
     \item  \texttt{--net=none}, in quanto non ci serve uno stack di rete
-    \item  \texttt{--rm}, perchè non ci interessa salvare il container per
+    \item  \texttt{--rm}, perché non ci interessa salvare il container per
            un futuro utilizzo. Infatti ogni volta ne verrà creato uno nuovo.
            Senza questa opzione la memoria di massa si riempirebbe dopo
            vari avvii.
@@ -830,56 +830,68 @@ dipendenze, maintainer, descrizioni, etc... \cite{debianPackaging}.
 Come accennato all'inizio di questo capitolo i pacchetti software creati 
 comprendono SWISH, l'ambiente R, e tutto il necessario.
 
+\subsection{Componenti comuni}
+I componenti in comune a tutti i sistemi di pacchettizzazione sono:
+\begin{itemize}
+    \item \texttt{run.sh}, uno script che contiene le funzioni per avviare ed  
+          arrestare il daemon. Questo file è presente in ognuno dei pacchetti
+          creati.
+
+    \item \texttt{run.pl}, è una versione modificata dell'omonimo file presente
+          nel repository SWISH. Questo file è stato specificatamente adattato
+          in modo che il daemon SWISH possa essere messo in 
+          \emph{background} oltre che accessibile ad altri computer.
+
+    \item \texttt{install\_web\_iface\_deps.pl}, è uno script prolog che 
+contiene le istruzioni necessarie per installare le dipendenze prolog di Cplint 
+on SWISH con supporto per R.
+
+    \item I file \texttt{.service} per Systemd sono presenti per ogni 
+          pacchetto.
+\end{itemize}
+
+\subsection{Pacchetti}
 Per Arch Linux sono stati scritti il maggior numero di pacchetti:
 \begin{itemize}
     \item \texttt{swish}: installa la versione ufficiale di SWISH, che non 
 contiene modifiche
+
     \item \texttt{swish-cplint}: è una versione modificata che comprende 
 Cplint on SWISH con supporto per R.
-
-L' installazione dei pacchetti prolog è codificata all'interno di 
-\texttt{install\_web\_iface\_deps.pl}
-
-Al tempo della creazione dei pacchetti è stato necessario creare alcuni
-script di avvio, quali \texttt{run.sh} e \texttt{run.pl} (una versione 
-modificata di run.pl distribuita nel repository originale).
-
-[TODO]
 
     \item \texttt{rserve-sandbox-docker}: installa l'ambiente R che permette di 
 creare il socket gestito da Rserve. Questa è una dipendenza fondamentale di 
 \texttt{swish-cplint}.
 
-L'utente \texttt{rsd}, acronimo di \emph{rserve sandbox docker} è stato creato
-esclusivamente per l'interazione tra il daemon di Docker e il sistema, per 
-evitare problemi di sicurezza \cite{dockerPrivilegeEscalation0} 
-\cite{dockerPrivilegeEscalation1}. L'utente \texttt{rserve} [TODO: describe] 
-invece è direttamente legato ad rserve.
-
-[TODO]
+Di particolare rilevanza è la creazione dell'utente \texttt{rsd}, acronimo di 
+\emph{rserve sandbox docker}. Questo è stato creato esclusivamente per 
+l'interazione tra il daemon di Docker e il sistema per 
+evitare problemi di sicurezza come il \emph{privilege escalation}, cioè la 
+possibilità di accedere come utente root pur non avendone i 
+permessi~\cite{dockerPrivilegeEscalation0}~\cite{dockerPrivilegeEscalation1}.
 
     \item \texttt{swish-cplint-bin} e \texttt{rserve-sandbox-docker-bin}: 
 questi sono analoghi alle versioni non \emph{bin} per quanto riguarda le 
 funzionalità. Quello che cambia è che i componenti più importanti sono 
-precompilati. Questo è stat o necessario poiché sia \texttt{swish-cplint}, 
+precompilati. Questo è stato necessario poiché sia \texttt{swish-cplint}, 
 sia \texttt{rserve-sandbox-docker} sono basati su componenti che devono essere 
 scaricati da Internet nel momento della creazione dei pacchetti. Nel caso 
 qualche componente non fosse raggiungibile, l'installazione o qualche 
 funzionalità fallirebbe. In particolare, \texttt{rserve-sandbox-docker-bin} 
 fa riferimento ad un immagine Docker precompilata e poi resa disponibile 
 attraverso un repository git. \texttt{swish-cplint-bin} invece contiene tante 
-dipendenze Javascript~\cite{javascriptDepsSWISH} Queste sono sparse su molti 
+dipendenze Javascript~\cite{javascriptDepsSWISH} che sono sparse su molti 
 repository diversi. Come alternativa, gli sviluppatori 
 di SWISH hanno messo a disposizione un file \emph{zip}~\cite{swishWebDepsZip} 
 con tutti gli strumenti precompilati, e quello che fa \texttt{swish-cplint-bin}
 è sfruttare questi file:
 \begin{displayquote}
-[TODO: translate]
 [..]
-As installing node and bower is not a pleasure on all operating systems,
-you can also download the dependencies as a single zip file [..]
-Unpack the zip file, maintaining the directory structure, from the swish
-root directory to create the directory web/bower\_components.
+Poiché installare node e bower non è una cosa immediata da fare con tutti i 
+sistemi operativi, si possono anche scaricare le dipendenze come singolo file 
+zip [..] È sufficiente estrarre il file zip, mantenendo la struttura della 
+directory,  rimanendo all'interno della directory di root di swish. In questo 
+modo verrà creata la directory web/bower\_components
 \end{displayquote}
 \end{itemize}
 
@@ -895,7 +907,7 @@ Per gestire questa situazione complessa, per ogni distribuzione esiste un
 \texttt{Makefile} ed uno script shell chiamato \texttt{build\_pkg.sh}. 
 Quest'ultimo viene chiamato dal \texttt{Makefile} con parameteri diversi volta 
 per volta. Entrambi si occupano di costruire automaticamente i pacchetti senza 
-che l'utente abbia alcuna conoscenza dei meccanismi interni. è sufficiente 
+che l'utente abbia alcuna conoscenza dei meccanismi interni. È sufficiente 
 infatti eseguire \mint{bash}|$ make| per costruire tutti i pacchetti 
 disponibili, mentre l'installazione avviene con \mint{bash}|$ makepkg -sri|
 per Arch e \mint{bash}|$ debuild -us -uc && dpkg -i| per Debian.
@@ -1131,7 +1143,7 @@ Nei casi di utilizzo diretto di cplint\_r il codice prolog rimane
 fondamentalmente invariato rispetto alla  versione C3.js. Per prima cosa è 
 neccesario includere la libreria. Bisogna poi chiamare la corrispondente 
 funzione di cplint\_r con gli stessi parameteri ad esclusione 
-dell'\emph{oggetto grafico} (\texttt{Prob} nell'esempio) poichè non 
+dell'\emph{oggetto grafico} (\texttt{Prob} nell'esempio) poiché non 
 necessario. Il listato~\ref{lst:diffcoinmsw} è il risultato del comando
 \texttt{\$ diff coinmsw.pl coinmsw\_R.pl}
 nel quale vengono evidenziate le differenze fra la versione C3.js 
@@ -1364,7 +1376,7 @@ Il codice sorgente di questo esempio si trova nel repository~\cite{kalmanFilterR
 
 \subsection{seven\_scientists\_R}
 Il predicato \texttt{geom\_bar/1}  genera un diagramma a barre 
-della media del valore dei campioni per ogni misurazione. Poichè 
+della media del valore dei campioni per ogni misurazione. poiché 
 abbiamo 7 elementi fissi sulle ascisse dobbiamo usare \texttt{numlist(1,7,X)}, 
 una lista da 7 elementi e \texttt{breaks=seq(0,7,1)} per evidenziare i 7 
 punti sul grafico. Si è inoltre usato \texttt{breaks=seq(0,max(df\$val),2)} 
