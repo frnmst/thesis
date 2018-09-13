@@ -94,6 +94,25 @@
 
 \chapter{Introduzione}
 \label{ch:introduzione}
+    \section{Obbiettivi}
+L'obbiettivo di questa tesi è quello di illustrare come 
+permettere ad un ambiente web di programmazione logica di usare un ambiente per 
+la statistica.
+
+Saranno messi in evidenza alcuni strumenti e modalità per generare grafici 
+correlati ai risultati ottenuti da programmi preesistenti. In questo senso 
+verranno illustrati gli esempi più rilevanti.
+
+Verranno illustrate anche le modalità di installazione di tutti i software
+necessari, e, vista la complessità di queste operazioni, alcuni modi per 
+semplificarle.
+
+    \section{Struttura}
+Il presente lavoro si articola in x parti. Nella prima parte [TODO].
+
+~~
+
+\iffalse
     \section{Componenti software}
 Per spiegare il problema è necessario introdurre i software principali che si 
 sono utilizzati.
@@ -112,39 +131,6 @@ alla rappresentazione grafica di dati~\cite{r}.
 \emph{SWI Prolog} è un interprete per la programmazione 
 logica~\cite{swiprolog}, come suggerisce il nome~\cite{prolog}.
 
-    \section{Obbiettivi}
-L'obbiettivo di questa tesi è quello di illustrare come 
-permettere alla libreria Cplint on SWISH di usare R.
-Si spiegherà infine come si è semplificata l'installazione di questo ambiente 
-software.
-
-        \subsection{Funzioni grafiche}
-SWISH offre due tipi di funzionalità grafiche, una attraverso C3.js e l'altra
-attraverso R. C3.js è una libreria Javascript che a sua volta deriva da
-D3.js, anche chiamata \emph{Data-Driven Documents}. Anche in questo caso si 
-tratta di una libreria grafica Javascript che permette di visualizzare
-dei dati utilizzando la Scalable Vector Graphics (\emph{SVG}) all'interno 
-dell'elemento \emph{Canvas}. Questa è un'area all'interno di un pagina web 
-nella quale è possibile disegnare in due 
-dimensioni\cite{canvasHtml}~\cite{d3js}. Questi grafici, inoltre, sono 
-interattivi a differenza di quelli di quelli generabili da R.
-
-Il package R \emph{ggplot2} 
-permette di disegnare gafici usando la 
-cosiddetta \emph{grammatica dei grafici}~\cite{grammarOfGraphics}, cioè la 
-divisione per contesti dei vari aspetti di un grafico come per esempio la 
-geometria, la scala, la rappresentazione estetica, ed altri 
-aspetti~\cite{ggplot2OriginalDefinition}:
-
-\begin{displayquote}
-ggplot2 è un sistema di plotting per R, basato sulla grammatica dei grafici,
-che cerca di utilizzare le parti migliori dei grafici di base e lattice, e di 
-escludere le parti peggiori. Questo sistema si occupa della maggior parte dei
-dettagli poco pratici che rendono il plotting problematico (come per esempio 
-il disegno di legende), oltre che fornire un potente modello di grafica che
-rende semplice produrre complessi plot con molteplici strati.
-\end{displayquote}
-
         \subsection{Accesso ad R da Cplint on SWISH}
 Nativamente Prolog non è in grado di accedere all'interprete R. Esistono 
 tuttavia delle librerie che permettono di collegarsi all'interprete R
@@ -160,7 +146,7 @@ Per semplificare l'installazione e per renderla uniforme a quella di qualunque
 altro programma si sono creati alcuni \emph{pacchetti software} sia per 
 le interfaccie web, sia per gli altri programmi descritti nelle sezioni 
 precedenti.
-
+\fi
 
 %%%%
 %%%%
@@ -222,6 +208,27 @@ di tipo diverso, come avviene nelle tabelle \cite{rMatrices}.
 Sia le liste sia i data frame verranno usati successivamente per gestire i 
 dati.
 
+    \subsection{Funzioni grafiche di R}
+[TODO: Brief description of base R grapgical functions].
+
+Il package R \emph{ggplot2} 
+permette di disegnare gafici usando la 
+cosiddetta \emph{grammatica dei grafici}~\cite{grammarOfGraphics}, cioè la 
+divisione per contesti dei vari aspetti di un grafico come per esempio la 
+geometria, la scala, la rappresentazione estetica, ed altri 
+aspetti~\cite{ggplot2OriginalDefinition}:
+
+\begin{displayquote}
+ggplot2 è un sistema di plotting per R, basato sulla grammatica dei grafici,
+che cerca di utilizzare le parti migliori dei grafici di base e lattice, e di 
+escludere le parti peggiori. Questo sistema si occupa della maggior parte dei
+dettagli poco pratici che rendono il plotting problematico (come per esempio 
+il disegno di legende), oltre che fornire un potente modello di grafica che
+rende semplice produrre complessi plot con molteplici strati.
+\end{displayquote}
+
+
+
 %%
 %%
 
@@ -237,6 +244,17 @@ di un ambiente di programmazione Prolog, libero e gratuito
 SWISH è un'interfaccia web di SWI Prolog \cite{swish}
 ed ha lo scopo principale di far collaborare gli utenti per scrivere 
 prolgrammi Prolog ed analizzarne i risultati.
+
+        \subsection{Funzioni grafiche di SWISH}
+SWISH offre due tipi di funzionalità grafiche, una attraverso C3.js e l'altra
+attraverso R. C3.js è una libreria Javascript che a sua volta deriva da
+D3.js, anche chiamata \emph{Data-Driven Documents}. Anche in questo caso si 
+tratta di una libreria grafica Javascript che permette di visualizzare
+dei dati utilizzando la Scalable Vector Graphics (\emph{SVG}) all'interno 
+dell'elemento \emph{Canvas}. Questa è un'area all'interno di un pagina web 
+nella quale è possibile disegnare in due 
+dimensioni\cite{canvasHtml}~\cite{d3js}. Questi grafici, inoltre, sono 
+interattivi a differenza di quelli di quelli generabili da R.
 
 %%
 %%
