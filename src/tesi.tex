@@ -108,45 +108,13 @@ necessari, e, vista la complessità di queste operazioni, alcuni modi per
 semplificarle.
 
     \section{Struttura}
-Il presente lavoro si articola in x parti. Nella prima parte [TODO].
+Il presente lavoro si articola in 4 parti. Nella prima parte ci si è 
+soffermati sulla descrizione di tutti gli strumenti necessari. Nella seconda ci 
+si è concetrati sulla loro installazione e gestione. Nella terza parte si sono 
+descritte le modalità di disegno dei grafici e della descrizione della 
+libreria che permette questo. Nell'ultima parte si sono descritti alcuni esempi 
+particolarmente complessi che non fanno uso della libreria citata.
 
-~~
-
-\iffalse
-    \section{Componenti software}
-Per spiegare il problema è necessario introdurre i software principali che si 
-sono utilizzati.
-
-La piattaforma \emph{SWISH}~\cite{swish} viene usata per la programmazione 
-logica attraverso un qualunque web browser dotato di \emph{Javascript}. Questa 
-è collegata direttamente all'interprete SWI.
-
-\emph{Cplint on SWISH} è una versione modificata di SWISH che include la 
-libreria \emph{cplint}, la quale permette di formulare inferenze 
-probabilistiche e compiere processi di apprendimento~\cite{cplint}.
-
-\emph{R} è un ambiente software dedicato alla statistica e 
-alla rappresentazione grafica di dati~\cite{r}.
-
-\emph{SWI Prolog} è un interprete per la programmazione 
-logica~\cite{swiprolog}, come suggerisce il nome~\cite{prolog}.
-
-        \subsection{Accesso ad R da Cplint on SWISH}
-Nativamente Prolog non è in grado di accedere all'interprete R. Esistono 
-tuttavia delle librerie che permettono di collegarsi all'interprete R
-attraverso un \emph{socket} fornito da R stesso. Poiché stiamo utilizzando  
-un \emph{server web}, per avere meno problemi di sicurezza, quali ad esempio 
-\emph{privilege escalation}, il collegamento tra R e Prolog non può essere 
-diretto ma avviene tramite un ambiente virtuale isolato chiamato Docker. 
-Tutto questo però complica notevolmente l'installazione.
-
-
-        \subsection{Semplificazione dell'installazione}
-Per semplificare l'installazione e per renderla uniforme a quella di qualunque 
-altro programma si sono creati alcuni \emph{pacchetti software} sia per 
-le interfaccie web, sia per gli altri programmi descritti nelle sezioni 
-precedenti.
-\fi
 
 %%%%
 %%%%
@@ -156,16 +124,14 @@ precedenti.
 
 \chapter{Strumenti e architettura}
 
-%%
-%%
-
     \section{R}
 R è un ambiente software per il calcolo statistico e la 
 visualizzazione grafica. Con il termine R si definisce 
 l'interprete dei comandi mentre con S il linguaggio di programmazione. R 
 comprende anche un gestore di pacchetti attraverso il quale si possono 
 installare facilmente funzioni utili non comprese in R 
-stesso \cite{rDefinition} ~\footnote{Da questo momento in poi, per semplicità, 
+stesso~\cite{r}~\cite{rDefinition} ~\footnote{Da questo momento in poi, per 
+semplicità, 
 si userà il termine R per indicare anche il linguaggio.}
 
         \subsection{Comandi e operatori fondamentali}
@@ -209,7 +175,7 @@ Sia le liste sia i data frame verranno usati successivamente per gestire i
 dati.
 
     \subsection{Funzioni grafiche di R}
-[TODO: Brief description of base R grapgical functions].
+[TODO: Brief description of base R graphical functions].
 
 Il package R \emph{ggplot2} 
 permette di disegnare gafici usando la 
@@ -234,8 +200,8 @@ rende semplice produrre complessi plot con molteplici strati.
 
 \section{SWI Prolog e SWISH}
 Prolog è un linguaggio di programmazione dichiarativo usato per 
-esprimere relazioni tra elementi attraverso fatti e regole logiche 
-\cite{prolog}.
+esprimere relazioni tra elementi attraverso fatti e regole 
+logiche~\cite{prolog}.
 
 SWI Prolog è una particolare implementazione del linguaggio Prolog. Si tratta 
 di un ambiente di programmazione Prolog, libero e gratuito 
