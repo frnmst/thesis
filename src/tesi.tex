@@ -103,19 +103,19 @@
 Per spiegare il problema è necessario introdurre i software principali che si 
 sono utilizzati.
 
-La piattaforma \emph{SWISH}\cite{swish} viene usata per la programmazione 
+La piattaforma \emph{SWISH}~\cite{swish} viene usata per la programmazione 
 logica attraverso un qualunque web browser dotato di \emph{Javascript}. Questa 
 è collegata direttamente all'interprete SWI.
 
 \emph{Cplint on SWISH} è una versione modificata di SWISH che include la 
 libreria \emph{cplint}, la quale permette di formulare inferenze 
-probabilistiche e compiere processi di apprendimento\cite{cplint}.
+probabilistiche e compiere processi di apprendimento~\cite{cplint}.
 
 \emph{R} è un ambiente software dedicato alla statistica e 
-alla rappresentazione grafica di dati\cite{r}.
+alla rappresentazione grafica di dati~\cite{r}.
 
 \emph{SWI Prolog} è un interprete per la programmazione 
-logica\cite{swiprolog}, come suggerisce il nome\cite{prolog}.
+logica~\cite{swiprolog}, come suggerisce il nome~\cite{prolog}.
 
     \section{Obbiettivi}
 L'obbiettivo di questa tesi è quello di illustrare come 
@@ -126,23 +126,20 @@ software.
         \subsection{Funzioni grafiche}
 SWISH offre due tipi di funzionalità grafiche, una attraverso C3.js e l'altra
 attraverso R. C3.js è una libreria Javascript che a sua volta deriva da
-D3.js, acnhe chiamata \emph{Data-Driven Documents}. Anche in questo caso si 
+D3.js, anche chiamata \emph{Data-Driven Documents}. Anche in questo caso si 
 tratta di una libreria grafica Javascript che permette di visualizzare
-dei dati utilizzando la Scalable Vector Graphics (\emph{SVG}), l'elemento 
-\emph{Canvas}, un'area all'interno di un pagina web nella quale è possibile 
-disegnare in due dimensioni\cite{canvasHtml}, e il linuguaggio 
-HTML\cite{d3js}. Questi grafici, inoltre, sono interattivi a differenza di 
-quelli di quelli generabili da R.
+dei dati utilizzando la Scalable Vector Graphics (\emph{SVG}) all'interno 
+dell'elemento \emph{Canvas}. Questa è un'area all'interno di un pagina web 
+nella quale è possibile disegnare in due 
+dimensioni\cite{canvasHtml}~\cite{d3js}. Questi grafici, inoltre, sono 
+interattivi a differenza di quelli di quelli generabili da R.
 
 Il package R \emph{ggplot2} 
 permette di disegnare gafici usando la 
-cosiddetta \emph{grammatica dei grafici}, cioè la divisione per contesti dei 
-vari aspetti di un grafico come per esempio la geometria, la scala, la 
-rappresentazione estetica, ed altri aspetti \cite{ggplot2OriginalDefinition}:
-%% \cite{grammarOfGraphics} e 
-%%\cite{ggplot2} e \cite{ggplot2OriginalDefinition}
-%%[Sembra che la citazione originale sia stata rimossa dal sito ufficiale
-%%di ggplot2.]
+cosiddetta \emph{grammatica dei grafici}~\cite{grammarOfGraphics}, cioè la 
+divisione per contesti dei vari aspetti di un grafico come per esempio la 
+geometria, la scala, la rappresentazione estetica, ed altri 
+aspetti~\cite{ggplot2OriginalDefinition}:
 
 \begin{displayquote}
 ggplot2 è un sistema di plotting per R, basato sulla grammatica dei grafici,
@@ -152,7 +149,6 @@ dettagli poco pratici che rendono il plotting problematico (come per esempio
 il disegno di legende), oltre che fornire un potente modello di grafica che
 rende semplice produrre complessi plot con molteplici strati.
 \end{displayquote}
-
 
         \subsection{Accesso ad R da Cplint on SWISH}
 Nativamente Prolog non è in grado di accedere all'interprete R. Esistono 
@@ -867,8 +863,8 @@ creare il socket gestito da Rserve. Questa è una dipendenza fondamentale di
 L'utente \texttt{rsd}, acronimo di \emph{rserve sandbox docker} è stato creato
 esclusivamente per l'interazione tra il daemon di Docker e il sistema, per 
 evitare problemi di sicurezza \cite{dockerPrivilegeEscalation0} 
-\cite{dockerPrivilegeEscalation1}. L'utente \texttt{rserve} [DESCRIBE] invece è 
-direttamente legato ad rserve.
+\cite{dockerPrivilegeEscalation1}. L'utente \texttt{rserve} [TODO: describe] 
+invece è direttamente legato ad rserve.
 
 L' installazione dei pacchetti prolog è codificata all'interno di 
 \texttt{install\_web\_iface\_deps.pl}
