@@ -723,7 +723,8 @@ caso in questione le parti in comune comprendono:
 \begin{itemize}
     \item Gli script per avviare e fermare i daemon.
     \item Le istruzioni per installare i pacchetti Prolog.
-    \item Le configurazioni per i sistemi di init. In questo caso in è 
+    \item Le configurazioni per i sistemi di \emph{init}, cioè quei sistemi 
+che gestiscono l'avvio e l'arresto dei servizi. In questo caso in è 
 presente solo \emph{Systemd} ma si potrebbe generalizzare per qualunque 
 sistema.
     \item Le azioni da fare prima, durante e dopo l'intallazione e la rimozione 
@@ -834,7 +835,17 @@ Per Arch Linux sono stati scritti il maggior numero di pacchetti:
     \item \texttt{swish}: installa la versione ufficiale di SWISH, che non 
 contiene modifiche
     \item \texttt{swish-cplint}: è una versione modificata che comprende 
-cplint e cplint\_r
+Cplint on SWISH con supporto per R.
+
+L' installazione dei pacchetti prolog è codificata all'interno di 
+\texttt{install\_web\_iface\_deps.pl}
+
+Al tempo della creazione dei pacchetti è stato necessario creare alcuni
+script di avvio, quali \texttt{run.sh} e \texttt{run.pl} (una versione 
+modificata di run.pl distribuita nel repository originale).
+
+[TODO]
+
     \item \texttt{rserve-sandbox-docker}: installa l'ambiente R che permette di 
 creare il socket gestito da Rserve. Questa è una dipendenza fondamentale di 
 \texttt{swish-cplint}.
@@ -844,13 +855,6 @@ esclusivamente per l'interazione tra il daemon di Docker e il sistema, per
 evitare problemi di sicurezza \cite{dockerPrivilegeEscalation0} 
 \cite{dockerPrivilegeEscalation1}. L'utente \texttt{rserve} [TODO: describe] 
 invece è direttamente legato ad rserve.
-
-L' installazione dei pacchetti prolog è codificata all'interno di 
-\texttt{install\_web\_iface\_deps.pl}
-
-Al tempo della creazione dei pacchetti è stato necessario creare alcuni
-script di avvio, quali \texttt{run.sh} e \texttt{run.pl} (una versione 
-modificata di run.pl distribuita nel repository originale).
 
 [TODO]
 
@@ -864,12 +868,13 @@ qualche componente non fosse raggiungibile, l'installazione o qualche
 funzionalità fallirebbe. In particolare, \texttt{rserve-sandbox-docker-bin} 
 fa riferimento ad un immagine Docker precompilata e poi resa disponibile 
 attraverso un repository git. \texttt{swish-cplint-bin} invece contiene tante 
-dipendenze Javascript\cite{javascriptDepsSWISH} Queste sono sparse su molti 
+dipendenze Javascript~\cite{javascriptDepsSWISH} Queste sono sparse su molti 
 repository diversi. Come alternativa, gli sviluppatori 
-di SWISH hanno messo a disposizione un file \emph{zip}\cite{swishWebDepsZip} 
-con tutti gli strumenti precompilati. è sufficiente quindi usare questi ed 
-è proprio quello che fa \texttt{swish-cplint-bin}:
+di SWISH hanno messo a disposizione un file \emph{zip}~\cite{swishWebDepsZip} 
+con tutti gli strumenti precompilati, e quello che fa \texttt{swish-cplint-bin}
+è sfruttare questi file:
 \begin{displayquote}
+[TODO: translate]
 [..]
 As installing node and bower is not a pleasure on all operating systems,
 you can also download the dependencies as a single zip file [..]
@@ -896,18 +901,10 @@ disponibili, mentre l'installazione avviene con \mint{bash}|$ makepkg -sri|
 per Arch e \mint{bash}|$ debuild -us -uc && dpkg -i| per Debian.
 
 \section{Distribuzione dei pacchetti}
-Alcune distribuzioni dispongono di repository per gli utenti. In questo modo 
-chiunque può mettere a disposizione pubblicamente i propri pacchetti.
-
-Arch Linux per esempio ha l'\emph{AUR}\cite{aur}
-\begin{displayquote}
-Arch User Repository (AUR) è un repository sostenuto dalla comunità per utenti 
-Arch. Contiene le descrizioni dei pacchetti (i PKGBUILD) che ti permettono di 
-compilare i sorgenti grazie al comando makepkg e quindi installarli con pacman. 
-AUR è stato creato per creare e scambiare pacchetti tra la comunità e per 
-aiutarne lo sviluppo, inclusi i pacchetti del repository community. Questo 
-documento spiega come accedere ed installare i pacchetti presenti in AUR. 
-\end{displayquote}
+Alcune distribuzioni danno la possibilità agli utenti di caricare e 
+condividere i pacchetti software. Nel caso in questione si veda la 
+documentazione di swish-installer~\cite{swishInstallerInstallation} per capire 
+quali sono e come fare per scaricare e installare i pacchetti.
 
 %%%%
 %%%%
