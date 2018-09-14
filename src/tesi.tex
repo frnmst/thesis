@@ -241,10 +241,8 @@ il disegno di legende), oltre che fornire un potente modello di grafica che
 rende semplice produrre complessi plot con molteplici strati.
 \end{displayquote}
 
-
-
-%%
-%%
+%%%%
+%%%%
 
 \section{SWI Prolog e SWISH}
 Prolog è un linguaggio di programmazione dichiarativo usato per 
@@ -1404,8 +1402,12 @@ geom_point(
 \end{rcode*}
 \end{code}
 
+Il risultato dell'esecuzione di gpr\_R si trova nella 
+figura~\ref{fig:gprRResult}.
+
 \begin{figure}[H]
 \caption{Risultato di \texttt{draw\_fun\_pred(sq\_exp\_p).} di gpr.pl}
+\label{fig:gprRResult}
 \centering
     \begin{subfigure}[b]{0.5\textwidth}
         \includegraphics[width=.5\linewidth]{gpr_R_plot.png}
@@ -1426,13 +1428,15 @@ due grafici in una sola figura grazie al pacchetto
 sono rappresentati sullo stesso grafico.
 
 Il grafico superiore si riferisce a un insieme di osservazioni e di stati, 
-mentre quello inferiore rappresenta 4  distribuzioni di densità degli stati.
+mentre quello inferiore rappresenta 4 distribuzioni di densità degli stati.
+L'output del programma è visibile nella figura~\ref{fig:kalmanFilterRResult}
 
 Il codice sorgente di questo esempio si trova nel repository~\cite{kalmanFilterRpl}.
 
 \begin{figure}[H]
 \centering
 \caption{Risultato dell'esecuzione di \texttt{filter\_sampled\_par(100).} di kalman\_filter\_R.pl}
+\label{fig:kalmanFilterRResult}
 \includegraphics[width=.5\linewidth]{kalman_filter_R_plot.png}
 \end{figure}
 
