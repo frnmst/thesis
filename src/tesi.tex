@@ -459,7 +459,7 @@ Le opzioni che serve passare al comando \texttt{docker} sono:
 Nel listato~\ref{lst:dockerruncommand} si trova il comando completo.
 
 \begin{code}
-    \caption{Comando per avviare il container}
+    \caption{Comando per avviare il container Docker}
     \begin{shellcode*}{}
 docker run --net=none --rm -v /home/rserve:/home/rserve rserve
     \end{shellcode*}
@@ -506,7 +506,7 @@ nella figura~\ref{fig:schemaPortsQvm}.
 
 \begin{figure}[H]
 \centering
-\caption{Schema della relazione tra i port della macchina host e guest}
+\caption{Schema della relazione tra i port della macchina host e guest di QVM}
 \label{fig:schemaPortsQvm}
 \begin{tikzpicture}
     \draw[thick] 
@@ -533,7 +533,7 @@ cycle;
 Nel listato \ref{lst:paginaAiutoQvm} è riportata la pagina di aiuto.
 
 \begin{code}
-    \caption{Pagina di aiuto di qvm}
+    \caption{Pagina di aiuto di QVM}
     \label{lst:paginaAiutoQvm}
     \begin{textcode*}{}
 Usage: qvm [OPTION]
@@ -584,7 +584,7 @@ macchina virtuale in modo da aggiungere la directory condivisa, come si può
 vedere nel listato~\ref{lst:comandoFstabQvm}.
 
 \begin{code}
-    \caption{Comando fstab}
+    \caption{Comando fstab per il mount della directory condivisa}
     \label{lst:comandoFstabQvm}
     \begin{textcode*}{}
 host_share /home/<shared_directory_path> 9p noauto,x-systemd.automount,trans=virtio,version=9p2000.L 0 0
@@ -1277,7 +1277,7 @@ Con l'opzione \texttt{se} viene inoltre disabilitato l'intervallo di
 confidenza calcolato automaticamente da ggplot2 ma non pertinente al problema.
 
 \begin{code}
-\caption{Disegno delle funzioni di interpolazione}
+\caption{Disegno delle funzioni di interpolazione di gpr\_R.pl}
 \begin{rcode*}{}
 formula = "y ~ poly(x,degree=9)",
 method = "glm",
@@ -1291,7 +1291,7 @@ interessata. L'intervallo di confidenza del 95\% è dato da $\bar{y}_{\ast} \pm
 1.96\sqrt{var(y_{\ast})}$ 
 
 \begin{code}
-\caption{Disegno dell'intervallo di confidenza}
+\caption{Disegno dell'intervallo di confidenza di gpr\_R.pl}
 \begin{rcode*}{}
 geom_ribbon(
     aes(
@@ -1318,7 +1318,7 @@ intervallo di $\pm \sigma$. Questo è possibile grazie alla funzione
 \texttt{geom\_errorbar}.
 
 \begin{code}
-\caption{Disegno delle error bar}
+\caption{Disegno delle error bar di gpr\_R.pl}
 \begin{rcode*}{}
 Sigma is 0.3,
 sigma <- Sigma,
@@ -1343,7 +1343,7 @@ geom_errorbar(
 
 Come ultima nota sono stati anche disegnati i tre punti di training.
 \begin{code}
-\caption{Disegno punti di training}
+\caption{Disegno punti di training di gpr\_R.pl}
 \begin{rcode*}{}
 geom_point(
     aes(
@@ -1357,7 +1357,7 @@ geom_point(
 \end{code}
 
 \begin{figure}[H]
-\caption{Risultato}
+\caption{Risultato di \texttt{draw\_fun\_pred(sq\_exp\_p).} di gpr.pl}
 \centering
     \begin{subfigure}[b]{0.5\textwidth}
         \includegraphics[width=.5\linewidth]{gpr_R_plot.png}
@@ -1384,7 +1384,7 @@ Il codice sorgente di questo esempio si trova nel repository~\cite{kalmanFilterR
 
 \begin{figure}[H]
 \centering
-\caption{Risultato dell'esecuzione}
+\caption{Risultato dell'esecuzione di \texttt{filter\_sampled\_par(100).} di kalman\_filter\_R.pl}
 \includegraphics[width=.5\linewidth]{kalman_filter_R_plot.png}
 \end{figure}
 
@@ -1416,8 +1416,6 @@ SWISH~\cite{sevenScientistsRpl}.
 %%%%
 
 [TODO: Check all bibliography: page number, authors, references, etc...]
-[TODO: Fix all captions: some of them have an unclear name when referenced from 
-       the index]
 [TODO: Check accents: http://www.treccani.it/enciclopedia/acuto-o-grave-accento\_\%28La-grammatica-italiana\%29/]
 
 \printbibliography
