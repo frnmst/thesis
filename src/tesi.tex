@@ -130,8 +130,7 @@ visualizzazione grafica. Con il termine R si definisce
 l'interprete dei comandi mentre con S il linguaggio di programmazione. R 
 comprende anche un gestore di pacchetti attraverso il quale si possono 
 installare facilmente funzioni utili non comprese in R 
-stesso~\cite{r}~\cite{rDefinition} ~\footnote{Da questo momento in poi, per 
-semplicità, 
+stesso~\cite{rDefinition}~\footnote{Da questo momento in poi, per semplicità, 
 si userà il termine R per indicare anche il linguaggio.}
 
         \subsection{Comandi e operatori fondamentali}
@@ -175,13 +174,18 @@ Sia le liste sia i data frame verranno usati successivamente per gestire i
 dati.
 
     \subsection{Funzioni grafiche di R}
-[TODO: Brief description of base R graphical functions].
+R dispone di un semplice meccanismo interno per il disegno di grafici 
+nel quale l'output grafico dell'interprete è aggiunto direttamente al 
+\emph{plotting device} piuttosto che separatamente per ogni elemento distinto 
+del plot. Questo sistema non permette ad esempio di poter trasformare i dati 
+secondo scale e livelli diversi~\cite{ggplot2VsRbaseGraphics}.
 
-Il package R \emph{ggplot2} 
-permette di disegnare gafici usando la 
-cosiddetta \emph{grammatica dei grafici}~\cite{grammarOfGraphics}, cioè la 
-divisione per contesti dei vari aspetti di un grafico come per esempio la 
-geometria, la scala, la rappresentazione estetica, ed altri 
+Per andare oltre queste limitazioni alcuni sviluppatori hanno scritto nuove 
+librerie grafiche. Ad esempio, il package R \emph{ggplot2}~\cite{ggplot2}
+permette di disegnare gafici usando la cosiddetta \emph{grammatica dei 
+grafici}~\cite{grammarOfGraphics}. Questa consiste nella divisione per 
+contesti dei vari aspetti di un grafico come per esempio la geometria, la 
+scala, la rappresentazione estetica, ed altri 
 aspetti~\cite{ggplot2OriginalDefinition}:
 
 \begin{displayquote}
@@ -1415,7 +1419,9 @@ SWISH~\cite{sevenScientistsRpl}.
 %%%%
 %%%%
 
-[TODO: Check all bibliography: page number, authors, references, etc...]
+[TODO: Check all bibliography: page number, authors, references, etc...
+       IF wikipedia: use "History"]
+
 [TODO: Check accents: http://www.treccani.it/enciclopedia/acuto-o-grave-accento\_\%28La-grammatica-italiana\%29/]
 
 \printbibliography
