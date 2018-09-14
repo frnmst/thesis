@@ -58,28 +58,72 @@
 \newmintedfile[bashcodefile]{bash}{fontsize=\footnotesize,frame=single,framesep=10pt,breaklines,bgcolor=bg,linenos=true}
 \newmintedfile[prologcodefile]{prolog}{fontsize=\footnotesize,frame=single,framesep=10pt,breaklines,bgcolor=bg,linenos=true}
 
+\usepackage{titlesec}
 
 %%%%
 %%%%
 %%%%
 %%%%
-
-
-\title{Integrazione di una applicazione web con strumenti per la statistica}
-%\title{\textsc{Integrazione di una applicazione web con strumenti per la statistica}}
-\author{Franco Masotti}
-
 \begin{document}
+
+%%% Nuova geometria per la pagina del titolo
+% visto che la classe del documento è book, le pagine pari e dispari avranno geometrie diverse,
+% mentre quella del titolo deve essere unica!
+\newgeometry{
+  top=2cm,
+  bottom=2.5cm,
+  left=2.5cm,
+  right=2.5cm,
+  headsep=25pt,
+  headheight=14.5pt
+}
+
+\begin{titlepage}
+    \topskip0pt
+    %\vspace*{\fill}
+    \centering
+    \vspace*{20mm}
+    \includegraphics[]{logo.png}\\
+    \vspace*{1cm}
+    \huge \textbf{\textsc{Università degli Studi di Ferrara}}
+    \Large \textsc{Corso di Laurea in Informatica}
+
+    \vspace*{1.5cm}
+    \hrule width \hsize \kern 1mm \hrule width \hsize height 2pt
+    \vspace*{10mm}
+    \Huge \emph{\textbf{Integrazione di una applicazione web con strumenti per la statistica}}
+    \vspace*{10mm}
+    \hrule width \hsize height 2pt
+    \vspace*{1mm}
+    \hrule width \hsize \kern 1mm
+
+    \vspace*{15mm}
+    \begin{minipage}{0.45\textwidth}
+        \begin{flushleft} \Large
+            \emph{Relatore:}\\
+            \Large \textbf{Prof. Fabrizio \textsc{Riguzzi}}
+        \end{flushleft}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \begin{flushright} \Large
+            \emph{Laureando:} \\
+            \Large \textbf{Franco \textsc{Masotti}}
+        \end{flushright}
+    \end{minipage}
+
+    \vspace*{20mm}
+    \Large \textsc{Anno Accademico $2017-2018$}
+\end{titlepage}
+
+\restoregeometry
+
 \pagenumbering{roman}
 
-\maketitle
 \newpage
 \tableofcontents
 \newpage
 \listoffigures
 \newpage
-%\listoftables
-%\newpage
 \listoflistings
 \cleardoublepage
 
