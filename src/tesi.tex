@@ -1459,22 +1459,54 @@ SWISH~\cite{sevenScientistsRpl}.
 
 
 \chapter{Conclusioni}
+Inizialmente si è partiti con il creare un ambiente nel quale poter testare 
+liberamente i software necessari. Questo ha portato alla creazione dello 
+script QVM per una gestione semplice delle macchine virtuali.
 
-[TODO]
+Vista la complessità dell'installazione di Cplint on SWISH si è 
+deciso di scrivere i primi pacchetti software.
+Questo è servito per poter effettuare l'installazione tutte le volte che è
+servito, partendo da un sistema sempre pulito.
+
+L'integrazione con R è avvenuta sia seguendo le istruzioni riportate nel 
+repository di rserve-sandbox, sia modificando quest'ultimo con le istruzioni 
+e la documentazione necessaria. Per lo stesso motivo precedente si sono dovuti 
+scrivere i pacchetti software.
+
+Una volta che si è verificato che l'installazione di Cplint on SWISH con 
+supporto R era funzionante si sono incominciati a trasformare i primi esempi 
+più semplici da C3.js ad R. 
+
+Poiché spesso venivano chiamate le stesse funzioni grafiche si è deciso di 
+creare una libreria per evitare ripetizioni di codice.
+
+L'obbiettivo di integrazione dell'ambiente R con Cplint on SWISH è stato 
+quindi raggiunto. Esistono comunque margini di miglioramento: il sistema di 
+pacchetti creato non tiene conto infatti di nuovi aggiornamenti e deve quindi
+essere modificato manualmente.
+
 
 %%%%
 %%%%
 %%%%
 %%%%
+
 
 \chapter{TODO}
-
 \begin{itemize}
     \item Check all bibliography: page number, authors, references, etc...
-    \item IF wikipedia: use "History"; get a static version of the web pages.
-    \item Check accents: http://www.treccani.it/enciclopedia/acuto-o-grave-accento\_\%28La-grammatica-italiana\%29/]
+    \item IF wikipedia: use the "History" page; get a static version of the web 
+          pages.
+    \item Check accents: http://www.treccani.it/enciclopedia/acuto-o-grave-accento\_\%28La-grammatica-italiana\%29/
     \item Check grammar
 \end{itemize}
+
+
+%%%%
+%%%%
+%%%%
+%%%%
+
 
 \printbibliography
 
