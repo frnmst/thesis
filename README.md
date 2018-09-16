@@ -36,7 +36,8 @@ Minted
 
 ## Compile
 
-    # make fullcompile
+    $ cd thesis
+    $ make fullcompile
 
 ## License
 

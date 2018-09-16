@@ -30,7 +30,7 @@ help:
 
 clean:
 	@echo "Removing object files..."
-	@rm -rfv *.pdf *.toc *.aux *.log *.cp *.cps *.fn* *.tp* *.lot* *.lol* *.lof* *.bbl *.blg *.dvi *.out* *.pyg*
+	@rm -rfv *.pdf *.toc *.aux *.log *.cp *.cps *.fn* *.tp* *.lot* *.lol* *.lof* *.bbl *.blg *.dvi *.out* *.pyg* *.bcf *.run.xml
 	@echo "Object files removed."
 
 fullclean: clean
@@ -38,7 +38,7 @@ fullclean: clean
 	@rm -rf _minted-$(TEX_SRC)
 
 getsourcefiles:
-	@curl -o configvmrc $(QVM_CONFIG)
+	#@curl -o configvmrc $(QVM_CONFIG)
 	@curl -o Rserv.conf $(RSERVE_SANDBOX_RSERV_CONF)
 	@curl -o Dockerfile.in $(RSERVE_SANDBOX_DOCKERFILE_IN)
 	@curl -o Makefile.rserve $(RSERVE_SANDBOX_MAKEFILE)
