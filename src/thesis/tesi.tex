@@ -60,6 +60,9 @@
 
 \usepackage{titlesec}
 
+\setcounter{biburllcpenalty}{7000}
+\setcounter{biburlucpenalty}{8000}
+
 %%%%
 %%%%
 %%%%
@@ -139,9 +142,8 @@
 \chapter{Introduzione}
 \label{ch:introduzione}
     \section{Obbiettivi}
-L'obbiettivo di questa tesi è quello di illustrare come 
-permettere ad un ambiente web di programmazione logica di usare un ambiente per 
-la statistica.
+L'obbiettivo di questa tesi è quello di permettere ad un ambiente web di 
+programmazione logica di usare un ambiente per la statistica.
 
 Saranno messi in evidenza alcuni strumenti e modalità per generare grafici 
 correlati ai risultati ottenuti da programmi preesistenti. In questo senso 
@@ -424,16 +426,17 @@ cycle;
     \section{Docker}
 \emph{Docker} è un implementazione di una virtualizzazione a 
 livello di sistema operativo, cioé permette l'esistenza di molteplici istanze 
-di ambienti isolati basate su utenti separati. Con Docker, in particolare, 
+di ambienti isolati che operano in modalità 
+utente~\cite{operatingSystemLevelVirtualization}. Con Docker, in particolare, 
 questi ambienti possono essere eseguiti su una qualunque macchina in modo 
 indipendente dalla configurazione del sistema operativo e sono eseguiti dal 
 singolo kernel del sistema operativo ospite. In questo modo il software che è 
 eseguito al loro interno è garantito funzionare in modo affidabile e come lo 
-sviluppatore aveva inteso che funzionasse
-\cite{operatingSystemLevelVirtualization}~\cite{docker}.
+sviluppatore aveva inteso che funzionasse~\cite{docker}.
 
         \subsection{Immagini}
-Attraverso un documento di testo chiamato \emph{Dockerfile}, Docker viene 
+Attraverso un documento di testo chiamato 
+\emph{Dockerfile}~\cite{DockerfileReference}, Docker viene 
 usato per costruire un'\emph{immagine} che comprende un'insieme di 
 programmi, file, utenti e tutto ciò che è necessario allo svolgimento di
 un specifico compito. Le istruzioni nel documento di testo sono nella forma
@@ -457,8 +460,7 @@ eseguita ad ogni avvio dell'immagine
 Dopo aver costruito l'immagine con \mint{bash}|docker build <nome 
 immagine> .|
 la si può eseguire con \mint{bash}|docker run <nome immagine>|
-L'istanza di un immagine è chiamata 
-\emph{container}~\cite{DockerfileReference}.
+L'istanza di un immagine è chiamata \emph{container}.
 
 Utilizzando i dockerfile la comunità di utilizzatori di Docker continua a 
 creare e a distribuire nuove immagini precompilate ognuna con un particolare 
@@ -991,7 +993,7 @@ software che sembra funzionare correttamente è Rserve sandbox.
 
 Viste queste difficoltà si è deciso utilizzare una distribuzione derivata 
 da Ubuntu, chiamata \emph{Trisquel}. In questo caso, abilitando i PPA di SWI 
-Prolog\cite{SWIPrologPPA}, si è riuscito ad installare tutto con minime 
+Prolog~\cite{SWIPrologPPA}, si è riusciti ad installare tutto con minime 
 difficoltà. Tuttavia è presente qualche problema che inibisce l'accesso ad 
 Rserve da SWISH.
 
@@ -1408,12 +1410,12 @@ figura~\ref{fig:gprRResult}.
 \begin{figure}[H]
 \caption{Risultato di \texttt{draw\_fun\_pred(sq\_exp\_p).} di gpr.pl}
 \label{fig:gprRResult}
-\centering
-    \begin{subfigure}[b]{0.5\textwidth}
+%\centering
+    \begin{subfigure}[b]{0.7\textwidth}
         \includegraphics[width=.5\linewidth]{gpr_R_plot.png}
         \subcaption{Versione R}
-    \end{subfigure}~\begin{subfigure}[b]{0.5\textwidth}
-        \includegraphics[width=.5\linewidth]{gpr_plot.png}
+    \end{subfigure}\begin{subfigure}[b]{0.7\textwidth}
+        \includegraphics[width=.7\linewidth]{gpr_plot.png}
         \subcaption{Versione C3.js}
     \end{subfigure}
 \end{figure}

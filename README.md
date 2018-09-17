@@ -34,9 +34,14 @@ Minted
 
     # pacman -S make texlive-most minted curl biber
 
-## Compile
+## Compile the thesis
 
-    $ cd thesis
+    $ cd src/thesis
+    $ make fullcompile
+
+## Compile the presentation
+
+    $ cd src/presentation
     $ make fullcompile
 
 ## License
