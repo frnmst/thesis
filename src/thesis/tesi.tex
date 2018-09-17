@@ -1448,11 +1448,18 @@ della media del valore dei campioni per ogni misurazione. poiché
 abbiamo 7 elementi fissi sulle ascisse dobbiamo usare \texttt{numlist(1,7,X)}, 
 una lista da 7 elementi e \texttt{breaks=seq(0,7,1)} per evidenziare i 7 
 punti sul grafico. Si è inoltre usato \texttt{breaks=seq(0,max(df\$val),2)} 
-per imitare il comportamento della versione c3js.
+per imitare il comportamento della versione c3js. L'output del programma è 
+visibile nella figura~\ref{fig:sevenScientistsRResult}
 
 Il codice sorgente si trova nel repository di Cplint On 
 SWISH~\cite{sevenScientistsRpl}.
 
+\begin{figure}[H]
+\centering
+\caption{Risultato dell'esecuzione di \texttt{chart\_lw\_noise(1000,E)} di seven\_scientists\_R.pl}
+\label{fig:sevenScientistsRResult}
+\includegraphics[width=.5\linewidth]{seven_scientists_R_plot.png}
+\end{figure}
 
 %%%%
 %%%%
