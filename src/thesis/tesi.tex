@@ -186,12 +186,12 @@ vari tipi di operatori tra cui quelli aritmetici, logici e di assegnazione.
 Esistono varie possibilità per assegnare un valore ad una variabile. Di solito 
 però viene preferita la notazione \mintinline{r}{<-} piuttosto che il classico 
 \mintinline{r}{=}. Nel primo caso infatti non bisogna preoccuparsi di alcuni 
-dettagli funzionali \cite{assignmentOperatorInR} \cite{rAssignmentOperator}
+dettagli funzionali~\cite{assignmentOperatorInR}~\cite{rVectorsAndAssignment}.
 
 Una delle operazioni fondamentali di R è la funzione \mintinline{r}{c()}.
 Questa serve per concatenare un insieme arbitrario di valori, in modo che 
-questi possano essere salvati all'interno di un'unica variabile 
-\cite{rVectorsAndAssignment} \cite{rConcatenatingLists}.
+questi possano essere salvati all'interno di un'unica 
+variabile~\cite{rVectorsAndAssignment}~\cite{rConcatenatingLists}.
 
         \subsection{Oggetti}
 R mette a disposizione strutture dati chiamate oggetti. Questi possono essere 
@@ -207,14 +207,13 @@ del tipo \mintinline{r}{lista$componente}.
 
 I \emph{data frame} sono un tipo particolare di oggetti che permettono 
 di organizzare i dati sotto forma matriciale e sono definiti come 
-specializzazione della classe lista \cite{rDataFrameDefinition}.  Rispetto ad 
+specializzazione della classe lista~\cite{rDataFrameDefinition}.  Rispetto ad 
 una lista, infatti, esistono delle restrizioni tra le quali le più importanti
-sono che le componenti devono essere vettori della stessa lunghezza 
-\cite{rDataFrameRestrictions}. Un data frame può essere considerato per molti 
-aspetti una matrice anche perché si possono usare le stesse convenzioni per 
-visualizzare e manipolare i dati \cite{rDataFrameSimilarToMatrices}. Tuttavia, 
-a differenza delle matrici, i vettori che lo compongono possono avere valori
-di tipo diverso, come avviene nelle tabelle \cite{rMatrices}.
+sono che le componenti devono essere vettori della stessa lunghezza. Un data 
+frame può essere considerato per molti aspetti una matrice anche perché si 
+possono usare le stesse convenzioni per visualizzare e manipolare i dati. 
+Tuttavia, a differenza delle matrici, i vettori che lo compongono possono 
+avere valori di tipo diverso, come avviene nelle tabelle~\cite{rMatrices}.
 
 Sia le liste sia i data frame verranno usati successivamente per gestire alcuni  
 dati.
@@ -707,10 +706,10 @@ GNU/Linux.
 
 Successivamente bisogna installare SWISH manualmente. Questa operazione può 
 essere fatta sia compilando le dipendenze, sia scaricando un file zip presente 
-nel sito ufficiale di SWI Prolog. Nel primo caso bisogna installare Bower 
-\cite{bower} ed eseguire un comando \texttt{make}, mentre nel secondo è 
+nel sito ufficiale di SWI Prolog. Nel primo caso bisogna installare 
+Bower~\cite{bower} ed eseguire un comando \texttt{make}, mentre nel secondo è 
 sufficiente l'estrazione del file all'interno della root directory 
-dell'installazione di SWISH \cite{swishManualInstallation}.
+dell'installazione di SWISH~\cite{swishManualInstallation}.
 
 A questo punto è necessario installare Docker e costruire l'immagine nella 
 quale verrà eseguito il daemon Rserve.
@@ -1165,8 +1164,8 @@ test per verificare che la libreria stessa funzioni correttamente.
 %%%%
 %%%%
 
-\section{Trasformazione degli esempi da C3.js ad R} \label{sec:trasformazione-
-degli-esempi-da-c3js-ad-r}
+\section{Trasformazione degli esempi da C3.js ad R}
+\label{sec:trasformazione-degli-esempi-da-c3js-ad-r}
 Per applicare la nuova libreria cplint\_r a casi reali si sono trasformati 
 esempi da C3.js ad R.
 
