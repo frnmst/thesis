@@ -32,12 +32,28 @@ Minted
 
 ## Arch Linux package dependencies
 
-    # pacman -S make texlive-most minted curl biber
+    # pacman -S make texlive-most minted curl biber zathura zathura-pdf-mupdf
 
 ## Compile the thesis
 
+### First time run
+
     $ cd src/thesis
     $ make fullcompile
+    $ zathura tesi.pdf
+
+### Test changes
+
+    $ make
+    $ zathura tesi.pdf
+
+### Clean
+
+    $ make clean
+
+or
+
+    $ make fullclean
 
 ## Compile the presentation
 

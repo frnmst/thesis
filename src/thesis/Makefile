@@ -38,7 +38,6 @@ fullclean: clean
 	@rm -rf _minted-$(TEX_SRC)
 
 getsourcefiles:
-	#@curl -o configvmrc $(QVM_CONFIG)
 	@curl -o Rserv.conf $(RSERVE_SANDBOX_RSERV_CONF)
 	@curl -o Dockerfile.in $(RSERVE_SANDBOX_DOCKERFILE_IN)
 	@curl -o Makefile.rserve $(RSERVE_SANDBOX_MAKEFILE)
