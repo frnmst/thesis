@@ -254,7 +254,7 @@ SWI Prolog è una particolare implementazione del linguaggio Prolog. Si tratta
 di un ambiente di programmazione Prolog, libero e gratuito 
 \cite{swiprolog}.
 
-SWISH è un'interfaccia web di SWI Prolog \cite{swish}
+SWISH è un'interfaccia web di SWI Prolog~\cite{swish}
 ed ha lo scopo principale di far collaborare gli utenti per scrivere 
 prolgrammi Prolog ed analizzarne i risultati.
 
@@ -282,14 +282,14 @@ on SWISH}~\cite{cplintOnSwish}.
 
     \section{rserve\_client}
 rserve\_client è una libreria Prolog che rende possibile 
-l'accesso ad un ambiente R da parte di SWISH \cite{rserveClientDefinition} 
-\cite{rserveclient}. Questa libreria include anche delle funzionalità per 
-creare e gestire i data frame R direttamente da SWI Prolog 
-\cite{swishRDataLibrary}.
+l'accesso ad un ambiente R da parte di 
+SWISH~\cite{rserveClientDefinition}~\cite{rserveclient}. Questa libreria 
+include anche delle funzionalità per creare e gestire i data frame R 
+direttamente da SWI Prolog~\cite{swishRDataLibrary}.
     
         \subsection{Motivazione}
 L'utilizzo di R rispetto a Prolog comporta in molti casi un netto miglioramento 
-della velocità di calcolo \cite{rFaster}:
+della velocità di calcolo~\cite{rFaster}:
 \begin{displayquote}
 [..] È risultato che R è più veloce nel lavorare con una grande quantità
 di numeri interi rispetto a Prolog. Perché? perché una volta trasformato in R,
@@ -360,7 +360,7 @@ trasformare nel primo caso.
 \emph{Rserve} è un server che permette ad altri programmi di
 utilizzare gli strumenti messi a disposizione da R attraverso diversi
 linguaggi di programmazione, senza dover inizializzare R o
-linkarne la libreria \cite{rserve}. Rserve è il software attraverso il quale 
+linkarne la libreria~\cite{rserve}. Rserve è il software attraverso il quale 
 rserve\_client può interfacciarsi con R.
 
 Per migliorare la sicurezza Rserve non 
@@ -528,9 +528,9 @@ distribuzioni GNU/Linux diverse quali: Antergos, Parabola GNU/Linux-libre,
 Debian e Trisquel.
 
 \subsubsection{Qemu Virtual Machine}
-Utilizzando il programma \emph{QEMU} \cite{qemu} si è potuto scrivere uno
+Utilizzando il programma \emph{QEMU}~\cite{qemu} si è potuto scrivere uno
 script shell, \emph{QVM}, in modo da gestire facilmente tutti i casi d'uso che 
-si sono presentati \cite{qvm}. Questo si è rivelato molto utile per esempio per 
+si sono presentati~\cite{qvm}. Questo si è rivelato molto utile per esempio per 
 gestire i backup dei dischi rigidi virtuali. Infatti per testare nuovi 
 pacchetti e programmi è consigliabile partire sempre da un sistema pulito
 per evitare che precedenti installazioni possano alterare il funzionamento.
@@ -651,7 +651,7 @@ Infine, per collegarsi via SSH: \mint{bash}|$ ./qvm -a|
 Nel listato~\ref{lst:funzioneInstallazioneQvm} è riportata la funzione che 
 viene chiamata nel momento di installazione della macchina virtuale.
 
-Il codice sorgente e la documentazione di QVM si trovano su Github \cite{qvm}.
+Il codice sorgente e la documentazione di QVM si trovano su Github~\cite{qvm}.
 
 \begin{code}
     \caption{Funzione di installazione di una macchina virtuale in QVM}
@@ -736,7 +736,7 @@ pacchetti software per:
 \end{itemize}
 
 Tutto questo materiale e documentazione è disponibile nel repository 
-swish-installer \cite{swishInstaller}.
+swish-installer~\cite{swishInstaller}.
  
 Verrà ora spiegata la terminologia ed il procedimento.
 
@@ -836,7 +836,7 @@ file per \emph{Systemd} e gli script per avviare i daemon.
 
 \section{Debian e Ubuntu}
 Debian GNU/Linux è tra le prime distribuzioni mai 
-create\cite{debianFirstDistro} \cite{debian}.
+create\cite{debianFirstDistro}~\cite{debian}.
 \begin{displayquote}
 Il Progetto Debian è una associazione di persone che ha come scopo comune la 
 creazione di un sistema operativo libero. Il sistema operativo che abbiamo 
@@ -857,7 +857,7 @@ free.
 
 Ubuntu è un'altra distribuzione GNU/Linux derivata da Debian, e basata sul ramo 
 \emph{unstable} di quest'ultima. Per questo motivo i pacchetti che ha 
-disponibili sono più recenti ma meno testati \cite{ubuntu}.
+disponibili sono più recenti ma meno testati~\cite{ubuntu}.
 
 \subsection{Struttura}
 Il procedimento descritto nella sezione~\ref{pacchetto-e-gestore-di-pacchetti}
@@ -868,7 +868,7 @@ all'interno della quale verranno posti tutti file necessari come
 contiene istruzioni per quanto riguarda la compilazione del pacchetto. Si può 
 per esempio specificare di incudere i file per Systemd poiché non viene fatto 
 di default. Il file \texttt{control} invece contiene informazioni sulle 
-dipendenze, maintainer, descrizioni, etc... \cite{debianPackaging}.
+dipendenze, maintainer, descrizioni, etc...~\cite{debianPackaging}.
 
 %%%%
 %%%%
@@ -963,8 +963,8 @@ per Arch e \mint{bash}|$ debuild -us -uc && dpkg -i| per Debian.
 \section{Distribuzione dei pacchetti}
 Alcune distribuzioni danno la possibilità agli utenti di caricare e 
 condividere i pacchetti software. Nel caso in questione si veda la 
-documentazione di swish-installer~\cite{swishInstallerInstallation} per capire 
-quali sono e come fare per scaricare e installare i pacchetti.
+documentazione di swish-installer per capire quali sono e come fare per 
+scaricare e installare i pacchetti.
 
 %%%%
 %%%%
@@ -1195,8 +1195,8 @@ funzione di cplint\_r con gli stessi parameteri ad esclusione
 dell'\emph{oggetto grafico} (\texttt{Prob} nell'esempio) poiché non 
 necessario. Il listato~\ref{lst:diffcoinmsw} è il risultato del comando
 \texttt{\$ diff coinmsw.pl coinmsw\_R.pl}
-nel quale vengono evidenziate le differenze fra la versione C3.js 
-\cite{coinmswpl} ed R \cite{coinmswrpl} dell'esempio \texttt{coinmsw.pl}.
+nel quale vengono evidenziate le differenze fra la versione 
+C3.js~\cite{coinmswpl} ed R~\cite{coinmswrpl} dell'esempio \texttt{coinmsw.pl}.
 
 \begin{code}
 \caption{Differenze fra coinmsw.pl e coinmsw\_R.pl}
@@ -1248,7 +1248,7 @@ tipo di analisi.
 A differenza della versione scritta in C3.js, nel quale è presente il 
 calcolo della media, nella versione R è stato aggiunto 
 anche il calcolo della varianza ottenuta seguendo i procedimenti spiegati 
-nell'articolo \citetitle{gpr} \cite{gpr}. In breve, sono necessari i seguenti 
+nell'articolo \citetitle{gpr}~\cite{gpr}. In breve, sono necessari i seguenti 
 passaggi:
 
 \begin{enumerate}
