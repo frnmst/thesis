@@ -340,6 +340,8 @@ rispetto all'originale R. Nel secondo caso invece è possibile gestire alcuni
 casi particolari che genererebbero errori oppure che non sarebbe possibile 
 trasformare nel primo caso.
 
+\begin{minipage}{\textwidth}
+\centering
 \begin{code}
     \caption{Esempio notazione Prolog term}
     \label{lst:esempioPrologTerm}
@@ -355,6 +357,7 @@ trasformare nel primo caso.
 <- {|r||qplot(mpg, data=mtcars, geom="density", fill=gear, alpha=I(.5), main="Distribution of Gas Milage", xlab="Miles Per Gallon", ylab="Density")|}.
     \end{prologcode*}
 \end{code}
+\end{minipage}
 
 %%%%
 %%%%
@@ -417,11 +420,14 @@ cycle;
 \label{fig:rserveSandboxScheme}
 \end{figure}
 
+\begin{minipage}{\textwidth}
+\centering
 \begin{code}
     \caption{File di configurazione di Rserve}
     \bashcodefile{Rserv.conf}
     \label{lst:rservconf}
 \end{code}
+\end{minipage}
 
 %%%%
 %%%%
@@ -480,6 +486,8 @@ Rserve sia integrato opportunamente con Docker. Il \emph{Dockerfile} che si
 è utilizzato contiene infatti le instruzioni per installare e avviare Rserve.
 La seguente istruzione consente di installare il pacchetto R ggplot2.
 
+\begin{minipage}{\textwidth}
+\centering
 \begin{code}
     \caption{Istruzione installazione pacchetto R}
     \begin{shellcode*}{}
@@ -487,6 +495,7 @@ RUN echo 'install.packages(c("ggplot2"), repos="http://cloud.r-project.org/", de
     && Rscript /tmp/packages.R
     \end{shellcode*}
 \end{code}
+\end{minipage}
 
 Con il comando \mintinline{bash}{CMD /bin/bash Rserv.sh}, presente nel 
 Dockerfile,
@@ -508,6 +517,8 @@ Le opzioni che serve passare al comando \texttt{docker} sono:
 \end{itemize}
 Nel listato~\ref{lst:dockerruncommand} si trova il comando completo.
 
+\begin{minipage}{\textwidth}
+\centering
 \begin{code}
     \caption{Comando per avviare il container Docker}
     \begin{shellcode*}{}
@@ -515,6 +526,7 @@ docker run --net=none --rm -v /home/rserve:/home/rserve rserve
     \end{shellcode*}
     \label{lst:dockerruncommand}
 \end{code}
+\end{minipage}
 
 %%%%
 %%%%
@@ -552,7 +564,8 @@ computer che la ospita lavorano su due sottoreti diverse. Bisogna quindi fare
 un \emph{port forwarding} esplicito delle porte interessate.
 
 Uno schema della relazione fra la macchina virtuale e l'host è disponibile 
-nella figura~\ref{fig:schemaPortsQvm}.
+nella figura~\ref{fig:schemaPortsQvm} mentre nel listato 
+\ref{lst:paginaAiutoQvm} è riportata la pagina di aiuto.
 
 \begin{figure}[H]
 \centering
@@ -580,8 +593,8 @@ cycle;
 \end{tikzpicture}
 \end{figure}
 
-Nel listato \ref{lst:paginaAiutoQvm} è riportata la pagina di aiuto.
-
+\begin{minipage}{\textwidth}
+\centering
 \begin{code}
     \caption{Pagina di aiuto di QVM}
     \label{lst:paginaAiutoQvm}
@@ -617,6 +630,7 @@ CC0
 Written in 2016 by Franco Masotti/frnmst <franco.masotti@student.unife.it>
     \end{textcode*}
 \end{code}
+\end{minipage}
 
 \subsubsection{Installazione e avvio di una nuova macchina virtuale con qvm}
 Per l'installazione di una nouva macchina virtuale la prima cosa da fare è 
@@ -634,6 +648,8 @@ guest oltre che aggiungere la seguente riga nel file \texttt{/etc/fstab} della
 macchina virtuale in modo da ottenere una directory condivisa, come si può 
 vedere nel listato~\ref{lst:comandoFstabQvm}.
 
+\begin{minipage}{\textwidth}
+\centering
 \begin{code}
     \caption{Comando fstab per il mount della directory condivisa}
     \label{lst:comandoFstabQvm}
@@ -641,6 +657,7 @@ vedere nel listato~\ref{lst:comandoFstabQvm}.
 host_share /home/<shared_directory_path> 9p noauto,x-systemd.automount,trans=virtio,version=9p2000.L 0 0
     \end{textcode*}
 \end{code}
+\end{minipage}
 
 Ora si può creare un backup dell'hard disk virtuale con \mint{bash}|$ ./qvm 
 -b| che nel caso fosse necessario rimuoverlo basterà fare \mint{bash}|$ ./qvm 
@@ -657,6 +674,8 @@ viene chiamata nel momento di installazione della macchina virtuale.
 
 Il codice sorgente e la documentazione di QVM si trovano su Github~\cite{qvm}.
 
+\begin{minipage}{\textwidth}
+\centering
 \begin{code}
     \caption{Funzione di installazione di una macchina virtuale in QVM}
     \label{lst:funzioneInstallazioneQvm}
@@ -682,11 +701,14 @@ $enable_vnc \
 }
     \end{shellcode*}
 \end{code}
+\end{minipage}
+
 
 %%%%
 %%%%
 %%%%
 %%%%
+
 
 \chapter{Installazione e gestione degli strumenti} 
 \label{ch:installazione-e-gestione-degli-strumenti}
@@ -1040,6 +1062,8 @@ hanno il suffisso \texttt{\_r}.
 Uno schema della struttura è presente nel 
 listato~\ref{lst:strutturaInterfacciaCplintR}.
 
+\begin{minipage}{\textwidth}
+\centering
 \begin{code}
     \caption{Struttura dei predicati dell'interfaccia di cplint\_r}
     \label{lst:strutturaInterfacciaCplintR}
@@ -1051,10 +1075,13 @@ listato~\ref{lst:strutturaInterfacciaCplintR}.
     finalize_r_graph.
     \end{prologcode*}
 \end{code}
+\end{minipage}
 
 Nel listato~\ref{lst:esempioInterfacciaCplintR} è riportato un predicato
 tratto da cplint\_r.
 
+\begin{minipage}{\textwidth}
+\centering
 \begin{code}
     \caption{Esempio di un predicato dell'interfaccia di cplint\_r}
     \label{lst:esempioInterfacciaCplintR}
@@ -1067,6 +1094,7 @@ mc_mh_sample_arg_bar_r(M:Goal,M:Ev,S,Mix,L,Arg):-
     finalize_r_graph.
     \end{prologcode*}
 \end{code}
+\end{minipage}
 
 Le funzioni di interfaccia sono specificate all'inizio della libreria e la 
 descrizione completa è disponibile nella documentazione online di 
@@ -1079,6 +1107,8 @@ questi predicati hanno il prefisso \texttt{geom\_} come si vede nei
 listati~\ref{lst:strutturaPredicatiGeomCplintR}
 e~\ref{lst:esempioPredicatoGeomCplintR}.
 
+\begin{minipage}{\textwidth}
+\centering
 \begin{code}
     \caption{Struttura dei predicati per il disegno dei grafici di cplint\_r}
     \label{lst:strutturaPredicatiGeomCplintR}
@@ -1090,7 +1120,10 @@ geom_<qualcosa>(<Liste e/o altro input>) :-
     <- ggplot <qualcosa>
     \end{prologcode*}
 \end{code}
+\end{minipage}
 
+\begin{minipage}{\textwidth}
+\centering
 \begin{code}
     \caption{Esempio di un predicato per il disegno dei grafici di cplint\_r}
     \label{lst:esempioPredicatoGeomCplintR}
@@ -1121,6 +1154,7 @@ geom_mc_sample_arg_first_bar(L) :-
     ).
 \end{prologcode*}
 \end{code}
+\end{minipage}
 
 \subsection{Funzioni di supporto}
 Le funzioni di supporto, chiamate anche \emph{helpers} in cplint\_r, servono 
@@ -1128,6 +1162,8 @@ sia per inizializzare le librerie R necessarie, sia per trasformare i dati in
 un formato accessibile a ggplot2, cioè in data frames. Una delle funzioni di
 supporto di trova nel listato~\ref{lst:esempioFunzioneDiSupportoCplintR}.
 
+\begin{minipage}{\textwidth}
+\centering
 \begin{code}
     \caption{Una delle funzioni helper di cplint\_r}
     \label{lst:esempioFunzioneDiSupportoCplintR}
@@ -1144,6 +1180,7 @@ build_xy_list([XH|XT], [YH|YT], [XH-YH|Out]) :-
         build_xy_list(XT, YT, Out).
     \end{prologcode*}
 \end{code}
+\end{minipage}
 
 %%%%
 %%%%
@@ -1202,6 +1239,8 @@ necessario. Il listato~\ref{lst:diffcoinmsw} è il risultato del comando
 nel quale vengono evidenziate le differenze fra la versione 
 C3.js~\cite{coinmswpl} ed R~\cite{coinmswrpl} dell'esempio \texttt{coinmsw.pl}.
 
+\begin{minipage}{\textwidth}
+\centering
 \begin{code}
 \caption{Differenze fra coinmsw.pl e coinmsw\_R.pl}
 \label{lst:diffcoinmsw}
@@ -1223,6 +1262,7 @@ C3.js~\cite{coinmswpl} ed R~\cite{coinmswrpl} dell'esempio \texttt{coinmsw.pl}.
 > ?- prob_bar_r(res(coin,tails)).  % what is the probability that coin lands tails?
 \end{prologcode*}
 \end{code}
+\end{minipage}
 
 \section{Casi particolari} \label{sec:casiParticolari}
 Come detto precedentemente, sono state create alcune funzioni ad-hoc
@@ -1235,6 +1275,8 @@ conoscendone altri. Questo è possibile grazie al \emph{Gaussian Process} che
 definisce una serie di funzioni, anche chiamate \emph{kernel}, per fare questo 
 tipo di analisi.
 
+\begin{minipage}{\textwidth}
+\centering
 \begin{code}
 \caption{Chiamata di esempio di gpr\_R.pl}
 \label{lst:gprRExample}
@@ -1247,6 +1289,7 @@ tipo di analisi.
 % squared exponential kernel. The graphs shows as dots the given points.
 \end{prologcode*}
 \end{code}
+\end{minipage}
 
 \subsubsection{Varianza}
 A differenza della versione scritta in C3.js, nel quale è presente il 
@@ -1282,6 +1325,8 @@ alla 6 con i restanti punti.
 Lo pseudocodice appena visto è stato trasformato in Prolog ed è riportato nel 
 listato~\ref{lst:gprRVarianceComputation}.
 
+\begin{minipage}{\textwidth}
+\centering
 \begin{code}
 \caption{Calcolo della varianza in gpr\_R.pl}
 \label{lst:gprRVarianceComputation}
@@ -1318,6 +1363,7 @@ gp_predict_variance(XP,XT,Kernel,Sigma,Variance) :-
     gp_predict_variance_handler(XT,XP,K_1,Kernel,Sigma,Variance).
 \end{prologcode*}
 \end{code}
+\end{minipage}
 
 \subsubsection{Disegno del grafico}
 
@@ -1327,6 +1373,8 @@ Queste interpolazioni sono ottenute grazie ad un polinomio di nono grado.
 Con l'opzione \texttt{se} viene inoltre disabilitato l'intervallo di 
 confidenza calcolato automaticamente da ggplot2 ma non pertinente al problema.
 
+\begin{minipage}{\textwidth}
+\centering
 \begin{code}
 \caption{Disegno delle funzioni di interpolazione di gpr\_R.pl}
 \begin{rcode*}{}
@@ -1335,12 +1383,15 @@ method = "glm",
 se = 'FALSE'
 \end{rcode*}
 \end{code}
+\end{minipage}
 
 Per rappresentare l'intervallo di confidenza si è utilizzata l'istruzione
 \texttt{geom\_ribbon} di ggplot2 che permette di colorare l'area del grafico 
 interessata. L'intervallo di confidenza del 95\% è dato da $\bar{y}_{\ast} \pm 
 1.96\sqrt{var(y_{\ast})}$ 
 
+\begin{minipage}{\textwidth}
+\centering
 \begin{code}
 \caption{Disegno dell'intervallo di confidenza di gpr\_R.pl}
 \begin{rcode*}{}
@@ -1363,11 +1414,14 @@ geom_ribbon(
 )
 \end{rcode*}
 \end{code}
+\end{minipage}
 
 Per evidenziare l'errore sui dati si sono usate delle error bar definite in un 
 intervallo di $\pm \sigma$. Questo è possibile grazie alla funzione 
 \texttt{geom\_errorbar}.
 
+\begin{minipage}{\textwidth}
+\centering
 \begin{code}
 \caption{Disegno delle error bar di gpr\_R.pl}
 \begin{rcode*}{}
@@ -1391,8 +1445,12 @@ geom_errorbar(
 )
 \end{rcode*}
 \end{code}
+\end{minipage}
 
 Come ultima nota sono stati anche disegnati i tre punti di training.
+
+\begin{minipage}{\textwidth}
+\centering
 \begin{code}
 \caption{Disegno punti di training di gpr\_R.pl}
 \begin{rcode*}{}
@@ -1406,10 +1464,14 @@ geom_point(
 )
 \end{rcode*}
 \end{code}
+\end{minipage}
 
 Il risultato dell'esecuzione di gpr\_R si trova nella 
-figura~\ref{fig:gprRResult}.
+figura~\ref{fig:gprRResult} mentre il codice sorgente completo di gpr\_R.pl si 
+trova nel repository di Cplint on SWISH~\cite{gprRpl}.
 
+\begin{minipage}{\textwidth}
+\centering
 \begin{figure}[H]
 \caption{Risultato di \texttt{draw\_fun\_pred(sq\_exp\_p)} di gpr.pl}
 \label{fig:gprRResult}
@@ -1422,9 +1484,7 @@ figura~\ref{fig:gprRResult}.
         \subcaption{Versione C3.js}
     \end{subfigure}
 \end{figure}
-
-Il codice sorgente completo di gpr\_R.pl si trova nel repository di 
-Cplint on SWISH~\cite{gprRpl}.
+\end{minipage}
 
 \subsection{kalman\_filter\_R}
 Il predicato \texttt{geom\_densities/7} disegna contemporanemente
@@ -1438,12 +1498,14 @@ L'output del programma è visibile nella figura~\ref{fig:kalmanFilterRResult}
 
 Il codice sorgente di questo esempio si trova nel repository~\cite{kalmanFilterRpl}.
 
+\begin{minipage}{\textwidth}
 \begin{figure}[H]
 \centering
 \caption{Risultato dell'esecuzione di \texttt{filter\_sampled\_par(100)} di kalman\_filter\_R.pl}
 \label{fig:kalmanFilterRResult}
 \includegraphics[width=.5\linewidth]{kalman_filter_R_plot.png}
 \end{figure}
+\end{minipage}
 
 \subsection{seven\_scientists\_R}
 Il predicato \texttt{geom\_bar/1}  genera un diagramma a barre 
@@ -1457,12 +1519,14 @@ visibile nella figura~\ref{fig:sevenScientistsRResult}
 Il codice sorgente si trova nel repository di Cplint On 
 SWISH~\cite{sevenScientistsRpl}.
 
+\begin{minipage}{\textwidth}
 \begin{figure}[H]
 \centering
 \caption{Risultato dell'esecuzione di \texttt{chart\_lw\_noise(1000,E)} di seven\_scientists\_R.pl}
 \label{fig:sevenScientistsRResult}
 \includegraphics[width=.5\linewidth]{seven_scientists_R_plot.png}
 \end{figure}
+\end{minipage}
 
 %%%%
 %%%%
