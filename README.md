@@ -44,21 +44,26 @@ Minted
 
 ### Test changes
 
+If you have compiled at least once without cleaning you may run the following:
+
     $ make
     $ zathura tesi.pdf
 
-### Clean
+## Compile the presentation
+
+### First time run
+
+    $ cd src/presentation
+    $ make
+    $ zathura presentazione.pdf
+
+## Clean
 
     $ make clean
 
 or
 
     $ make fullclean
-
-## Compile the presentation
-
-    $ cd src/presentation
-    $ make fullcompile
 
 ## License
 
