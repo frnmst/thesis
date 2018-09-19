@@ -25,7 +25,7 @@ help:
 
 clean:
 	@echo "Removing object files..."
-	@rm -rfv *.pdf *.toc *.aux *.log *.cp *.cps *.fn* *.tp* *.lot* *.lol* *.lof* *.bbl *.blg *.dvi *.out* *.pyg* *.bcf *.run.xml
+	@rm -rfv *.pdf *.toc *.aux *.log *.cp *.cps *.fn* *.tp* *.lot* *.lol* *.lof* *.bbl *.blg *.dvi *.out* *.pyg* *.bcf *.run.xml *.nav *.snm
 	@echo "Object files removed."
 
 fullclean: clean
@@ -35,7 +35,6 @@ fullclean: clean
 compile: clean
 	@pdflatex -shell-escape $(TEX_SRC).tex
 	#@biber $(TEX_SRC)
-	#@pdflatex -shell-escape $(TEX_SRC).tex
 	@pdflatex -shell-escape $(TEX_SRC).tex
 
 fullcompile: fullclean getsourcefiles compile

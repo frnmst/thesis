@@ -9,17 +9,19 @@
 % work. If not, see <http://creativecommons.org/licenses/by-sa/4.0/>.
 %
 
-\documentclass[11pt,xcolor={dvipsnames}]{beamer} % presentation output
+\documentclass[11pt,xcolor={dvipsnames},default]{beamer} % presentation output
 % \documentclass[11pt,xcolor={dvipsnames},handout]{beamer} % Beamer printout
 % xcolor allows to use many new colors with \usecolortheme
 
 \mode<presentation>{
   \usetheme{Warsaw}
+%\setbeamertemplate{headline}{\insertsectionnavigationhorizontal{\paperwidth}{}{\hskip0pt plus1filll}}
 %  Here is a gallery with other themes:
 %  http://deic.uab.es/~iblanes/beamer_gallery/
   \usecolortheme[named=OliveGreen]{structure}
 %  Others: OliveGreen, Brown, Sepia, RawSienna,
-  \useoutertheme{shadow}
+%  \useoutertheme{shadow}
+  \useoutertheme{infolines}
  	\setbeamercovered{transparent}
 	\setbeamercolor{block title example}{fg=white,bg=Blue}
 	\setbeamercolor{block body example}{fg=black,bg=Blue!10}
@@ -42,7 +44,6 @@
 \usepackage[italian]{babel}
 \usepackage[latin1]{inputenc}
 \usepackage{times}
-%\usepackage[T1]{fontenc}
 \usepackage{graphics}
 \graphicspath{{images/}}
 % all the graphics files will go in the subdirectory images
@@ -89,9 +90,9 @@
 {Franco Masotti}
 \institute[Institute Name]
 {
-  Complete Name of The Institute\\
+  Complete Name of The Institute \\
   Other Information \\
-  Department Name \\[0.5Cm]
+  Dipartimento di Matematica e Informatica \\[0.5Cm]
   Relatore\\ Prof. \textbf{Fabrizio Riguzzi}\\[0.25Cm]
   }
 \date{28 Settembre 2018}
@@ -101,17 +102,6 @@
 
 %\titlegraphic{\includegraphics[height=1.4cm, angle=0]{logo}}
 % To have an imagie on title page
-
-%%%% TO HAVE A TOC ON EVERY SLIDE
-%\AtBeginSubsection[]
-%{
-%  \begin{frame}<beamer>{Sommario}
-%    \tableofcontents[currentsection,currentsubsection]
-%    \tableofcontents[currentsection]
-%    \tableofcontents
-%  \end{frame}
-%}
-%%%% TO HAVE A TOC ON EVERY SLIDE
 
 \begin{document}
 \transduration{1}
@@ -126,34 +116,85 @@
 \end{center}
 \end{frame}
 
-%%%% TOC
-\begin{frame}{Contents}
-\transboxin
-\MyLogo
-%\tableofcontents[pausesections,part=1]
-  \tableofcontents
-\end{frame}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%% FIRST SECTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduzione}
-
-\subsection{Title of Subsection 1.1}
-\begin{frame}{Title of Frame 1}
+\subsection{Obbiettivi}
+\begin{frame}{Obbiettivi}
 \transboxin
-%\transblindshorizontal
-% type of transition effect
 \MyLogo
-\begin{center}
-\begin{block}{Block title}
-Description of this block. Description of this block. Description of this block. Description of this block.
-\end{block}
-\end{center}
+\begin{itemize}
+\item L'obbiettivo della tesi è stato quello di permettere ad un ambiente web
+di programmazione logica di utilizzare un ambiente per la statistica.
+\end{itemize}
 \end{frame}
 
+\begin{frame}
+\MyLogo
+\begin{itemize}
+\item \emph{Cplint on SWISH} è una particolare versione di \emph{SWISH} che 
+comprende strumenti basati sull'intelligenza artificiale.
+\item Alcuni programmi di Cplint on SWISH necessitano di grafici per la 
+visualizzazione dei risultati. Grazie all'ambiente di statistica e 
+visualizzazione grafica chiamato \emph{R} è stato possibile disegnare tali 
+grafici.
+\item Vista la complessità di gestione dei software si sono cercate di 
+migliorare le loro modalità di installazione ed utilizzo.
+\end{itemize}
+\end{frame}
 
+\section{Strumenti}
+\begin{frame}{Strumenti}
+\transboxin
+\MyLogo
+\begin{itemize}
+\item .
+\end{itemize}
+\end{frame}
 
+\section{Installazioni}
+\begin{frame}{Installazioni}
+\transboxin
+\MyLogo
+\begin{itemize}
+\item .
+\end{itemize}
+\end{frame}
 
+\section{Librerie grafiche}
+\begin{frame}{ggplot2}
+\transboxin
+\MyLogo
+\begin{itemize}
+\item .
+\end{itemize}
+\end{frame}
+
+\begin{frame}{cplint\_r}
+\transboxin
+\MyLogo
+\begin{itemize}
+\item .
+\end{itemize}
+\end{frame}
+
+\section{Esempi}
+\begin{frame}{Esempi}
+\transboxin
+\MyLogo
+\begin{itemize}
+\item .
+\end{itemize}
+\end{frame}
+
+\section{Conclusioni}
+\begin{frame}{Conclusioni}
+\transboxin
+\MyLogo
+\begin{itemize}
+\item .
+\end{itemize}
+\end{frame}
 
 
 
