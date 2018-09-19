@@ -27,12 +27,51 @@
     urldate = {2018-09-15},
 }
 
-@online{cplint,
-    author          = {Fabrizio Riguzzi},
-    title           = {cplint},
-    organization    = {UNIFE},
-    url             = {https://github.com/friguzzi/cplint/tree/425ab7cd20ed60974bb80f5a5c54a4773a16d8ff},
-    urldate         = {2018-09-17},
+@article{swishInteractiveTutorials,
+  author = {Jan Wielemaker and Fabrizio Riguzzi and Bob Kowalski and Torbj\"orn Lager and Fariba Sadri and Miguel Calejo },
+  title = {Using {SWISH} to realise interactive web based tutorials for logic based languages },
+  journal = {arXiv},
+  year = {2018},
+  volume = {arXiv:1808.08042 [cs.PL]},
+  pdf = {https://arxiv.org/pdf/1808.08042.pdf}
+}
+
+@article{cplint,
+  author = {Fabrizio Riguzzi and Giuseppe Cota and
+        Elena Bellodi and Riccardo Zese  },
+  title = {Causal Inference in {cplint}},
+  journal = {International Journal of Approximate Reasoning},
+  year = {2017},
+  publisher = {Elsevier},
+  address = {Amsterdam},
+  copyright = {Elsevier},
+  doi = {10.1016/j.ijar.2017.09.007},
+  pdf = {http://mcs.unife.it/~friguzzi/Papers/RigCotBel-IJAR17.pdf},
+  abstract = {
+cplint is a suite of programs for reasoning and learning with Probabilistic 
+Logic Programming languages that follow the distribution semantics.
+In this paper we describe how we have extended cplint to perform causal 
+reasoning.
+In particular, we consider Pearl's do calculus for models where all
+the variables are measured.
+The two cplint  modules for inference, PITA and MCINTYRE, have been extended 
+for computing the effect of actions/interventions on these models.
+We also executed experiments comparing exact and approximate inference with
+conditional and causal queries, showing that causal inference is often cheaper 
+than conditional inference.
+},
+  keywords = {
+Probabilistic Logic Programming, Distribution Semantics, Logic Programs with 
+Annotated Disjunctions, ProbLog, Causal Inference, Statistical Relational 
+Artificial Intelligence
+},
+  volume = {91},
+  pages = {216-232},
+  month = {December},
+  number = {Supplement C},
+  issn = {0888-613X},
+  scopus = {2-s2.0-84992199737},
+  wos = {WOS:000391080100020}
 }
 
 @online{rDefinition,
@@ -160,10 +199,10 @@
 }
 
 @online{rObject,
-    title   = {Other types of objects},
-    note    = {An Introduction to R, Pag. 11 (17), Par. 2.8},
-    url     = {https://cran.r-project.org/doc/manuals/R-intro.pdf},
-    urldate = {2018-09-17},
+    title           = {Other types of objects},
+    note            = {An Introduction to R, Pag. 11 (17), Par. 2.8},
+    url             = {https://cran.r-project.org/doc/manuals/R-intro.pdf},
+    urldate         = {2018-09-17},
     organization    = {The R Foundation},
 }
 
@@ -345,11 +384,40 @@
     urldate = {2018-09-18},
 }
 
-@online{cplintOnSwish,
-    title   = {SWISH: A web based SWI-Prolog environment integrated with examples from the Cplint suite},
-    author  = {Fabrizio Riguzzi},
-    url     = {https://github.com/friguzzi/swish},
-    urldate = {2018-09-18},
+@article{cplintOnSwish,
+  author = {Marco Alberti and Elena Bellodi and Giuseppe Cota and
+  Fabrizio Riguzzi and Riccardo Zese},
+  title = {\texttt{cplint} on {SWISH}: Probabilistic Logical Inference with a Web Browser},
+  journal = {Intelligenza Artificiale},
+  publisher = {IOS Press},
+  copyright = {IOS Press},
+  year = {2017},
+  issn-print = {1724-8035},
+  issn-online = {2211-0097},
+  url = {http://mcs.unife.it/~friguzzi/Papers/AlbBelCot-IA17.pdf},
+  abstract = {
+\texttt{cplint} on SWISH is a web application that allows users to
+perform reasoning tasks on probabilistic logic programs.
+Both inference and learning systems can be performed: conditional probabilities 
+with exact,
+rejection sampling and Metropolis-Hasting methods. Moreover, the system now 
+allows hybrid programs,
+i.e., programs where some of the random variables are continuous. To perform 
+inference on such programs likelihood weighting and particle filtering are 
+used. \texttt{cplint} on SWISH is also able to sample goals' arguments and
+to graph the results. This paper reports on advances and new features
+of \texttt{cplint} on SWISH, including the capability of drawing the
+binary decision diagrams created during the inference processes.
+},
+  keywords = { Logic Programming, Probabilistic Logic Programming,
+Distribution Semantics, Logic Programs with Annotated Disjunctions, Web
+Applications
+},
+  volume = {11},
+  number = {1},
+  doi = {10.3233/IA-170106},
+  pages = {47--64},
+  wos = {WOS:000399736500004}
 }
 
 @online{kalmanFilterRpl,
