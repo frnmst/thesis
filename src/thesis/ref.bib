@@ -15,13 +15,57 @@
     organization    =   {Wikimedia Foundation, Inc.},
 }
 
-@online{swiprolog,
+@article{swiProlog,
+  author = {Wielemaker, Jan and Schrijvers, Tom and Triska, Markus and Lager, 
+Torbj\"o{}rn},
+  title = {{SWI-Prolog}},
+  journal = {Theory and Practice of Logic Programming},
+  year = {2012},
+  volume = {12},
+  number = {1-2},
+  pages = {67--96},
+  ISSN = {1471-0684},
+  abstract = {SWI-Prolog is neither a commercial Prolog system nor a purely 
+academic
+enterprise, but increasingly a community project. The core system has
+been shaped to its current form while being used as a tool for building
+research prototypes, primarily for knowledge-intensive and
+interactive systems. Community contributions have added
+several interfaces and the constraint (CLP) libraries. Commercial
+involvement has created the initial garbage collector, added several
+interfaces and two development tools: PlDoc (a literate programming
+documentation system) and PlUnit (a unit testing environment).
+
+In this article we present SWI-Prolog as an integrating tool, supporting
+a wide range of ideas developed in the Prolog community and acting as
+glue between foreign resources. This article itself is the
+glue between technical articles on SWI-Prolog, providing context and
+experience in applying them over a longer period.}
+}
+
+@online{swiPrologAbout,
     title   = {SWI Prolog},
     url     = {http://www.swi-prolog.org/},
     urldate = {2018-09-15},
 }
 
-@online{swish,
+@article{swish,
+  author    = {Jan Wielemaker and
+               Torbj{\"{o}}rn Lager and
+               Fabrizio Riguzzi},
+  title     = {{SWISH:} SWI-Prolog for Sharing},
+  journal   = {CoRR},
+  volume    = {abs/1511.00915},
+  year      = {2015},
+  url       = {http://arxiv.org/abs/1511.00915},
+  archivePrefix = {arXiv},
+  eprint    = {1511.00915},
+  timestamp = {Mon, 13 Aug 2018 16:46:11 +0200},
+  biburl    = {https://dblp.org/rec/bib/journals/corr/WielemakerLR15},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@online{swishAbout,
     title   = {SWISH},
     url     = {https://swish.swi-prolog.org/help/about.html},
     urldate = {2018-09-15},
@@ -167,12 +211,6 @@ Artificial Intelligence
     urldate = {2018-09-17},
 }
 
-@online{ggplot2,
-    title   = {ggplot2},
-    url     = {http://ggplot2.org/},
-    urldate = {2018-09-17},
-}
-
 @online{ggplot2OriginalDefinition,
     title   = {ggplot2},
     url     = {http://had.co.nz/ggplot2/},
@@ -249,7 +287,7 @@ Artificial Intelligence
 @online{gridExtra,
     title   = {gridExtra: Miscellaneous Functions for "Grid" Graphics},
     author  = {Baptiste Auguie},
-    url     = {https://cran.r-project.org/web/packages/gridExtra/index.html},
+    url     = {https://CRAN.R-project.org/package=gridExtra},
     urldate = {2018-09-17},
 }
 
@@ -272,13 +310,15 @@ Artificial Intelligence
     urldate = {2018-09-17},
 }
 
-@online{rserve,
-    title   = {Rserve},
-    note    = {What is Rserve?},
+@inproceedings{rserve,
+    author = {Simon Urbanek},
+    title = {Rserve -- A Fast Way to Provide R Functionality to Applications },
+    booktitle = {PROC. OF THE 3RD INTERNATIONAL WORKSHOP ON DISTRIBUTED 
+STATISTICAL COMPUTING (DSC 2003), ISSN 1609-395X, EDS.: KURT HORNIK, FRIEDRICH 
+LEISCH \& ACHIM ZEILEIS, 2003 (HTTP://ROSUDA.ORG/RSERVE},
+    year = {2003},
+    publisher = {},
     url     = {https://www.rforge.net/Rserve/},
-    urldate = {2018-09-17},
-    author  = {Simon Urbanek},
-
 }
 
 @online{unixSocket,
@@ -329,12 +369,18 @@ Artificial Intelligence
     urldate = {2018-09-18},
 }
 
-@online{gpr,
-    title   = {Gaussian Processes for Regression: A Quick Introduction},
-    url     = {https://arxiv.org/pdf/1505.02965v2.pdf},
-    author  = {M. Ebden},
-    year    = {2008},
-    month   = {08},
+@article{gpr,
+   author = {{Ebden}, M.},
+    title = "{Gaussian Processes: A Quick Introduction}",
+  journal = {ArXiv e-prints},
+archivePrefix = "arXiv",
+   eprint = {1505.02965},
+ primaryClass = "math.ST",
+ keywords = {Mathematics - Statistics Theory},
+     year = 2015,
+    month = may,
+   adsurl = {http://adsabs.harvard.edu/abs/2015arXiv150502965E},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
 }
 
 @online{gprRpl,
@@ -432,7 +478,6 @@ Applications
     author  = {Franco Masotti},
     url     = {https://github.com/frnmst/swish/blob/cc2c679e3c66a9ad136ee9704ba881de9ca2f884/examples/inference/seven_scientists_R.pl},
     urldate = {2018-09-18},
-
 }
 
 @online{ggplot2VsRbaseGraphics,
