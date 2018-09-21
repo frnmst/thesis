@@ -126,6 +126,7 @@
 \begin{itemize}
 \item L'obbiettivo della tesi è stato quello di permettere ad un ambiente web
 di programmazione logica di utilizzare un ambiente per la statistica.
+\item \$TODO
 \end{itemize}
 \$Pictures
 \end{frame}
@@ -180,7 +181,7 @@ Questi quattro elementi sono stati usati ampiamente.
 isolato chiamato \emph{Docker}.
 \item Tutta la comunicazione fra client e server avviene attraverso un 
 \emph{socket di tipo UNIX}. Questo significa che il server è accessibile solo
-dalla macchina in cui gira così la sicurezza è migliore.
+dalla macchina in cui gira così è garantita una migliore sicurezza.
 \end{itemize}
 \end{frame}
 
@@ -190,28 +191,28 @@ dalla macchina in cui gira così la sicurezza è migliore.
 \MyLogo
 \begin{itemize}
 \item Vista la complessità e il numero degli strumenti utilizzati si è deciso 
-di provare tutto all'interno di \emph{macchine virtuali}.
-\item Le macchine virtuali sono software che permettono ad un sistema 
-operativo di girare all'interno di un sistema ospite.
-\item Partendo da punti di backup creati appositamente è infatti possibile 
-partire da un ambiente sempre pulito.
+di provare tutto all'interno di \emph{macchine virtuali}, cioè software che 
+permettono ad un sistema operativo di girare all'interno di un sistema ospite.
+\item Recuperando backup creati appositamente è infatti possibile partire da 
+un ambiente sempre pulito.
 \item A questo proposito è stato creato uno script shell, chiamato \emph{QVM}, 
 che permette la gestione di macchine virtuali attraverso il programma 
 \emph{QEMU}.
 \end{itemize}
+\$Picture(s)
 \end{frame}
 
 \begin{frame}{Pacchetti software}
 \transboxin
 \MyLogo
 \begin{itemize}
-\item Si è deciso di scrivere alcuni \emph{pacchetti software}, cioè una serie 
+\item Sono stati scritti alcuni \emph{pacchetti software}, cioè una serie 
 di istruzioni che permettono l'installazione, la gestione e la rimozione dei 
 programmi in modo semplice.
 \item Questi pacchetti sono disponibili per SWISH, Cplint on SWISH e per 
 l'abiente Rserve.
-\item Per fare in modo che questi software funzionino si sono dovuti modificare 
-...
+\item Per fare in modo che i pacchetti funzionino si sono dovuti modificare 
+alcune parti dei programmi originali.
 \item \$TODO.
 \end{itemize}
 \end{frame}
@@ -250,9 +251,9 @@ avere un'interfaccia uniforme e di evitare ripetizioni di codice.
 \begin{itemize}
 \item In alcuni casi particolari non è stato possibile usare cplint\_r perchè 
 si trattava di grafici troppo specifici.
-\item gpr\_R: in questo caso si è seguito il \emph{working paper} ... cite. Per 
-evidenziare la covarianza si è dovuto modificare il codice Prolog 
-opportunamente ...
+\item gpr\_R: in questo caso si è seguito il \emph{working paper} ... cite. 
+Rispetto alla versione C3.js è stato aggiunto e visualizzato il calcolo della 
+varianza ed aggiunte le error bar.
 \end{itemize}
 \end{frame}
 
@@ -260,11 +261,12 @@ opportunamente ...
 \begin{frame}{Conclusioni}
 \transboxin
 \MyLogo
-\begin{itemize}
-\item .Alcune delle cose imparate qui sono state applicate a delle altre cose.
-Per esempio https://github.com/frnmst/kalliope-docker per quanto riguarda 
-Docker.
-\end{itemize}
+\$TODO
+%\begin{itemize}
+%\item Alcune delle cose imparate qui sono state applicate a delle altre cose.
+%Per esempio https://github.com/frnmst/kalliope-docker per quanto riguarda 
+%Docker.
+%\end{itemize}
 \end{frame}
 
 
