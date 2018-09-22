@@ -385,7 +385,7 @@ figura~\ref{fig:rserveSandboxScheme},
 
 \begin{figure}[H]
 \centering
-\caption{Schema funzionamento di rserve sandbox}
+\caption{Schema funzionamento di rserve-sandbox}
 \begin{tikzpicture}
     \draw[thick] 
 (-5,5) -- node[align=left, below]{Sistema}
@@ -483,14 +483,16 @@ rete più noti.
 
     \subsection{Configurazioni di Docker per utilizzare rserve-sandbox}
 Per l'utilizzo dell'ambiente R all'interno di rserve-sandbox è necessario che 
-Rserve sia integrato opportunamente con Docker. Il \emph{Dockerfile} che si 
+Rserve sia integrato opportunamente con Docker. Il dockerfile che si 
 è utilizzato contiene infatti le instruzioni per installare e avviare Rserve.
-La seguente istruzione consente di installare il pacchetto R ggplot2.
+L'istruzione presente nel listato~\ref{lst:istruzioneInstallazionePacchettoR} 
+consente di installare il pacchetto R ggplot2.
 
 \begin{minipage}{\textwidth}
 \centering
 \begin{code}
     \caption{Istruzione installazione pacchetto R}
+    \label{lst:istruzioneInstallazionePacchettoR}
     \begin{shellcode*}{}
 RUN echo 'install.packages(c("ggplot2"), repos="http://cloud.r-project.org/", dependencies=TRUE)' > /tmp/packages.R \
     && Rscript /tmp/packages.R
@@ -512,7 +514,8 @@ Le opzioni che serve passare al comando \texttt{docker} sono:
            Senza questa opzione la memoria di massa si riempirebbe dopo
            vari avvii.
     \item  \texttt{-v /home/rserve:/home/rserve}, che serve a montare 
-           la directory \texttt{/home/rserve} del sistema host in quello guest.
+           la directory \texttt{/home/rserve} del sistema \emph{host} in quello 
+           \emph{guest}.
            In questa directory sarà infatti presente il socket di Rserve,
            in modo da essere accessibile al daemon di SWISH.
 \end{itemize}
@@ -645,9 +648,10 @@ disco rigido virtuale, e successivamente \mint{bash}|$ ./qvm -i| per
 l'installazione.
 
 Una volta terminata l'installazione si può installare SSH sulla macchina 
-guest oltre che aggiungere la seguente riga nel file \texttt{/etc/fstab} della 
-macchina virtuale in modo da ottenere una directory condivisa, come si può 
-vedere nel listato~\ref{lst:comandoFstabQvm}.
+guest. Per ottenere una directory condivisa fra la macchina virtuale e la 
+macchina ospite è sufficiente aggiungere un'istruzione nel file 
+\texttt{/etc/fstab} della macchina guest. Questo si può vedere nel 
+listato~\ref{lst:comandoFstabQvm}.
 
 \begin{minipage}{\textwidth}
 \centering
@@ -660,15 +664,15 @@ host_share /home/<shared_directory_path> 9p noauto,x-systemd.automount,trans=vir
 \end{code}
 \end{minipage}
 
-Ora si può creare un backup dell'hard disk virtuale con \mint{bash}|$ ./qvm 
--b| che nel caso fosse necessario rimuoverlo basterà fare \mint{bash}|$ ./qvm 
--d|
+Ora si può creare un backup dell'hard disk virtuale con l'opzione 
+\mintinline{bash}|-b| e nel caso fosse necessario rimuoverlo basterà usare 
+l'opzione \mintinline{bash}|-d|
 
 Successivamente si avvia la macchina virtuale con \mint{bash}|$ ./qvm -x| 
-oppure con \mint{bash}|$./qvm -n| rispettivamente a seconda che si utilizzi o 
-non si utilizzi l'interfaccia grafica sulla macchina guest.
+oppure con \mint{bash}|$ ./qvm -n| rispettivamente a seconda che si 
+utilizzi o non si utilizzi l'interfaccia grafica sulla macchina guest.
 
-Infine, per collegarsi via SSH: \mint{bash}|$ ./qvm -a|
+Infine, per collegarsi via SSH si deve usare l'opzione \mintinline{bash}|-a|.
 
 Nel listato~\ref{lst:funzioneInstallazioneQvm} è riportata la funzione che 
 viene chiamata nel momento di installazione della macchina virtuale.
@@ -784,7 +788,7 @@ In generale, per costruire un pacchetto software è necessario delineare prima
 alcune caratteristiche:
 \begin{itemize}
     \item Quali sono le dipendenze e come si relazionano tra di loro.
-    \item in che modo è necessario adattare il pacchetto in modo che funzioni 
+    \item In che modo è necessario adattare il pacchetto in modo che funzioni 
           con la specifica distribuzione.
     \item Il software funziona così com'è oppure bisogna creare nuovi utenti, 
 file, etc...
@@ -854,9 +858,9 @@ Nei casi più semplici è sufficiente definire un file chiamato
 \texttt{PKGBUILD}. Questo contiene le istruzioni solo per fare il build del 
 pacchetto, delle modalità di copia del contenuto nel \emph{filesystem} e di 
 come recuperare il software. Nel caso in questione è stato anche necessario 
-aggiungere il file \texttt{.install}. Questo si occupa degli \emph{hook}, cioè 
-delle azioni, per l'installazione e la rimozione. Infine sono stati aggiunti i 
-file per \emph{Systemd} e gli script per avviare i daemon.
+aggiungere il file \texttt{.install} che si occupa degli \emph{hook}, cioè 
+delle azioni pre-post installazione e rimozione. Infine sono stati 
+aggiunti i file per \emph{Systemd} e gli script per avviare i daemon.
 
 %%%%
 %%%%
@@ -949,9 +953,10 @@ questi sono analoghi alle versioni non \emph{bin} per quanto riguarda le
 funzionalità. Quello che cambia è che i componenti più importanti sono 
 precompilati. Questo è stato necessario poiché sia \texttt{swish-cplint}, 
 sia \texttt{rserve-sandbox-docker} sono basati su componenti che devono essere 
-scaricati da Internet nel momento della creazione dei pacchetti. Nel caso 
-qualche componente non fosse raggiungibile, l'installazione o qualche 
-funzionalità fallirebbe. In particolare, \texttt{rserve-sandbox-docker-bin} 
+scaricati da Internet nel momento della creazione dei pacchetti quindi può 
+succedere che qualche componente non sia raggiungibile. Se questo è il caso 
+allora l'installazione o qualche altra funzionalità fallirebbe. In particolare, 
+\texttt{rserve-sandbox-docker-bin} 
 fa riferimento ad un immagine Docker precompilata e poi resa disponibile 
 attraverso un repository git. \texttt{swish-cplint-bin} invece contiene tante 
 dipendenze Javascript~\cite{javascriptDepsSWISH} che sono sparse su molti 
@@ -973,12 +978,11 @@ Per Debian/Ubuntu, viste alcune difficoltà spiegate nella
 sezione~\ref{sec:problemi}, si è provveduto soltanto a scrivere 
 \texttt{rserve-sandbox-docker} e \texttt{swish-cplint}.
 
-
 %%%%
 %%%%
 
 \section{Build e installazione dei pacchetti}
-Per gestire questa situazione complessa, per ogni distribuzione esiste un 
+Per gestire questa situazione complessa ogni distribuzione ha un 
 \texttt{Makefile} ed uno script shell chiamato \texttt{build\_pkg.sh}. 
 Quest'ultimo viene chiamato dal \texttt{Makefile} con parameteri diversi volta 
 per volta. Entrambi si occupano di costruire automaticamente i pacchetti senza 
@@ -986,6 +990,9 @@ che l'utente abbia alcuna conoscenza dei meccanismi interni. È sufficiente
 infatti eseguire \mint{bash}|$ make| per costruire tutti i pacchetti 
 disponibili, mentre l'installazione avviene con \mint{bash}|$ makepkg -sri|
 per Arch e \mint{bash}|$ debuild -us -uc && dpkg -i| per Debian.
+
+%%%%
+%%%%
 
 \section{Distribuzione dei pacchetti}
 Alcune distribuzioni danno la possibilità agli utenti di caricare e 
@@ -1018,10 +1025,10 @@ non è fattibile poiché mancano ancora alcune librerie fondamentali. L'unico
 software che sembra funzionare correttamente è Rserve sandbox.
 
 Viste queste difficoltà si è deciso utilizzare una distribuzione derivata 
-da Ubuntu, chiamata \emph{Trisquel}. In questo caso, abilitando i PPA di SWI 
-Prolog~\cite{SWIPrologPPA}, si è riusciti ad installare tutto con minime 
-difficoltà. Tuttavia è presente qualche problema che inibisce l'accesso ad 
-Rserve da SWISH.
+da Ubuntu, chiamata \emph{Trisquel}~\cite{trisquel}. In questo caso, abilitando 
+i PPA di SWI Prolog~\cite{SWIPrologPPA}, si è riusciti ad installare tutto con 
+minime difficoltà. Tuttavia è presente qualche problema che inibisce l'accesso 
+ad Rserve da SWISH.
 
 
 %%%%
@@ -1053,7 +1060,7 @@ chiamate \emph{predicati}.
 L'interfaccia comprende una serie di funzioni accessibili allo sviluppatore che 
 vuole scrivere programmi usando cplint\_r. Questi predicati chiamano al loro 
 interno, se necessario, le funzioni di cplint a cui si riferiscono. Una volta 
-ottenuti i dati dalle funzioni di cplint vengono chiamati dei predicati 
+ottenuti i dati dalle funzioni di cplint, vengono chiamati dei predicati 
 all'interno di cplint\_r per gestire la parte grafica.
 
 Per mantenere coerenza tra cplint e cplint\_r, i nomi delle funzioni che fanno 
@@ -1232,12 +1239,12 @@ gli esempi.
 
 \section{Uso diretto di cplint\_r}
 Nei casi di utilizzo diretto di cplint\_r il codice Prolog rimane 
-fondamentalmente invariato rispetto alla  versione C3.js. Per prima cosa è 
+fondamentalmente invariato rispetto alla versione C3.js. Per prima cosa è 
 neccesario includere la libreria. Bisogna poi chiamare la corrispondente 
 funzione di cplint\_r con gli stessi parameteri ad esclusione 
 dell'\emph{oggetto grafico} (\texttt{Prob} nell'esempio) poiché non 
 necessario. Il listato~\ref{lst:diffcoinmsw} è il risultato del comando
-\texttt{\$ diff coinmsw.pl coinmsw\_R.pl}
+\mintinline{bash}|$ diff coinmsw.pl coinmsw_R.pl|
 nel quale vengono evidenziate le differenze fra la versione 
 C3.js~\cite{coinmswpl} ed R~\cite{coinmswrpl} dell'esempio \texttt{coinmsw.pl}.
 
@@ -1511,7 +1518,7 @@ Il codice sorgente di questo esempio si trova nel repository~\cite{kalmanFilterR
 
 \subsection{seven\_scientists\_R}
 Il predicato \texttt{geom\_bar/1}  genera un diagramma a barre 
-della media del valore dei campioni per ogni misurazione. poiché 
+della media del valore dei campioni per ogni misurazione. Poiché 
 abbiamo 7 elementi fissi sulle ascisse dobbiamo usare \texttt{numlist(1,7,X)}, 
 una lista da 7 elementi e \texttt{breaks=seq(0,7,1)} per evidenziare i 7 
 punti sul grafico. Si è inoltre usato \texttt{breaks=seq(0,max(df\$val),2)} 
