@@ -242,7 +242,8 @@ avere un'interfaccia uniforme e di evitare ripetizioni di codice.
 \centering
 \begin{figure}
 \includegraphics<1>[width=.3\textwidth]{cplint_r_code_extract.png}
-\caption{Estratto del codice di cplint\_r}
+\includegraphics<1>[width=.3\textwidth]{coin_r_pl_result.png}
+\caption{Estratto del codice di cplint\_r e un esempio}
 \end{figure}
 \end{frame}
 
@@ -253,10 +254,13 @@ avere un'interfaccia uniforme e di evitare ripetizioni di codice.
 \begin{itemize}
 \item In alcuni casi particolari non è stato possibile usare cplint\_r perchè 
 si trattava di grafici troppo specifici.
-\item Per il programma \texttt{gpr\_R} ad esempio si è seguito il \emph{working 
-paper} \emph{Gaussian Processes: A Quick Introduction}. 
+\item Per il programma \texttt{gpr\_R.pl} ad esempio si è seguito il 
+\emph{working paper} \emph{Gaussian Processes: A Quick Introduction}. 
 Rispetto alla versione C3.js è stato aggiunto e visualizzato il calcolo della 
 varianza ed aggiunte le error bar.
+\item La versione R di kalman\_filter separa due tipi di dati in due 
+sottografici al contraio della versione C3.js che li raggruppa nello
+stesso grafico.
 \item Si veda http://cplint.eu/example/inference/inference\_examples\_R.swinb
 \end{itemize}
 \end{frame}
@@ -266,7 +270,8 @@ varianza ed aggiunte le error bar.
 \transboxin
 \MyLogo
 \begin{itemize}
-\item L'obbiettivo è stato raggiunto. ...
+\item L'obbiettivo è stato raggiunto sia con cplint\_r sia con i pacchetti 
+software.
 \item Inoltre, alcune delle nuove conoscenze sono state applicate ad altri 
 progetti Per esempio https://github.com/frnmst/kalliope-docker per quanto 
 riguarda Docker.
@@ -274,173 +279,4 @@ riguarda Docker.
 \end{frame}
 
 
-
-
-
-
-\iffalse
-\begin{frame}{Title of Frame 2}
-%\transblindshorizontal
-\MyLogo
-\begin{center}
-%\includegraphics[width=.3\textwidth]{image}
-\begin{alertblock}{Block title}
-Description of this block. Description of this block. Description of this block. Description of this block. \\
-\end{alertblock}
-\vspace{0.8cm}
-\end{center}
-\end{frame}
-
-\begin{frame}{Title of Frame 3}
-%\transglitter
-\MyLogo
-\begin{columns}
-\begin{column}[T]{5cm}
-hi \\ how
-\end{column}
-\begin{column}[T]{5cm}
-are \\ you?
-\end{column}
-\end{columns}
-%\column{.6\textwidth}
-%	\includegraphics[width=.6\textwidth]{image}
-%\column{.4\textwidth}
-\begin{block}{Block title}
-Description of this block. Description of this block. Description of this block. Description of this block.
-\end{block}
-\bigskip \bigskip
-\begin{block}{Block title}
-Description of this block. Description of this block. Description of this block. Description of this block.
-\end{block}
-%\end{columns}
-\end{frame}
-
-\begin{frame}{Title of Frame 4}
-%\transglitter
-\MyLogo
-\begin{columns}
-\column{.6\textwidth}
-%	\includegraphics<1>[width=.5\textwidth]{image1}
-%	\includegraphics<2>[width=.5\textwidth]{image}%
-%	\includegraphics<3>[width=.5\textwidth]{image3}
-\column{.4\textwidth}
-	\begin{itemize}
-  		\item<1-> Text: \alert{text}
-  		\item<2-> Text: \alert{text}
-		\item<3-> Text: \alert{text}
-  	\end{itemize}
-\end{columns}
-\end{frame}
-
-\begin{frame}{Title of Frame 5}
-%\transdissolve
-\MyLogo
-\begin{columns}
-\column{.4\textwidth}
-	\begin{itemize}
-  		\item Text text text
-  		\item Text text text
-		\item Text text text
-		\item Text text text
-  	\end{itemize}
-\column{.6\textwidth}
-%	\includegraphics [width=.5\textwidth]{image}
-\end{columns}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Title of Frame 6}
-\framesubtitle{Subtitle of Frame 6}
-%\transdissolve
-\MyLogo
-\begin{columns}
-\column{.25\textwidth}
-\begin{align*}
- \alert{COP_H} &= \dfrac{\abs{Q_2}}{\abs{L}} \\
- 	   &= \dfrac{\abs{Q_2}}{\abs{Q_2}-Q_1} \\
- 	   &= \alert{\dfrac{T_2}{T_2-T_1}} \\
-\end{align*}
-\column{.75\textwidth}
-%	\includegraphics[width=.5\textwidth]{image1}
-\end{columns}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Title of Subsection 1.2}
-\begin{frame}{Subtitle of Frame 7}
-%\transblindshorizontal
-\MyLogo
-\begin{enumerate}
-\item<1-> Text text text text text text text text text text text text text text text text text text text text text text text text text text;
-\item<2-> text text text text text text text text text text text text text text text text text text text text text text text text text;
-\item<3-> text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text.
-\end{enumerate}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Title of Subsection 1.3}
-\begin{frame}{Subtitle of Frame 8}
-%\transblindshorizontal
-\MyLogo
-\begin{center}
-%\includegraphics[width=.2\textwidth]{image1}
-\end{center}
-\pause
-\begin{beamercolorbox}[shadow=false, rounded=true]{postit2}
-\begin{itemize}
-\item text text text text text text text text text text
-\item text text text text
-\item text text text text text text text text text text text text
-\item text text text text
-\end{itemize}
-\end{beamercolorbox}
-\end{frame}
-
-\subsection{Title of Subsection 1.4}
-\begin{frame}{Subtitle of Frame 9}
-\transdissolve
-\MyLogo
-\begin{itemize}
-\item<1-> Text text text text text text text text text text text text text text text text text text;
-\item<2-> text text text text text text text text text text text text text text text text text text text text text text text text text;
-\item<3-> text text text text text text text text text text.
-\end{itemize}
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%% SECOND SECTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Title of Section 2}
-
-\subsection{Title of Subsection 2.1}
-\begin{frame}{Subtitle of Frame 10}
-\transboxin
-\MyLogo
-\begin{itemize}
-\item<1-> text text text text text text text text text text text text text text text text text text text text text text text text
-\begin{beamercolorbox}[center, shadow=false, rounded=true]{postit2}
-text text text text text text text text 
-\end{beamercolorbox}
-\item<2->  text text text text text text text text text text text text text text text text text text text text
-\item<3->  text text text text text text text text text text text text text text text text text text text text
-\end{itemize}
-\end{frame}
-
-%
-% ...
-%
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LAST FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-\transboxin
-\MyLogo
-\vspace{1.0cm}
-\begin{beamercolorbox}[sep=1.0cm, center, shadow=false, rounded=true]{postit2}
-\begin{Huge}Thank you for your attention\end{Huge}
-\end{beamercolorbox}
-\pause
-\end{frame}
-
-\fi
-
-\end{document} 
+\end{document}
