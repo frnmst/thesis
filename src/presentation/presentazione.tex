@@ -74,6 +74,8 @@
 \setlength{\TPHorizModule}{1mm}
 \setlength{\TPVertModule}{1mm}
 
+\setbeamerfont{caption}{size=\scriptsize}
+
 %%%% A NEW COMMAND TO FIX LOGO POSITION (x,y) in mm
 \newcommand{\MyLogo}{%
 \begin{textblock}{14}(2.0,80)
@@ -171,7 +173,10 @@ isolato chiamato \emph{Docker}.
 dalla macchina in cui gira così è garantita una migliore sicurezza.
 \end{itemize}
 \centering
+\begin{figure}
 \includegraphics<1>[width=.3\textwidth]{rserve_sandbox_scheme.png}
+\caption{Schema funzionamento}
+\end{figure}
 \end{frame}
 
 \section{Installazione e gestione dei software}
@@ -216,8 +221,13 @@ preferibile perchè la grammatica dei grafici permette di dividere il grafico
 per contesti diversi.
 \item Questo semplifica il lavoro dello sviluppatore e permette anche di 
 trasformare i dati secondo scale e livelli diversi.
-\item \$ggplot2 picture
 \end{itemize}
+\centering
+\begin{figure}
+\includegraphics<1>[width=.1\textwidth]{ggplot2_logo.png}
+\includegraphics<1>[width=.3\textwidth]{ggplot2_example.png}
+\caption{Logo ed esempio. Licenza GPLv2}
+\end{figure}
 \end{frame}
 
 \begin{frame}{cplint\_r}
@@ -230,7 +240,10 @@ graficare i risultati ottenuti da cplint usando la libreria ggplot2.
 avere un'interfaccia uniforme e di evitare ripetizioni di codice.
 \end{itemize}
 \centering
+\begin{figure}
 \includegraphics<1>[width=.3\textwidth]{cplint_r_code_extract.png}
+\caption{Estratto del codice di cplint\_r}
+\end{figure}
 \end{frame}
 
 \section{Esempi}
