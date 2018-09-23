@@ -124,7 +124,6 @@ di programmazione logica di utilizzare un ambiente per la statistica.
 \item Vista la complessità di gestione dei software si sono cercate di 
 migliorare le loro modalità di installazione ed utilizzo.
 \end{itemize}
-\$Picture
 \end{frame}
 
 \section{Strumenti}
@@ -214,7 +213,7 @@ alcune parti dei programmi originali.
 \transboxin
 \MyLogo
 \begin{itemize}
-\item ggplot2 è un software R che permette di disegnare grafici usano la 
+\item ggplot2 è un software R che permette di disegnare grafici usando la 
 cosìddetta \emph{grammatica dei grafici}.
 \item Anche se R mette già a disposizione librerie grafiche, ggplot2 è 
 preferibile perchè la grammatica dei grafici permette di dividere il grafico 
@@ -254,14 +253,14 @@ avere un'interfaccia uniforme e di evitare ripetizioni di codice.
 \begin{itemize}
 \item In alcuni casi particolari non è stato possibile usare cplint\_r perchè 
 si trattava di grafici troppo specifici.
-\item Per il programma \texttt{gpr\_R.pl} ad esempio si è seguito il 
+\item La versione R di kalman\_filter separa due tipi di dati in due 
+sottografici al contrario della versione C3.js che li raggruppa nello
+stesso grafico.
+\item Per il programma \texttt{gpr\_R.pl} si è seguito il 
 \emph{working paper} \emph{Gaussian Processes: A Quick Introduction}. 
 Rispetto alla versione C3.js è stato aggiunto e visualizzato il calcolo della 
-varianza ed aggiunte le error bar.
-\item La versione R di kalman\_filter separa due tipi di dati in due 
-sottografici al contraio della versione C3.js che li raggruppa nello
-stesso grafico.
-\item Si veda http://cplint.eu/example/inference/inference\_examples\_R.swinb
+varianza e le error bar.
+\item Si veda http://cplint.eu per una dimostrazione degli esempi.
 \end{itemize}
 \end{frame}
 
@@ -270,13 +269,15 @@ stesso grafico.
 \transboxin
 \MyLogo
 \begin{itemize}
-\item L'obbiettivo è stato raggiunto sia con cplint\_r sia con i pacchetti 
+\item L'obbiettivo di far comunicare R e Cplint on SWISH è stato raggiunto con
+cplint\_r.
+\item L'obbiettivo di semplificare la gestione dei componenti software è stato 
+raggiunto con i pacchetti.
+\item Esistono margini di miglioramento: l'aggiornamento \emph{upstream} dei 
+sorgenti sotware comporta il dover tener traccia di ogni loro cambiamento. 
+Per questo potrebbe essere necessario modificare radicalmente i pacchetti 
 software.
-\item Inoltre, alcune delle nuove conoscenze sono state applicate ad altri 
-progetti Per esempio https://github.com/frnmst/kalliope-docker per quanto 
-riguarda Docker.
 \end{itemize}
 \end{frame}
-
 
 \end{document}
