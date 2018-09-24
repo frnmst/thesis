@@ -33,11 +33,18 @@
 %% Setting for Beamer printout
 % reference: http://mathoverflow.net/questions/5893/beamer-printout
 \usepackage{pgfpages}
+\usepackage{handoutWithNotes}
+
 \mode<handout>{
   \usetheme{default}
   \setbeamercolor{background canvas}{bg=Black!5}
-  \pgfpagesuselayout{4 on 1}[a4paper,portrait,border shrink=2.5mm]
-  % 4 slide in one page
+  % 4 slides in one page
+  %\pgfpagesuselayout{4 on 1}[a4paper,portrait,border shrink=2.5mm]
+  % notes
+  %\setbeameroptions{show notes}
+  %\pgfpagesuselayout{4 on 1}[a4paper,border shrink=2.5mm]
+  \pgfpagesuselayout{4 on 1 with notes}[a4paper,border shrink=5mm]
+
 }
 %% Setting for Beamer printout
 
@@ -90,7 +97,7 @@
 \title[Integrazione applicazione web]{Integrazione di una applicazione web con strumenti per la statistica}
 \author[Franco Masotti]
 {Franco Masotti}
-\institute[Institute Name]
+\institute[UNIFE]
 {
   Università degli studi di Ferrara \\
   %Other Information \\
@@ -132,7 +139,7 @@ migliorare le loro modalità di installazione ed utilizzo.
 \MyLogo
 \begin{itemize}
 \item R è un ambiente software orientato alla statistica e alla visualizazione 
-grafica. Comprende un'interpete dei comandi e un linugaggio di programmazione.
+grafica. Comprende un'interpete dei comandi e un linguaggio di programmazione.
 \item Come tutti i linguaggi di programmazione, R mette a disposizione 
 operatori, funzioni e strutture dati. I più importanti di questi sono:
 \begin{itemize}
@@ -145,18 +152,21 @@ operatori, funzioni e strutture dati. I più importanti di questi sono:
 \end{itemize}
 \end{frame}
 
-\begin{frame}{SWI Prolog, SWISH, Cplint on SWISH}
+\begin{frame}{Prolog, SWISH e Cplint on SWISH}
 \transboxin
 \MyLogo
 \begin{itemize}
-\item \emph{Cplint on SWISH} è una particolare versione di \emph{SWISH} che 
-comprende strumenti basati sull'intelligenza artificiale.
+\item \emph{Prolog} è un linguaggio di programmazione usato per esprimere 
+fatti e regole attraverso relazioni logiche. \emph{SWI Prolog} è un'ambiente 
+completo e libero per la programmazione in Prolog.
+\item \emph{SWISH} è un'applicazione web basata su SWI Prolog e viene usata per 
+condividere codice. \emph{Cplint on SWISH} è una particolare versione di 
+\emph{SWISH} che comprende strumenti basati sull'intelligenza artificiale.
 \item Alcuni programmi di Cplint on SWISH necessitano di grafici per la 
-visualizzazione dei risultati. Grazie all'ambiente di statistica e 
-visualizzazione grafica chiamato \emph{R} è stato possibile disegnare i 
+visualizzazione dei risultati. Grazie ad \emph{R} è stato possibile disegnare i 
 grafici.
 \item L'utilizzo di R è un'alternativa al sistema \emph{C3.js} che è basato su 
-Javascript e si occupa solo della parte grafica.
+Javascript ma genera grafici di qualità inferiore.
 \end{itemize}
 \end{frame}
 
@@ -233,8 +243,8 @@ trasformare i dati secondo scale e livelli diversi.
 \transboxin
 \MyLogo
 \begin{itemize}
-\item cplint\_r è una liberia scritta in SWI Prolog che ha l'obbiettivo di 
-graficare i risultati ottenuti da cplint usando la libreria ggplot2.
+\item cplint\_r è una liberia scritta in SWI Prolog da me che ha l'obbiettivo 
+di graficare i risultati ottenuti da cplint usando la libreria ggplot2.
 \item La creazione di questa libreria è stata dettata dalla necessità di 
 avere un'interfaccia uniforme e di evitare ripetizioni di codice.
 \end{itemize}
