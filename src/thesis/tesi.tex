@@ -17,7 +17,7 @@
 \usepackage[italian]{babel}
 \usepackage{lmodern}
 \usepackage[utf8]{inputenc}
-\usepackage{graphicx,url,amsfonts,epsfig,hyperref,float,listings,subcaption}
+\usepackage{graphicx,url,amsfonts,epsfig,float,listings,subcaption}
 %\usepackage{float}
 %\floatstyle{boxed} 
 %\restylefloat{figure}
@@ -62,6 +62,13 @@
 
 \setcounter{biburllcpenalty}{7000}
 \setcounter{biburlucpenalty}{8000}
+
+\usepackage[
+    type={CC},
+    modifier={by-sa},
+    version={4.0},
+]{doclicense}
+\usepackage[draft]{hyperref}
 
 %%%%
 %%%%
@@ -128,6 +135,8 @@
 \listoffigures
 \newpage
 \listoflistings
+\newpage
+\doclicenseThis
 \cleardoublepage
 
 \pagenumbering{arabic}
