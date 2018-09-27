@@ -65,6 +65,11 @@ or
 
     $ make fullclean
 
+## Notice
+
+The thesis sent to the university corresponds to commit 
+[1e4d15fb6c8f8023124a685b57176fe891d78d37](https://github.com/frnmst/thesis/tree/1e4d15fb6c8f8023124a685b57176fe891d78d37).
+
 ## License
 
 thesis (c) by Franco Masotti <franco.masotti@student.unife.it>
